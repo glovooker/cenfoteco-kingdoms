@@ -6,6 +6,7 @@ class Artillery extends Army implements iUltimates {
     }
 
     public Artillery(String id, String characterType) {
+        // TODO: Dynamically set the ID
         super(id, 4, 4, 6, 10, "artillery:"+characterType);
     }
 
@@ -18,11 +19,11 @@ class Artillery extends Army implements iUltimates {
                 break;
             case "artillery:attack_buffer":
                 // Artillery: Multiplies its own attack by 2 for 1 turn;
-                setAttack(getAttack() * 2);
+                // TODO: Implement artillery:attack_buffer attack
                 break;
             case "artillery:defense_buffer":
                 // Artillery: Multiplies its own defense by 2 for 1 turn;
-                setDefense(getDefense() * 2);
+                // TODO: Implement artillery:defense_buffer attack
                 break;
             case "artillery:defense_debuffer":
                 // Artillery: Lowers an enemy's defense by 10% if infantry or 5% if artillery
