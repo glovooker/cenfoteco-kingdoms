@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package com.mygdx.game.logic;
 
 import java.io.InputStream;
 import java.util.Vector;

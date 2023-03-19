@@ -3,11 +3,11 @@ package com.mygdx.game;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.mygdx.game.logic.GifDecoder;
 
 public class MyGdxGame extends ApplicationAdapter {
 	SpriteBatch batch;
@@ -19,7 +19,7 @@ public class MyGdxGame extends ApplicationAdapter {
 	public void create () {
 		batch = new SpriteBatch();
 //		img = new Texture("sprites/tank/dragon/dragon-iddle.gif");
-		animation = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal("sprites/tank/guardian/guardian-iddle.gif").read());
+		animation = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal("sprites/tank/dragon/dragon-attack.gif").read());
 	}
 
 	@Override
