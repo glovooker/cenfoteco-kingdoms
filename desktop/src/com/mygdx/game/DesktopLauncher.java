@@ -11,7 +11,7 @@ public class DesktopLauncher {
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
 		config.setForegroundFPS(60);
 		config.setTitle("Reinos Cenfotecos: Dungeons And Army");
-		config.setFullscreenMode(Lwjgl3ApplicationConfiguration.getDisplayMode());
+		config.setWindowedMode(1280, 720);
 		config.setWindowIcon(Files.FileType.Internal, "icons/Diamond_Sword.png");
 		new Lwjgl3Application(new MyGdxGame(), config);
 	}
