@@ -1,0 +1,146 @@
+package View.Components;
+
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+
+public class HudChest {
+
+    private Label countGunner;
+
+    private Label countInfantry;
+
+    private Label countTank;
+
+    private Label countAttack;
+
+    private Label countSpecialAttack;
+
+    private Label countMovement;
+
+    private int initMovements;
+
+    private int initArmy;
+    private int initGunner;
+    private int initInfantry;
+    private int initTank;
+
+    private int initAttacks;
+    private int initSpecialAttack;
+
+
+
+    public HudChest(Stage stage, int initMovements, int initGunner, int initInfantry, int initTank, int initSpecialAttack, int initAttacks){
+       this.initMovements = initMovements;
+        this.initGunner = initGunner;
+        this.initInfantry = initInfantry;
+        this.initTank = initTank;
+        this.initSpecialAttack = initSpecialAttack;
+        this.initAttacks = initAttacks;
+
+
+        countGunner = new Label(String.format("%01d", initGunner), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        countInfantry = new Label(String.format("%01d", initInfantry), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        countTank = new Label(String.format("%01d", initTank), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        countAttack = new Label(String.format("%01d", initAttacks), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        countSpecialAttack = new Label(String.format("%01d", initSpecialAttack), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        countMovement =  new Label(String.format("%01d", initMovements), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        countGunner.setPosition(40, 310);
+        countInfantry.setPosition(95, 310);
+        countTank.setPosition(150, 310);
+        countAttack.setPosition(30, 20);
+        countSpecialAttack.setPosition(90, 20);
+        countMovement.setPosition(152, 20);
+
+        stage.addActor(countGunner);
+        stage.addActor(countInfantry);
+        stage.addActor(countTank);
+        stage.addActor(countAttack);
+        stage.addActor(countSpecialAttack);
+        stage.addActor(countMovement);
+
+    }
+
+    public int getInitArmy(){
+        return this.initArmy;
+    }
+
+    public void setInitArmy(int amount){
+        this.initArmy = amount;
+    }
+
+    public Label getLabelGunner(){
+        return this.countGunner;
+    }
+
+    public int getInitGunner(){
+        return this.initGunner;
+    }
+
+    public void setInitGunner(int amount){
+        this.initGunner = amount;
+    }
+
+    public Label getLabelInfantry(){
+        return this.countInfantry;
+    }
+
+    public int getInitInfantry(){
+        return this.initInfantry;
+    }
+
+    public void setInitInfantry(int amount){
+        this.initInfantry = amount;
+    }
+
+
+    public Label getLabelTank(){
+        return this.countTank;
+    }
+
+    public int getInitTank(){
+        return this.initTank;
+    }
+
+    public void setInitTank(int amount){
+        this.initTank = amount;
+    }
+
+    public Label getLabelMovements(){
+        return this.countMovement;
+    }
+
+    public int getInitMovements(){
+        return this.initMovements;
+    }
+
+    public void setInitMovements(int amount){
+        this.initMovements = amount;
+    }
+
+    public Label getLabelAttack(){
+        return this.countAttack;
+    }
+
+    public int getInitAttacks(){
+        return this.initAttacks;
+    }
+
+    public void setInitAttacks(int amount){
+        this.initAttacks = amount;
+    }
+
+    public Label getLabelSpecialAttack(){
+        return this.countSpecialAttack;
+    }
+
+    public int getInitSpecialAttack(){
+        return this.initSpecialAttack;
+    }
+
+    public void setInitSpecialAttack(int amount){
+        this.initSpecialAttack = amount;
+    }
+
+}
