@@ -8,28 +8,38 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.logic.GifDecoder;
+import com.mygdx.game.logic.managers.CharacterManager;
+import com.mygdx.game.logic.products.Army;
 
 public class MyGdxGame extends ApplicationAdapter {
 	SpriteBatch batch;
-//	Texture img;
-	Animation<TextureRegion> animation;
 	float elapsed;
 	
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
 //		img = new Texture("sprites/tank/dragon/dragon-iddle.gif");
-		animation = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal("sprites/tank/dragon/dragon-attack.gif").read());
+		CharacterManager characterManager = CharacterManager.getInstance();
+
+		for (int i = 0; i < 5; i++){
+			characterManager.createArmy("tank", "player");
+		}
 	}
 
 	@Override
 	public void render () {
+		CharacterManager characterManager = CharacterManager.getInstance();
+
 		elapsed += Gdx.graphics.getDeltaTime();
 		Gdx.gl.glClearColor(1, 0, 0, 0);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		ScreenUtils.clear(1, 0, 0, 1);
 		batch.begin();
-		batch.draw(animation.getKeyFrame(elapsed), 20.0f, 20.0f);
+		Army army = characterManager.getArmyPlayerList().get(1);
+		String _type = army.getCharacterType();
+		String _class = army.getCharacterClass();
+
+		batch.draw(getAnimation("sprites/"+_type+"/"+_class+"/"+_class+"-iddle.gif").getKeyFrame(elapsed), 0, 0);
 		batch.end();
 	}
 	
@@ -37,5 +47,9 @@ public class MyGdxGame extends ApplicationAdapter {
 	public void dispose () {
 		batch.dispose();
 //		img.dispose();
+	}
+
+	public Animation<TextureRegion> getAnimation(String path) {
+		return GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal(path).read());
 	}
 }

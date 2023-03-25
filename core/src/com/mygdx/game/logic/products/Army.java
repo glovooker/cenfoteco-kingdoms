@@ -8,8 +8,8 @@ public abstract class Army {
     private int life;
     private int attack;
     private int defense;
-    // private Player owner;
-
+    private String owner;
+    private String characterClass;
 
 
     public Army() {
@@ -19,18 +19,10 @@ public abstract class Army {
         setAttack(0);
         setDefense(0);
         setCharacterType("Army");
+        setOwner("");
+        setCharacterClass("Army");
     }
 
-
-    public Army(String id, int maxMove, int life, int attack, int defense, String characterType) {
-        setCharacterType(characterType);
-        setId(id);
-        setMaxMove(maxMove);
-        setLife(life);
-        setAttack(attack);
-        setDefense(defense);
-        // setOwner(owner);
-    }
 
     public String getCharacterType() { return characterType; }
     public String getId() { return id; }
@@ -38,7 +30,8 @@ public abstract class Army {
     public int getLife() { return life; }
     public int getAttack() { return attack; }
     public int getDefense() { return defense; }
-    // public Player getOwner() { return owner; }
+    public String getOwner() { return owner; }
+    public String getCharacterClass() { return characterClass; }
 
 
     public void setCharacterType(String characterType) { this.characterType = characterType; }
@@ -47,10 +40,19 @@ public abstract class Army {
     public void setLife(int life) { this.life = life; }
     public void setAttack(int attack) { this.attack = attack; }
     public void setDefense(int defense) { this.defense = defense; }
-    // public void setOwner(Player owner) { this.owner = owner; }
+    public void setOwner(String owner) { this.owner = owner; }
+    public void setCharacterClass(String characterClass) { this.characterClass = characterClass; }
 
 
     public int calculateMovement(int minMove, int maxMove) {
         return (int) (Math.random() * (maxMove - minMove + 1) + minMove);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Army army = (Army) o;
+        return getId().equals(army.getId());
     }
 }

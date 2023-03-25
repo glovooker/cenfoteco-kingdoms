@@ -4,12 +4,14 @@ import com.mygdx.game.logic.products.Army;
 
 public class Infantry extends Army {
 
-        public Infantry(String id) {
+        public Infantry(String owner, String characterClass) {
             setCharacterType("infantry");
-            setId(id);
+            setId(owner + '-' + characterClass);
             setMaxMove(calculateMovement(1, 6));
             setLife(5);
             setAttack(3);
             setDefense(5);
+            setOwner(owner);
+            setCharacterClass(characterClass);
         }
 }
