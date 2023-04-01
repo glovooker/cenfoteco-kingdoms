@@ -14,12 +14,13 @@ import com.mygdx.game.logic.products.Army;
 public class MyGdxGame extends ApplicationAdapter {
 	SpriteBatch batch;
 	float elapsed;
-	
+	CharacterManager characterManager = new CharacterManager();
+
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
 //		img = new Texture("sprites/tank/dragon/dragon-iddle.gif");
-		CharacterManager characterManager = CharacterManager.getInstance();
+
 
 		for (int i = 0; i < 5; i++){
 			characterManager.createArmy("tank", "player");
@@ -28,8 +29,6 @@ public class MyGdxGame extends ApplicationAdapter {
 
 	@Override
 	public void render () {
-		CharacterManager characterManager = CharacterManager.getInstance();
-
 		elapsed += Gdx.graphics.getDeltaTime();
 		Gdx.gl.glClearColor(1, 0, 0, 0);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
