@@ -8,24 +8,20 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CharacterManager {
-    private static CharacterManager instance = null;
+    private static CharacterManager characterManager;
     private final ArrayList<Army> armyPlayerList = new ArrayList<Army>();
     private final ArrayList<Army> armyEnemyList = new ArrayList<Army>();
     private Map<String, Integer> enemyMax = new HashMap<String, Integer>();
     private Map<String, Integer> playerMax = new HashMap<String, Integer>();
     private static Army_Factory armyFactory = new Army_Factory();
 
-    private CharacterManager() {
+    public CharacterManager() {
         enemyMax.put("infantry", 4);
         enemyMax.put("tank", 4);
         enemyMax.put("artillery", 4);
         playerMax.put("infantry", 4);
         playerMax.put("tank", 4);
         playerMax.put("artillery", 4);
-    }
-    public static CharacterManager getInstance() {
-        if (instance == null) { instance = new CharacterManager(); }
-        return instance;
     }
 
     public String createArmy(String characterType, String owner) {

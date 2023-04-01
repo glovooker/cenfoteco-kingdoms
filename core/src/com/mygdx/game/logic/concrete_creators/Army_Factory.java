@@ -11,26 +11,24 @@ public class Army_Factory implements Abstract_Fabric_Method {
     @Override
     public Army createArmy(String characterType, String owner) {
         List<String> options;
-        switch (characterType) {
-            case "infantry":
-                options = Arrays.asList("knight", "orcus", "shaman", "squire");
-                break;
-            case "tank":
-                options = Arrays.asList("dragon", "golem", "guardian", "kamikaze");
-                break;
-            case "artillery":
-                options = Arrays.asList("archer", "daemon", "witch", "wizard");
-                break;
-            default:
-                return null;
+        if (characterType.equals("infantry")) {
+            options = Arrays.asList("knight", "orcus", "shaman", "squire");
+        } else if (characterType.equals("tank")) {
+            options = Arrays.asList("dragon", "golem", "guardian", "kamikaze");
+        } else if (characterType.equals("artillery")) {
+            options = Arrays.asList("archer", "daemon", "witch", "wizard");
+        } else {
+            return null;
         }
         String name = options.get(getRandomNumberInRange(options.size()) - 1);
-        switch (characterType) {
-            case "infantry": return new Infantry(owner, name);
-            case "tank": return new Tank(owner, name);
-            case "artillery": return new Artillery(owner, name);
-            default: return null;
+        if (characterType.equals("infantry")) {
+            return new Infantry(owner, name);
+        } else if (characterType.equals("tank")) {
+            return new Tank(owner, name);
+        } else if (characterType.equals("artillery")) {
+            return new Artillery(owner, name);
         }
+        return null;
     }
 
     public int getRandomNumberInRange(int max) { return (int) ((Math.random() * ((max - 1) + 1)) + 1); }
