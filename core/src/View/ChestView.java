@@ -1,5 +1,7 @@
 package View;
 
+import BL.GameController;
+import BL.MementoController;
 import Model.Chest;
 import View.Components.ButtonComponent;
 import View.Components.HudChest;
@@ -10,7 +12,6 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 
 public class ChestView {
-    public World world;
 
     private ButtonComponent buttonAddArmy;
 
@@ -43,10 +44,11 @@ public class ChestView {
     private Stage stage;
 
     private Chest chest;
+    private final GameController gameController = GameController.getInstance();
 
     public ChestView(Stage stage){
         this.stage = stage;
-        chest = new Chest();
+        chest = gameController.getPlayerInTurn().getChest();
         hud  = new HudChest(this.stage, chest.getMovementsInChest(), chest.getGunner(), chest.getInfantry(), chest.getTank(), chest.getSpecialAttackInChest(), chest.getAttacksInChest());
         labelInfantry = hud.getLabelInfantry();
         labelAttack = hud.getLabelAttack();
@@ -58,15 +60,16 @@ public class ChestView {
     }
 
     public void defineButtons(){
-        buttonAddArmy = new ButtonComponent(this.stage, "chestClosed.png", 40, 50, 75,140, new InputListener(){
+        buttonAddArmy = new ButtonComponent(this.stage, "chestClosed.png", 80, 100, 430,50, new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 addArmy(6);
+                System.out.println("pp");
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
 
-        buttonGetInfantry = new ButtonComponent(this.stage, "escudero.png", 70, 70, 10, 250, new InputListener(){
+        buttonGetInfantry = new ButtonComponent(this.stage, "escudero.png", 130, 130, 570, 120, new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 getInfantry();
@@ -75,7 +78,7 @@ public class ChestView {
         });
 
 
-        buttonGetGunner = new ButtonComponent(this.stage, "arquero.png", 60, 60, 75, 250, new InputListener(){
+        buttonGetGunner = new ButtonComponent(this.stage, "arquero.png", 120, 120, 680, 120, new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 getGunner();
@@ -83,7 +86,7 @@ public class ChestView {
             }
         });
 
-        buttonGetTank = new ButtonComponent(this.stage, "golem.png", 60, 60, 130, 250, new InputListener(){
+        buttonGetTank = new ButtonComponent(this.stage, "golem.png", 120, 120, 780, 120, new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 getTank();
@@ -91,7 +94,7 @@ public class ChestView {
             }
         });
 
-        buttonGetAttack = new ButtonComponent(this.stage, "attack.png", 50, 50, 20, 50, new InputListener(){
+        buttonGetAttack = new ButtonComponent(this.stage, "attack.png", 80, 80, 50, 150, new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 getAttack();
@@ -100,7 +103,7 @@ public class ChestView {
         });
 
 
-        buttonGetSpecialAttack = new ButtonComponent(this.stage, "specialAttack.png", 50, 50, 75, 50, new InputListener(){
+        buttonGetSpecialAttack = new ButtonComponent(this.stage, "specialAttack.png", 80, 80, 150, 150, new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 getSpecialAttack();
@@ -108,7 +111,7 @@ public class ChestView {
             }
         });
 
-        buttonGetMovement = new ButtonComponent(this.stage, "movements.png", 50, 50, 130, 50, new InputListener(){
+        buttonGetMovement = new ButtonComponent(this.stage, "movements.png", 80, 80, 250, 150, new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 getMovement();

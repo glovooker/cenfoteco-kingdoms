@@ -1,0 +1,27 @@
+
+boardAtlas.png
+size: 2048, 512
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+Tile
+  rotate: false
+  xy: 2, 2
+  size: 478, 478
+  orig: 478, 478
+  offset: 0, 0
+  index: -1
+Tile2
+  rotate: false
+  xy: 482, 16
+  size: 466, 464
+  orig: 466, 464
+  offset: 0, 0
+  index: -1
+tileCastle
+  rotate: false
+  xy: 950, 160
+  size: 400, 320
+  orig: 400, 320
+  offset: 0, 0
+  index: -1

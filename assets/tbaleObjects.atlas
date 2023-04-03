@@ -1,0 +1,20 @@
+
+tbaleObjects.png
+size: 2048, 1024
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+Tile
+  rotate: false
+  xy: 2, 2
+  size: 516, 516
+  orig: 516, 516
+  offset: 0, 0
+  index: -1
+Tile2
+  rotate: false
+  xy: 520, 4
+  size: 514, 514
+  orig: 514, 514
+  offset: 0, 0
+  index: -1

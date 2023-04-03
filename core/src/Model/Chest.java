@@ -2,7 +2,6 @@ package Model;
 
 public class Chest {
 
-
     private int movementsInChest = 0;//deberia ser un array de enteros con los movimientos
 
     private int attacksInChest = 0;//deberia ser un array de objetos tipo attaque
@@ -77,5 +76,16 @@ public class Chest {
         this.specialAttackInChest = specialAttackInChest;
     }
 
-
+    @Override
+    public String toString() {
+        return "Chest{" +
+                "movementsInChest=" + movementsInChest +
+                ", attacksInChest=" + attacksInChest +
+                ", specialAttackInChest=" + specialAttackInChest +
+                ", gunner=" + gunner +
+                ", infantry=" + infantry +
+                ", tank=" + tank +
+                ", armyInChest=" + armyInChest +
+                '}';
+    }
 }

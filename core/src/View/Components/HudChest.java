@@ -46,12 +46,25 @@ public class HudChest {
         countAttack = new Label(String.format("%01d", initAttacks), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         countSpecialAttack = new Label(String.format("%01d", initSpecialAttack), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         countMovement =  new Label(String.format("%01d", initMovements), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        countGunner.setPosition(40, 310);
-        countInfantry.setPosition(95, 310);
-        countTank.setPosition(150, 310);
-        countAttack.setPosition(30, 20);
-        countSpecialAttack.setPosition(90, 20);
-        countMovement.setPosition(152, 20);
+
+        countGunner.setPosition(610, 90 );
+        countGunner.setFontScale(2.5f);
+
+        countInfantry.setPosition(710, 90);
+        countInfantry.setFontScale(2.5f);
+
+        countTank.setPosition(830, 90);
+        countTank.setFontScale(2.5f);
+
+        countAttack.setPosition(65, 90);
+        countAttack.setFontScale(2.5f);
+
+        countSpecialAttack.setPosition(170, 90);
+        countSpecialAttack.setFontScale(2.5f);
+
+        countMovement.setPosition(275, 90);
+        countMovement.setFontScale(2.5f);
+
 
         stage.addActor(countGunner);
         stage.addActor(countInfantry);

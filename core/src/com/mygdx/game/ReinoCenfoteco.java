@@ -1,8 +1,11 @@
 package com.mygdx.game;
 
+import BL.GameController;
 import Screens.Menu;
 import Screens.PlayScreen;
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -24,6 +27,7 @@ public class ReinoCenfoteco extends Game {
     public void create() {
         batch = new SpriteBatch();
         manager = new AssetManager();
+        Gdx.input.setInputProcessor(new InputMultiplexer());
         manager.load("audio/MenuMusic.mp3", Music.class);
         manager.finishLoading();
         setScreen(new Menu());

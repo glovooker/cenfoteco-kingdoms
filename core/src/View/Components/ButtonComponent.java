@@ -11,7 +11,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 public class ButtonComponent
 {
-   private Stage stage;
     private Texture myTexture;
     private TextureRegion myTextureRegion;
     private TextureRegionDrawable myTexRegionDrawable;
@@ -19,17 +18,26 @@ public class ButtonComponent
 
     public ButtonComponent(Stage stage, String path, int width, int height, int positionX, int positionY, InputListener inputListener){
         myTexture = new Texture(Gdx.files.internal(path));
-        this.stage = stage;
         myTextureRegion = new TextureRegion(myTexture);
         myTexRegionDrawable = new TextureRegionDrawable(myTextureRegion);
         button = new ImageButton(myTexRegionDrawable);
         stage.addActor(button);
-        Gdx.input.setInputProcessor(stage);
         button.setSize(width,height);
         button.setPosition(positionX,positionY);
-
         button.addListener(inputListener);
     }
+
+   /* public ButtonComponent(Stage stage, FigureActor actor,  InputListener inputListener){
+        myTexRegionDrawable = new TextureRegionDrawable(actor.getRegionTexture());
+        button = new ImageButton(myTexRegionDrawable);
+        stage.addActor(button);
+        Gdx.input.setInputProcessor(stage);
+        button.addListener(inputListener);
+    }
+
+    */
+
+
 
 
 }
