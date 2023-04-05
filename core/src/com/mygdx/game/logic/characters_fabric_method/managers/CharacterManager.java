@@ -1,7 +1,7 @@
-package com.mygdx.game.logic.managers;
+package com.mygdx.game.logic.characters_fabric_method.managers;
 
-import com.mygdx.game.logic.concrete_creators.Army_Factory;
-import com.mygdx.game.logic.products.Army;
+import com.mygdx.game.logic.characters_fabric_method.concrete_creators.Army_Factory;
+import com.mygdx.game.logic.characters_fabric_method.products.Army;
 
 import java.util.ArrayList;
 import java.util.HashMap;

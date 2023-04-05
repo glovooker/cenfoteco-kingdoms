@@ -1,4 +1,4 @@
-package com.mygdx.game.logic.products;
+package com.mygdx.game.logic.characters_fabric_method.products;
 
 public abstract class Army {
 

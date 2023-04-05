@@ -7,9 +7,8 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.ScreenUtils;
-import com.mygdx.game.logic.GifDecoder;
-import com.mygdx.game.logic.managers.CharacterManager;
-import com.mygdx.game.logic.products.Army;
+import com.mygdx.game.logic.characters_fabric_method.managers.CharacterManager;
+import com.mygdx.game.logic.characters_fabric_method.products.Army;
 
 public class MyGdxGame extends ApplicationAdapter {
 	SpriteBatch batch;

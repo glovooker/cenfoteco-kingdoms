@@ -1,7 +1,10 @@
-package com.mygdx.game.logic.concrete_creators;
-import com.mygdx.game.logic.concrete_products.*;
-import com.mygdx.game.logic.creators.Abstract_Fabric_Method;
-import com.mygdx.game.logic.products.Army;
+package com.mygdx.game.logic.characters_fabric_method.concrete_creators;
+
+import com.mygdx.game.logic.characters_fabric_method.concrete_products.Artillery;
+import com.mygdx.game.logic.characters_fabric_method.concrete_products.Infantry;
+import com.mygdx.game.logic.characters_fabric_method.concrete_products.Tank;
+import com.mygdx.game.logic.characters_fabric_method.creators.Abstract_Fabric_Method;
+import com.mygdx.game.logic.characters_fabric_method.products.Army;
 
 import java.util.Arrays;
 import java.util.List;

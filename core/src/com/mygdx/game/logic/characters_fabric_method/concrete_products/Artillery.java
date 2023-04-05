@@ -1,6 +1,6 @@
-package com.mygdx.game.logic.concrete_products;
+package com.mygdx.game.logic.characters_fabric_method.concrete_products;
 
-import com.mygdx.game.logic.products.Army;
+import com.mygdx.game.logic.characters_fabric_method.products.Army;
 
 public class Artillery extends Army {
 
