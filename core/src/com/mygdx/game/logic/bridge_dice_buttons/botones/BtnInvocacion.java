@@ -9,12 +9,12 @@ public class BtnInvocacion extends AbstractaBoton {
     }
 
     @Override
-    public void onPressed(boolean status) {
+    public String onPressed(boolean status) {
         if(status)
         {
-            System.out.println("Invocando...");
+            return this.tipoBtn.toLowerCase();
         } else {
-            System.out.println("No");
+            return null;
         }
     }
 }

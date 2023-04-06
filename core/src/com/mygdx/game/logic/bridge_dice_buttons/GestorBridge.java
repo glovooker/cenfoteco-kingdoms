@@ -6,68 +6,95 @@ import com.mygdx.game.logic.bridge_dice_buttons.dadoMovimiento.DadoMovimiento;
 import com.mygdx.game.logic.bridge_dice_buttons.estadosInvocacion.Accion;
 import com.mygdx.game.logic.bridge_dice_buttons.estadosInvocacion.*;
 
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 public class GestorBridge {
-    private BtnInvocacion btnInvocacionInfanteria = new BtnInvocacion("Infanteria");
-    private BtnInvocacion btnInvocacionTanque = new BtnInvocacion("Infanteria");
-    private BtnInvocacion btnInvocacionArtilleria = new BtnInvocacion("Infanteria");
+    private BtnInvocacion btnInvocacionInfanteria = new BtnInvocacion("infanteria");
+    private BtnInvocacion btnInvocacionTanque = new BtnInvocacion("tanque");
+    private BtnInvocacion btnInvocacionArtilleria = new BtnInvocacion("artilleria");
     private BtnAccion btnAtaque = new BtnAccion("Ataque");
     private BtnAccion btnAtaqueEspecial = new BtnAccion("AtaqueEspecial");
     private BtnAccion btnMovimiento = new BtnAccion("Movimiento");
 
-    private int dadosInfanteria = 0;
-    private int dadosArtilleria = 0;
-    private int dadosTanque = 0;
-    private int cantDadosMovimiento = 0;
-    private int dadosAtaque = 0;
-    private int dadosAtaqueEspecial = 0;
-    private ArrayList<DadoMovimiento> dadosMovimiento = new ArrayList<>();
+    private int dadosInfanteriaVolatil = 0;
+    private int dadosInfanteriaCofre = 0;
+    private int dadosInfanteriaTotal = 0;
 
+    private int dadosArtilleriaVolatil = 0;
+    private int dadosArtilleriaCofre = 0;
+    private int dadosArtilleriaTotal = 0;
+
+    private int dadosTanqueVolatil = 0;
+    private int dadosTanqueCofre = 0;
+    private int dadosTanqueTotal = 0;
+
+    private ArrayList<DadoMovimiento> dadosMovimiento = new ArrayList<DadoMovimiento>();
+    private int cantDadosMovimiento = 0;
+    private int dadosAtaqueEspecial = 0;
+    private int dadosAtaque = 0;
     Scanner scanner = new Scanner(System.in);
 
-    private static final Map<Integer, String> TIPOS_DE_INVOCACION = Map.of(
-            1, "infanteria",
-            2, "artilleria",
-            3, "infanteria",
-            4, "artilleria",
-            5, "infanteria",
-            6, "tanque"
-    );
+    private static final Map<Integer, String> TIPOS_DE_INVOCACION = new HashMap<Integer, String>() {{
+        put(1, "infanteria");
+        put(2, "artilleria");
+        put(3, "infanteria");
+        put(4, "artilleria");
+        put(5, "infanteria");
+        put(6, "tanque");
+    }};
 
-    private static final Map<Integer, String> TIPOS_DE_ACCION = Map.of(
-            1, "move",
-            2, "attack",
-            3, "sattack",
-            4, "move",
-            5, "attack",
-            6, "sattack"
-    );
+    private static final Map<Integer, String> TIPOS_DE_ACCION = new HashMap<Integer, String>() {{
+        put(1, "move");
+        put(2, "attack");
+        put(3, "sattack");
+        put(4, "move");
+        put(5, "attack");
+        put(6, "sattack");
+    }};
+
+
     public GestorBridge() { }
 
-    public void lanzarDado() {
+    public String lanzarDado() {
+
+        dadosInfanteriaVolatil = 0;
+        dadosArtilleriaVolatil = 0;
+        dadosTanqueVolatil = 0;
+
+        String mensaje = "";
+
         Random random = new Random();
+
         for (int i = 0; i < 2; i++){
             int numRandom = random.nextInt(6) + 1;
+
             if (TIPOS_DE_INVOCACION.getOrDefault(numRandom, null).equals("infanteria")) {
-                dadosInfanteria++;
+
+                dadosInfanteriaVolatil++;
+                dadosInfanteriaTotal = dadosInfanteriaVolatil + dadosInfanteriaCofre;
+
             } else if (TIPOS_DE_INVOCACION.getOrDefault(numRandom, null).equals("artilleria")) {
-                dadosArtilleria++;
+
+                dadosArtilleriaVolatil++;
+                dadosArtilleriaTotal = dadosArtilleriaVolatil + dadosArtilleriaCofre;
+
             } else if (TIPOS_DE_INVOCACION.getOrDefault(numRandom, null).equals("tanque")) {
-                dadosTanque++;
+
+                dadosTanqueVolatil++;
+                dadosTanqueTotal = dadosTanqueVolatil + dadosTanqueCofre;
+
             }
 
-            System.out.println("Salio: " + TIPOS_DE_INVOCACION.getOrDefault(numRandom, null));
-            System.out.println("Dados infanteria acumulados: " + dadosInfanteria);
-            System.out.println("Dados artilleria acumulados: " + dadosArtilleria);
-            System.out.println("Dados tanque acumulados: " + dadosTanque);
+            mensaje += "Dado invocación " + (i+1) + ": " + TIPOS_DE_INVOCACION.getOrDefault(numRandom, null) + "\n";
         }
+        mensaje += "Dados infanteria acumulados: " + dadosInfanteriaTotal + "\n";
+        mensaje += "Dados artilleria acumulados: " + dadosArtilleriaTotal + "\n";
+        mensaje += "Dados tanque acumulados: " + dadosTanqueTotal + "\n";
 
         int numRandom = random.nextInt(6) + 1;
+
         if (TIPOS_DE_ACCION.getOrDefault(numRandom, null).equals("move")) {
+
             DadoMovimiento dadoMovimiento = new DadoMovimiento();
             dadoMovimiento.setMovimiento(random.nextInt(6) + 1);
 
@@ -75,78 +102,110 @@ public class GestorBridge {
 
             dadosMovimiento.add(dadoMovimiento);
             cantDadosMovimiento = dadosMovimiento.size();
+
         } else if (TIPOS_DE_ACCION.getOrDefault(numRandom, null).equals("attack")) {
             dadosAtaque++;
         } else if (TIPOS_DE_ACCION.getOrDefault(numRandom, null).equals("sattack")) {
             dadosAtaqueEspecial++;
         }
+        mensaje += "Dado acción " + TIPOS_DE_ACCION.getOrDefault(numRandom, null) + "\n";
+        mensaje += "Ataques acumulados: " + dadosAtaque + "\n";
+        mensaje += "Ataques especiales acumulados: " + dadosAtaqueEspecial + "\n";
+        mensaje += "Movimiento acumulados: " + cantDadosMovimiento + "\n";
 
-        System.out.println("Salio: " + TIPOS_DE_ACCION.getOrDefault(numRandom, null));
-        System.out.println("Dados movimiento acumulados: " + cantDadosMovimiento);
-        System.out.println("Dados ataque acumulados: " + dadosAtaque);
-        System.out.println("Dados ataque especial acumulados: " + dadosAtaqueEspecial);
+        return mensaje;
     }
 
-    public void invocarInfanteria(){
-        dadosInfanteria = btnInvocacionInfanteria.getGlobalValidacion().validar(dadosInfanteria);
-        btnInvocacionInfanteria.onPressed(btnInvocacionInfanteria.getGlobalValidacion().getEstado());
+    public void almacenarCofre(){
+
+        dadosInfanteriaCofre += dadosInfanteriaVolatil;
+        dadosInfanteriaTotal = dadosInfanteriaCofre;
+        dadosInfanteriaVolatil = 0;
+
+        dadosArtilleriaCofre += dadosArtilleriaVolatil;
+        dadosArtilleriaTotal = dadosArtilleriaCofre;
+        dadosArtilleriaVolatil = 0;
+
+        dadosTanqueCofre += dadosTanqueVolatil;
+        dadosTanqueTotal = dadosTanqueCofre;
+        dadosTanqueVolatil = 0;
+
     }
 
-    public void invocarArtilleria(){
-        dadosArtilleria = btnInvocacionArtilleria.getGlobalValidacion().validar(dadosArtilleria);
-        btnInvocacionArtilleria.onPressed(btnInvocacionArtilleria.getGlobalValidacion().getEstado());
+    public String invocarInfanteria(){
+        dadosInfanteriaTotal = btnInvocacionInfanteria.getGlobalValidacion().validar(dadosInfanteriaTotal);
+        return btnInvocacionInfanteria.onPressed(btnInvocacionInfanteria.getGlobalValidacion().getEstado());
     }
 
-    public void invocarTanque(){
-        dadosTanque = btnInvocacionTanque.getGlobalValidacion().validar(dadosTanque);
-        btnInvocacionTanque.onPressed(btnInvocacionTanque.getGlobalValidacion().getEstado());
+    public String invocarArtilleria(){
+        dadosArtilleriaTotal = btnInvocacionArtilleria.getGlobalValidacion().validar(dadosArtilleriaTotal);
+        return btnInvocacionArtilleria.onPressed(btnInvocacionArtilleria.getGlobalValidacion().getEstado());
     }
 
-    public void atacar(){
+    public String invocarTanque(){
+        dadosTanqueTotal = btnInvocacionTanque.getGlobalValidacion().validar(dadosTanqueTotal);
+        return btnInvocacionTanque.onPressed(btnInvocacionTanque.getGlobalValidacion().getEstado());
+    }
+
+    public String atacar(){
         dadosAtaque = btnAtaque.getGlobalValidacion().validar(dadosAtaque);
-        btnAtaque.onPressed(btnAtaque.getGlobalValidacion().getEstado());
-        System.out.println("Atacando...");
-        System.out.println(dadosAtaque + " dados de ataque");
+        return btnAtaque.onPressed(btnAtaque.getGlobalValidacion().getEstado());
     }
 
-    public void ejecutarAtaqueEspecial(){
+    public String ejecutarAtaqueEspecial(){
         dadosAtaqueEspecial = btnAtaqueEspecial.getGlobalValidacion().validar(dadosAtaqueEspecial);
-        btnAtaqueEspecial.onPressed(btnAtaqueEspecial.getGlobalValidacion().getEstado());
-        System.out.println("Atacando especialmente...");
-        System.out.println(dadosAtaqueEspecial + " dados de ataque especial");
+        return btnAtaqueEspecial.onPressed(btnAtaqueEspecial.getGlobalValidacion().getEstado());
     }
 
-    public void mover(){
+    public String mover(){
         cantDadosMovimiento = btnMovimiento.getGlobalValidacion().validar(cantDadosMovimiento);
-        seleccionarMovimiento();
-        btnMovimiento.onPressed(btnMovimiento.getGlobalValidacion().getEstado());
-        System.out.println("Moviendo...");
-        System.out.println(cantDadosMovimiento + " dados de movimiento");
+        if(btnMovimiento.getGlobalValidacion().getEstado())
+        {
+            return seleccionarMovimiento();
+        } else {
+            return "No tiene suficientes dados para moverse";
+        }
     }
 
-    private void seleccionarMovimiento(){
-        int i = 0;
+    private String seleccionarMovimiento(){
         for (DadoMovimiento dadoMovimiento : dadosMovimiento)
         {
-           i++;
-           System.out.println("- Dado: " + i + " con movimiento: " + dadoMovimiento.getMovimiento() + "\n");
+            int i = 0;
+            i++;
+            System.out.println("- Dado: " + i + " con movimiento: " + dadoMovimiento.getMovimiento() + "\n");
         }
         System.out.println("Seleccione el dado que desea usar: ");
         int dadoSeleccionado = scanner.nextInt();
-        System.out.println("Mover: " + dadosMovimiento.get(dadoSeleccionado).getMovimiento());
+        String msg = "Mover: " + dadosMovimiento.get(dadoSeleccionado).getMovimiento();
+        System.out.println(msg);
         dadosMovimiento.remove(dadoSeleccionado);
+        return msg;
     }
 
-    public void cambiarEstadoBotones(String tipoBtn) {
+    private void cambiarEstadoBotones(String tipoBtn) {
         tipoBtn = tipoBtn.toLowerCase();
 
-        switch (tipoBtn) {
-            case "infanteria" -> btnInvocacionInfanteria.setGlobalValidacion(new InvocacionInfanteriaEstado());
-            case "artilleria" -> btnInvocacionArtilleria.setGlobalValidacion(new InvocacionArtilleriaEstado());
-            case "tanque" -> btnInvocacionTanque.setGlobalValidacion(new InvocacionTanqueEstado());
-            case "ataque" -> btnAtaque.setGlobalValidacion(new Accion());
-            case "ataqueespecial" -> btnAtaqueEspecial.setGlobalValidacion(new Accion());
-            case "movimiento" -> btnMovimiento.setGlobalValidacion(new Accion());
+        if (tipoBtn.equals("infanteria")) {
+            btnInvocacionInfanteria.setGlobalValidacion(new InvocacionInfanteriaEstado());
+        } else if (tipoBtn.equals("artilleria")) {
+            btnInvocacionArtilleria.setGlobalValidacion(new InvocacionArtilleriaEstado());
+        } else if (tipoBtn.equals("tanque")) {
+            btnInvocacionTanque.setGlobalValidacion(new InvocacionTanqueEstado());
+        } else if (tipoBtn.equals("ataque")) {
+            btnAtaque.setGlobalValidacion(new Accion());
+        } else if (tipoBtn.equals("ataqueespecial")) {
+            btnAtaqueEspecial.setGlobalValidacion(new Accion());
+        } else if (tipoBtn.equals("movimiento")) {
+            btnMovimiento.setGlobalValidacion(new Accion());
         }
+    }
+
+    public void iniciarBotones(){
+        cambiarEstadoBotones("infanteria");
+        cambiarEstadoBotones("artilleria");
+        cambiarEstadoBotones("tanque");
+        cambiarEstadoBotones("ataque");
+        cambiarEstadoBotones("ataqueEspecial");
+        cambiarEstadoBotones("movimiento");
     }
 }

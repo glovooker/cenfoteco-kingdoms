@@ -7,13 +7,12 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.ScreenUtils;
-import com.mygdx.game.logic.characters_fabric_method.managers.CharacterManager;
 import com.mygdx.game.logic.characters_fabric_method.products.Army;
 
 public class MyGdxGame extends ApplicationAdapter {
 	SpriteBatch batch;
 	float elapsed;
-	CharacterManager characterManager = new CharacterManager();
+	//CharacterManager characterManager = new CharacterManager();
 
 	@Override
 	public void create () {
@@ -21,9 +20,9 @@ public class MyGdxGame extends ApplicationAdapter {
 //		img = new Texture("sprites/tank/dragon/dragon-iddle.gif");
 
 
-		for (int i = 0; i < 5; i++){
-			characterManager.createArmy("tank", "player");
-		}
+//		for (int i = 0; i < 5; i++){
+//			characterManager.createArmy("tank", "player");
+//		}
 	}
 
 	@Override
@@ -33,11 +32,11 @@ public class MyGdxGame extends ApplicationAdapter {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		ScreenUtils.clear(1, 0, 0, 1);
 		batch.begin();
-		Army army = characterManager.getArmyPlayerList().get(1);
-		String _type = army.getCharacterType();
-		String _class = army.getCharacterClass();
-
-		batch.draw(getAnimation("sprites/"+_type+"/"+_class+"/"+_class+"-iddle.gif").getKeyFrame(elapsed), 0, 0);
+//		Army army = characterManager.getArmyPlayerList().get(1);
+//		String _type = army.getCharacterType();
+//		String _class = army.getCharacterClass();
+//
+//		batch.draw(getAnimation("sprites/"+_type+"/"+_class+"/"+_class+"-iddle.gif").getKeyFrame(elapsed), 0, 0);
 		batch.end();
 	}
 	

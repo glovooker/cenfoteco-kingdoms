@@ -9,12 +9,13 @@ public class BtnAccion extends AbstractaBoton {
     }
 
     @Override
-    public void onPressed(boolean status) {
+    public String onPressed(boolean status) {
         if(status)
         {
             System.out.println("Accionando...");
         } else {
             System.out.println("No");
         }
+        return null;
     }
 }

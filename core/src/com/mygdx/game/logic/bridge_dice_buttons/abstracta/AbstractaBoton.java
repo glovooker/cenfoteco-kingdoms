@@ -6,7 +6,7 @@ public abstract class AbstractaBoton {
 
     public AbstractaBoton(){};
 
-    public abstract void onPressed(boolean status);
+    public abstract String onPressed(boolean status);
 
     private IEstados globalValidacion;
 

@@ -1,4 +1,4 @@
-package com.mygdx.game.logic.characters_fabric_method.managers;
+package com.mygdx.game.logic.characters_fabric_method;
 
 import com.mygdx.game.logic.characters_fabric_method.concrete_creators.Army_Factory;
 import com.mygdx.game.logic.characters_fabric_method.products.Army;
@@ -7,15 +7,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CharacterManager {
-    private static CharacterManager characterManager;
+public class GestorMetodoFabrica {
+    private static GestorMetodoFabrica characterManager;
     private final ArrayList<Army> armyPlayerList = new ArrayList<Army>();
     private final ArrayList<Army> armyEnemyList = new ArrayList<Army>();
     private Map<String, Integer> enemyMax = new HashMap<String, Integer>();
     private Map<String, Integer> playerMax = new HashMap<String, Integer>();
     private static Army_Factory armyFactory = new Army_Factory();
 
-    public CharacterManager() {
+    public GestorMetodoFabrica() {
         enemyMax.put("infantry", 4);
         enemyMax.put("tank", 4);
         enemyMax.put("artillery", 4);

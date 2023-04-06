@@ -14,21 +14,23 @@ public class Army_Factory implements Abstract_Fabric_Method {
     @Override
     public Army createArmy(String characterType, String owner) {
         List<String> options;
-        if (characterType.equals("infantry")) {
+        if (characterType.equals("infanteria")) {
             options = Arrays.asList("knight", "orcus", "shaman", "squire");
-        } else if (characterType.equals("tank")) {
+        } else if (characterType.equals("tanque")) {
             options = Arrays.asList("dragon", "golem", "guardian", "kamikaze");
-        } else if (characterType.equals("artillery")) {
+        } else if (characterType.equals("artilleria")) {
             options = Arrays.asList("archer", "daemon", "witch", "wizard");
         } else {
             return null;
         }
+
         String name = options.get(getRandomNumberInRange(options.size()) - 1);
-        if (characterType.equals("infantry")) {
+
+        if (characterType.equals("infanteria")) {
             return new Infantry(owner, name);
-        } else if (characterType.equals("tank")) {
+        } else if (characterType.equals("tanque")) {
             return new Tank(owner, name);
-        } else if (characterType.equals("artillery")) {
+        } else if (characterType.equals("artilleria")) {
             return new Artillery(owner, name);
         }
         return null;
