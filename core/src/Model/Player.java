@@ -1,5 +1,8 @@
 package Model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Player {
     private Chest chest;
     private Castle castle;
@@ -8,16 +11,22 @@ public class Player {
 
     private String name;
 
+    private List<Coordinates> coordinatesList;
+
     public Player(int luckyNumber) {
         this.chest = new Chest();
-        this.castle = new Castle();
         this.turn = false;
         this.luckyNumber = luckyNumber;
         this.name = "Player " + luckyNumber;
+        coordinatesList = new ArrayList<>();
     }
 
     public Chest getChest() {
         return chest;
+    }
+
+    public List<Coordinates> getCoordinatesList() {
+        return coordinatesList;
     }
 
     public void setChest(Chest chest) {
@@ -52,8 +61,8 @@ public class Player {
     public String toString() {
         return "Player{" +
                 "chest=" + chest.toString() +
-                ", castle=" + castle.toString() +
                 "Player=" + this.name +
+                "number" + this.luckyNumber +
                 '}';
     }
 }

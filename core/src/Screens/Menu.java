@@ -53,6 +53,8 @@ public class Menu implements Screen {
 
     private final GameController gameController = GameController.getInstance();
 
+    private InputMultiplexer inputMultiplexer = (InputMultiplexer) Gdx.input.getInputProcessor();
+
     public Menu(){
         this.game = ReinoCenfoteco.getInstance();
 
@@ -74,7 +76,6 @@ public class Menu implements Screen {
         music.play();
         defineTextures();
 
-        InputMultiplexer inputMultiplexer = (InputMultiplexer) Gdx.input.getInputProcessor();
         inputMultiplexer.addProcessor(stage);
     }
 
@@ -94,7 +95,10 @@ public class Menu implements Screen {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 gameController.choosingStartPlayer();
+
+                inputMultiplexer.removeProcessor(stage);
                 game.setPlayScreen(music);
+
                 return super.touchDown(event, x, y, pointer, button);
             }
         });

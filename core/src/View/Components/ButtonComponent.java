@@ -27,7 +27,11 @@ public class ButtonComponent
         button.addListener(inputListener);
     }
 
-   /* public ButtonComponent(Stage stage, FigureActor actor,  InputListener inputListener){
+    public ImageButton getButton() {
+        return button;
+    }
+
+    /* public ButtonComponent(Stage stage, FigureActor actor,  InputListener inputListener){
         myTexRegionDrawable = new TextureRegionDrawable(actor.getRegionTexture());
         button = new ImageButton(myTexRegionDrawable);
         stage.addActor(button);

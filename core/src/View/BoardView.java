@@ -1,5 +1,6 @@
 package View;
 
+import BL.GameController;
 import Model.Board;
 import Screens.PlayScreen;
 import View.Actor.CastleActor;
@@ -9,7 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class BoardView  {
-    private Stage stageBoard;
+    private static Stage stageBoard;
 
     private TileActor tileActor;
 
@@ -19,37 +20,39 @@ public class BoardView  {
 
     private Board board;
 
-    private TileActor[][] matriz;
+    private static TileActor[][] matriz;
 
-    private int linesInBoard;
-    private int rowsInBoard;
+    private static int linesInBoard;
+    private static int rowsInBoard;
+
+    private GameController gameController = GameController.getInstance();
 
     public BoardView(PlayScreen screen, Viewport gameport) {
-        this.stageBoard = new Stage();
-        this.stageBoard = new Stage(gameport);
+
+        stageBoard = new Stage(gameport);
         tileActor = new TileActor(screen);
         this.castleActorPLayer1 = new CastleActor(screen, "CastlePlayer2");
         this.castleActorPLayer2 = new CastleActor(screen, "castlePlayer1");
         this.board = new Board();
         linesInBoard = board.getLINES();
         rowsInBoard = board.getROWS();
-        matriz = new TileActor[this.linesInBoard][this.rowsInBoard];
+        matriz = new TileActor[linesInBoard][rowsInBoard];
         initializeBoard(this.tileActor);
     }
 
     private void initializeBoard(TileActor tileActor) {
         int x, y = 0;
 
-        for (int i = 0; i < this.linesInBoard; i++) {
+        for (int i = 0; i < linesInBoard; i++) {
             x = 0;
             boolean tileWhiteFirst = false;
-            for (int j = 0; j < this.rowsInBoard; j++) {
+            for (int j = 0; j < rowsInBoard; j++) {
                 TileActor tileActorTemp = tileActor.clone();
-                this.matriz[i][j] = tileActorTemp;
+                matriz[i][j] = tileActorTemp;
                 tileActorTemp.setPosition(x, y);
                 tileActorTemp.setZIndex(0);
                 x += TileActor.SIZE;
-                this.stageBoard.addActor(tileActorTemp);
+                stageBoard.addActor(tileActorTemp);
 
 
                 if(i%2 == 0){
@@ -84,22 +87,42 @@ public class BoardView  {
         }
 
         addingCastlesToBoard(0, castleActorPLayer1 );
-        this.stageBoard.addActor(this.castleActorPLayer1);
+        stageBoard.addActor(this.castleActorPLayer1);
         addingCastlesToBoard(21, this.castleActorPLayer2);
-        this.stageBoard.addActor(this.castleActorPLayer2);
+        stageBoard.addActor(this.castleActorPLayer2);
+
+        this.gameController.getPlayer1().setCastle(this.castleActorPLayer1.getCastleModel());
+        this.gameController.getPlayer2().setCastle(this.castleActorPLayer2.getCastleModel());
+
+    }
+
+    public static TileActor[][] getMatriz(){
+        return matriz;
     }
 
     private void addingCastlesToBoard(int row, CastleActor castleActor){
-        int x = ((int) (Math.random() * 20 + 0)) * 50;
-        int y = row * 50;
-        System.out.println(x + ", " + y);
+        int x = ((int) (Math.random() * 20 + 0));
 
-        castleActor.getCastleModel().getCoordinates().setY(y);
+        castleActor.getCastleModel().getCoordinates().setY(row);
         castleActor.getCastleModel().getCoordinates().setX(x);
-        castleActor.setPosition(castleActor.getCastleModel().getCoordinates().getX(), castleActor.getCastleModel().getCoordinates().getY());
+
+        int posX = castleActor.getCastleModel().getCoordinates().getX() * 50;
+        int posY = castleActor.getCastleModel().getCoordinates().getY() * 50;
+
+        castleActor.setPosition(posX, posY);
     }
 
-    public Stage getStageBoard(){
-        return this.stageBoard;
+    public static Stage getStageBoard(){
+        return stageBoard;
     }
+
+    public static int getLinesInBoard(){
+        return linesInBoard;
+    }
+
+    public static int getRowsInBoard(){
+        return rowsInBoard;
+    }
+
+
 }

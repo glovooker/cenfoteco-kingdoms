@@ -4,13 +4,16 @@ import BL.GameController;
 import View.BoardView;
 import View.ChestView;
 import View.FiguresView;
+import View.InformationBar;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -18,8 +21,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.utils.viewport.FillViewport;
-import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.ReinoCenfoteco;
@@ -43,30 +44,44 @@ public class PlayScreen implements Screen {
 
     private BoardView boardView;
 
-
     private Stage chestStage;
 
     private Stage boardStage;
 
     private TextureAtlas atlasBoard;
 
+    private TextureRegion playerInGame;
+
+    private Texture player;
+
+    private TextureRegion heartRegion;
+
+    private Texture heart;
+
     private TextureAtlas atlasFigures;
 
     private TextureAtlas castles;
 
+    private TextureRegion timeRegion;
+
+    private Texture time;
+
     private ChestView chest;
     private Stage figuresView;
 
-
-
-    private final GameController gameController = GameController.getInstance();
-
+    private InformationBar informationBar;
 
     public PlayScreen(Music music){
         music.stop();
         atlasBoard = new TextureAtlas("boardAtlas.atlas");
         atlasFigures = new TextureAtlas("figuresAtlas.atlas");
         castles = new TextureAtlas("Castles.atlas");
+        player = new Texture("player.png");
+        playerInGame = new TextureRegion(player, 5, 5, 1000, 100);
+        heart = new Texture("heart.png");
+        heartRegion = new TextureRegion(heart, 5, 5, 100, 100);
+        time = new Texture("player.png");
+        timeRegion = new TextureRegion(time, 5, 5, 800, 100);
         this.game = ReinoCenfoteco.getInstance();
         gameCam = new OrthographicCamera();
         gamePort = new StretchViewport(1600, 1600, gameCam);
@@ -79,27 +94,26 @@ public class PlayScreen implements Screen {
 
         b2dr = new Box2DDebugRenderer();
         this.boardView = new BoardView(this,gamePort);
-        this.boardStage = this.boardView.getStageBoard();
+        this.boardStage = BoardView.getStageBoard();
 
         this.boardStage.getRoot().setX(250);
         this.boardStage.getRoot().setY(400);
 
-        this.figuresView = new FiguresView(this.gamePort, this);
+        this.figuresView = new FiguresView(this.gamePort, this.boardStage);
         this.figuresView.getRoot().setX(0);
         this.figuresView.getRoot().setY(400);
-
-
-
 
         this.chestStage = new Stage(gamePort);
         this.chestStage.getRoot().setX(0);
         this.chestStage.getRoot().setY(0);
 
         chest = new ChestView(chestStage);
+        informationBar = new InformationBar(gamePort);
 
         InputMultiplexer inputMultiplexer = (InputMultiplexer) Gdx.input.getInputProcessor();
         inputMultiplexer.addProcessor(chestStage);
         inputMultiplexer.addProcessor(figuresView);
+        inputMultiplexer.addProcessor(boardStage);
     }
 
 
@@ -123,6 +137,10 @@ public class PlayScreen implements Screen {
         game.batch.setProjectionMatrix(gameCam.combined);
 
         game.batch.begin();
+        game.batch.draw(playerInGame, 1350, 1460);
+        game.batch.draw(heartRegion, 1280, 1473, 80,80);
+        game.batch.draw(timeRegion,13, 1460);
+
         game.batch.end();
 
         boardStage.act(Gdx.graphics.getDeltaTime());
@@ -131,9 +149,11 @@ public class PlayScreen implements Screen {
         chestStage.act(Gdx.graphics.getDeltaTime());
         chestStage.draw();
 
+        informationBar.getStage().act(Gdx.graphics.getDeltaTime());
+        informationBar.getStage().draw();
+
        figuresView.act(Gdx.graphics.getDeltaTime());
        figuresView.draw();
-
     }
 
     @Override
@@ -142,6 +162,7 @@ public class PlayScreen implements Screen {
         chestStage.draw();
         boardStage.draw();
         figuresView.draw();
+
     }
 
     @Override
@@ -167,6 +188,7 @@ public class PlayScreen implements Screen {
         chestStage.dispose();
         boardStage.dispose();
         figuresView.dispose();
+        player.dispose();
     }
 
     public World getWorld(){

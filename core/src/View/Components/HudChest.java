@@ -32,7 +32,7 @@ public class HudChest {
 
 
     public HudChest(Stage stage, int initMovements, int initGunner, int initInfantry, int initTank, int initSpecialAttack, int initAttacks){
-       this.initMovements = initMovements;
+        this.initMovements = initMovements;
         this.initGunner = initGunner;
         this.initInfantry = initInfantry;
         this.initTank = initTank;

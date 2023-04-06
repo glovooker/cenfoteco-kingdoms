@@ -1,11 +1,15 @@
 package View;
 
-import Screens.PlayScreen;
+import Model.Coordinates;
 import View.Components.ButtonComponent;
+import View.Template.Concrete.Figure1;
+import View.Template.Concrete.Figure7;
+import View.Template.Figure;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.Viewport;
+
 
 public class FiguresView extends Stage {
     private ButtonComponent figure1;
@@ -13,9 +17,7 @@ public class FiguresView extends Stage {
 
     private ButtonComponent figure2;
 
-
     private ButtonComponent figure3;
-
 
     private ButtonComponent figure4;
 
@@ -30,19 +32,22 @@ public class FiguresView extends Stage {
 
     private ButtonComponent figure8;
 
+    private Figure figureSeven;
+    private Figure figureFirst;
 
-
-    public FiguresView(Viewport viewport, PlayScreen screen) {
+    public FiguresView(Viewport viewport, Stage boardStage) {
         super(viewport);
-       //creatingFigures(screen);
         defineFiguresButtons();
+        this.figureSeven = new Figure7(boardStage);
+        this.figureFirst = new Figure1(boardStage);
+
     }
 
     private void defineFiguresButtons(){
         figure1 = new ButtonComponent(this, "figure1.png", 160, 160, 40,900, new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("hola");
+                figureFirst.creatingWay();
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
@@ -90,7 +95,7 @@ public class FiguresView extends Stage {
         figure7 = new ButtonComponent(this, "figure7.png", 180, 180, 30 ,220, new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("hola7");
+                figureSeven.creatingWay();
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
@@ -103,5 +108,8 @@ public class FiguresView extends Stage {
             }
         });
     }
+
+
+
 
 }

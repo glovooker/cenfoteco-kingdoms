@@ -3,6 +3,7 @@ package BL;
 
 import Memento.CareTaker;
 import Memento.Originator;
+import Model.GameState;
 import Model.Player;
 import Observer.Interface.Observer;
 
@@ -56,15 +57,13 @@ public class MementoController implements Observer {
     }
 
     @Override
-    public void update() {
+    public void update(GameState state) {
         if(this.playerInTurn.equals(this.player1)){
             saveStatePlayer1(this.playerInTurn);
-            this.playerInTurn = player2;
-            System.out.println(playerInTurn.getName());
         }else{
             saveStatePlayer2(this.playerInTurn);
-            this.playerInTurn = player1;
-            System.out.println(playerInTurn.getName());
         }
+
+        this.playerInTurn = state.getPlayer();
     }
 }

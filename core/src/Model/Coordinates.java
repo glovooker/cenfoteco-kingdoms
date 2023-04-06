@@ -8,6 +8,10 @@ public class Coordinates {
 
     }
 
+    public Coordinates(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
 
     public int getX() {
         return x;
@@ -23,5 +27,13 @@ public class Coordinates {
 
     public void setY(int y) {
         this.y = y;
+    }
+
+    @Override
+    public String toString() {
+        return "Coordinates{" +
+                "x=" + x +
+                ", y=" + y +
+                '}';
     }
 }
