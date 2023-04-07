@@ -2,5 +2,9 @@ package Enums;
 
 public enum Direction {
     Up,
-    Down
+    Down,
+
+    Left,
+
+    Right
 }

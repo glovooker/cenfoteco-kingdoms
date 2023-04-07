@@ -104,7 +104,7 @@ public class BoardView  {
         int x = ((int) (Math.random() * 20 + 0));
 
         castleActor.getCastleModel().getCoordinates().setY(row);
-        castleActor.getCastleModel().getCoordinates().setX(x);
+        castleActor.getCastleModel().getCoordinates().setX(14);
 
         int posX = castleActor.getCastleModel().getCoordinates().getX() * 50;
         int posY = castleActor.getCastleModel().getCoordinates().getY() * 50;
@@ -114,6 +114,10 @@ public class BoardView  {
 
     public static Stage getStageBoard(){
         return stageBoard;
+    }
+
+    public static TileActor getTileByPosition(int x, int y) {
+        return matriz[y][x];
     }
 
     public static int getLinesInBoard(){

@@ -11,22 +11,25 @@ public class Player {
 
     private String name;
 
-    private List<Coordinates> coordinatesList;
+    private List<Coordinate> coordinateList;
 
     public Player(int luckyNumber) {
         this.chest = new Chest();
         this.turn = false;
         this.luckyNumber = luckyNumber;
         this.name = "Player " + luckyNumber;
-        coordinatesList = new ArrayList<>();
     }
 
     public Chest getChest() {
         return chest;
     }
 
-    public List<Coordinates> getCoordinatesList() {
-        return coordinatesList;
+    public List<Coordinate> getCoordinatesList() {
+        return coordinateList;
+    }
+
+    public void initializeCoordinatesList() {
+        this.coordinateList = new ArrayList<>();
     }
 
     public void setChest(Chest chest) {

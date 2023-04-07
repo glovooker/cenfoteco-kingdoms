@@ -1,6 +1,5 @@
 package View;
 
-import Model.Coordinates;
 import View.Components.ButtonComponent;
 import View.Template.Concrete.Figure1;
 import View.Template.Concrete.Figure7;
