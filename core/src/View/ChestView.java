@@ -11,6 +11,8 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 
+import java.util.ArrayList;
+
 public class ChestView {
 
     private ButtonComponent buttonAddArmy;
@@ -121,31 +123,68 @@ public class ChestView {
     }
 
 
-    private void addArmy(int num){//recibir un objeto tipo armada
-        int infantries = hud.getInitInfantry();
-        int gunners = hud.getInitGunner();
-        int tanks = hud.getInitTank();
+    private void addArmy(ArrayList<Integer> dados){//recibir un objeto tipo armada
         int army = hud.getInitArmy();
         int movements = hud.getInitMovements();
         int attacks = hud.getInitAttacks();
         int specialAttacks = hud.getInitSpecialAttack();
 
-        if(num == 1 && army < chest.ARMY_AMOUNT_MAX){
-            addingInfantries(infantries);
-        }else{
-            if(num == 2 && army < chest.ARMY_AMOUNT_MAX){
-                addingGunner(gunners);
-            } else if (num == 3 && army < chest.ARMY_AMOUNT_MAX) {
-                addingTank(tanks);
-            } else if (num == 4 && movements < chest.MAX_MOVEMENTS) {
-                addingMovements(movements);
-            } else if (num == 5 && attacks < chest.MAX_ATTACK) {
-                addingAttacks(attacks);
-            } else if (num == 6 && specialAttacks < chest.MAX_SPECIAL_ATTACK) {
-                addingSpecialAttacks();
-            }else{
-                System.out.println("No se pueden añadir mas elementos");
+        int incomingInfantries = dados.get(0);
+        int incomingGunners = dados.get(1);
+        int incomingTanks = dados.get(2);
+
+        if (army + incomingInfantries + incomingGunners + incomingTanks > chest.ARMY_AMOUNT_MAX) {
+            if (incomingInfantries == 1 && incomingGunners == 1){
+                incomingInfantries = 0;
+            } else if (incomingInfantries == 1 && incomingTanks == 1){
+                incomingInfantries = 0;
+            } else if (incomingGunners == 1 && incomingTanks == 1){
+                incomingGunners = 0;
+            } else if (incomingInfantries == 2){
+                incomingInfantries = 1;
+            } else if (incomingGunners == 2){
+                incomingGunners = 1;
+            } else if (incomingTanks == 2){
+                incomingTanks = 1;
             }
+        }
+
+        if (army < chest.ARMY_AMOUNT_MAX) {
+            if (incomingInfantries > 0) {
+                addingInfantries(incomingInfantries);
+            }
+            if (incomingGunners > 0) {
+                addingGunner(incomingGunners);
+            }
+            if (incomingTanks > 0) {
+                addingTank(incomingTanks);
+            }
+        } else {
+            System.out.println("No se pueden añadir mas elementos");
+        }
+
+        if (attacks < chest.MAX_ATTACK) {
+            if (dados.get(3) > 0) {
+                addingAttacks(attacks);
+            }
+        } else {
+            System.out.println("No se pueden añadir mas elementos");
+        }
+
+        if (specialAttacks < chest.MAX_SPECIAL_ATTACK) {
+            if (dados.get(4) > 0) {
+                addingSpecialAttacks();
+            }
+        } else {
+            System.out.println("No se pueden añadir mas elementos");
+        }
+
+        if (movements < chest.MAX_MOVEMENTS) {
+            if (dados.get(5) > 0) {
+                addingMovements(movements);
+            }
+        } else {
+            System.out.println("No se pueden añadir mas elementos");
         }
     }
 
@@ -163,8 +202,8 @@ public class ChestView {
         //se inserta el tanque en el array
     }
 
-    private void addingTank(int tanks){
-        hud.setInitTank(tanks + 1);
+    private void addingTank(int tanksIncoming){
+        hud.setInitTank(hud.getInitTank() + tanksIncoming);
         hud.setInitArmy(hud.getInitGunner() + hud.getInitInfantry() + hud.getInitTank());
         System.out.println("se añadio un tanque");
         labelTank.setText(hud.getInitTank());
@@ -172,16 +211,16 @@ public class ChestView {
     }
 
 
-    private void addingGunner(int gunners){
-        hud.setInitInfantry(gunners + 1);
+    private void addingGunner(int gunnersIncoming){
+        hud.setInitInfantry(hud.getInitGunner() + gunnersIncoming);
         hud.setInitArmy(hud.getInitGunner() + hud.getInitInfantry() + hud.getInitTank());
         System.out.println("se añadio un artillero");
         labelGunner.setText(hud.getInitGunner());
         //se inserta el artillero en el array
     }
 
-    private void addingInfantries(int infantriesInChest){
-        hud.setInitInfantry(infantriesInChest + 1);
+    private void addingInfantries(int infantriesIncoming){
+        hud.setInitInfantry(hud.getInitInfantry() + infantriesIncoming);
         hud.setInitArmy(hud.getInitGunner() + hud.getInitInfantry() + hud.getInitTank());
         System.out.println("se añadio un infantero");
         labelInfantry.setText(hud.getInitInfantry());
