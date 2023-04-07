@@ -1,6 +1,8 @@
 package com.mygdx.game;
 
+
 import com.badlogic.gdx.Files;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import com.mygdx.game.MyGdxGame;
@@ -11,8 +13,8 @@ public class DesktopLauncher {
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
 		config.setForegroundFPS(60);
 		config.setTitle("Reinos Cenfotecos: Dungeons And Army");
-		config.setWindowedMode(1280, 720);
+		config.setWindowedMode(1250, 1300);
 		config.setWindowIcon(Files.FileType.Internal, "icons/Diamond_Sword.png");
-		new Lwjgl3Application(new MyGdxGame(), config);
+		new Lwjgl3Application(ReinoCenfoteco.getInstance(), config);
 	}
 }

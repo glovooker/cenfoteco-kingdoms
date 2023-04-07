@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.10.0" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="16" tileheight="16" infinite="0" nextlayerid="2" nextobjectid="1">
+ <tileset firstgid="1" source="DungeosTest2.tsx"/>
+ <layer id="1" name="Tile Layer 1" width="50" height="50">
+  <data encoding="base64" compression="zlib">
+   eJztmG1Kw0AQhiOIkB/q7xoQcgQrCB5BrbX1BtZabW/g5x38vJ16B8H613dgF4YhLQkx8lrnx8OS3dlkH8Ims5MlSbIH9sEBuAG34A50wCHogiPQA31wDC7BFbg2c+J97NyNMFfalTlx+hkS1wpzYpuaGOnLAidgAE7BE3gGL2AIzsAInIMLMAYTcA8ewKOZE+8zb+5mhbgt0FZtbmLayuMVvP0iOzXids31u/L4BB9/GEaPKVhbqgajx1dYk+x9+y3oB2w/s4fsffstGAdsP7NH2W8P6z6PHrKmaQli/H/36P0w7uEe7lHeY9X8s/Xadf96zf95kx6So+uzRGbeQRbGhA7x+5AcXZ8lijwGgSGpRxFFHnbcPZrd5y1FajxSM87sIXtkEtrceORmnNlD57v2LKuv6+a7TXssyn/QPdzDPWZ72DxxFsx5os4Rbc2nWzDG6qFzRFvzGRWMMdYZhCq1Yta6T1VY6z7u4R4MuAcX7sGFe3DhHly4BxfuwYX2KHumZyTWGbbB8gLwDeed8Bs=
+  </data>
+ </layer>
+</map>
