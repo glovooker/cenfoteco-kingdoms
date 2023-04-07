@@ -1,6 +1,5 @@
 package com.mygdx.game;
 
-import BL.GameController;
 import Screens.Menu;
 import Screens.PlayScreen;
 import com.badlogic.gdx.Game;
@@ -10,7 +9,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class ReinoCenfoteco extends Game {
+public class ReinoCenfotecos extends Game {
     public SpriteBatch batch;
     public static AssetManager manager;
 
@@ -18,9 +17,9 @@ public class ReinoCenfoteco extends Game {
 
     private Menu menuScreen;
 
-    private static ReinoCenfoteco kingdomInstance;
+    private static ReinoCenfotecos kingdomInstance;
 
-    private ReinoCenfoteco(){}
+    private ReinoCenfotecos(){}
 
 
     @Override
@@ -33,9 +32,9 @@ public class ReinoCenfoteco extends Game {
         setScreen(new Menu());
     }
 
-     public static ReinoCenfoteco getInstance(){
+     public static ReinoCenfotecos getInstance(){
         if(kingdomInstance == null){
-            kingdomInstance = new ReinoCenfoteco();
+            kingdomInstance = new ReinoCenfotecos();
         }
 
         return kingdomInstance;

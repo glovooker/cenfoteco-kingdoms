@@ -2,10 +2,8 @@ package com.mygdx.game;
 
 
 import com.badlogic.gdx.Files;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
-import com.mygdx.game.MyGdxGame;
 
 // Please note that on macOS your application needs to be started with the -XstartOnFirstThread JVM argument
 public class DesktopLauncher {
@@ -15,6 +13,6 @@ public class DesktopLauncher {
 		config.setTitle("Reinos Cenfotecos: Dungeons And Army");
 		config.setWindowedMode(1250, 1300);
 		config.setWindowIcon(Files.FileType.Internal, "icons/Diamond_Sword.png");
-		new Lwjgl3Application(ReinoCenfoteco.getInstance(), config);
+		new Lwjgl3Application(ReinoCenfotecos.getInstance(), config);
 	}
 }

@@ -18,15 +18,13 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.utils.viewport.FillViewport;
-import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.mygdx.game.ReinoCenfoteco;
+import com.mygdx.game.ReinoCenfotecos;
 
 public class Menu implements Screen {
 
-    private ReinoCenfoteco game;
+    private ReinoCenfotecos game;
     private OrthographicCamera gameCam;
 
     private Viewport gamePort;
@@ -56,7 +54,7 @@ public class Menu implements Screen {
     private InputMultiplexer inputMultiplexer = (InputMultiplexer) Gdx.input.getInputProcessor();
 
     public Menu(){
-        this.game = ReinoCenfoteco.getInstance();
+        this.game = ReinoCenfotecos.getInstance();
 
         gameCam = new OrthographicCamera();
         gamePort = new StretchViewport(1600, 1600, gameCam);
@@ -71,7 +69,7 @@ public class Menu implements Screen {
         this.stage = new Stage(gamePort);
         this.stage.getRoot().setX(120);
         this.stage.getRoot().setY(100);
-        music = ReinoCenfoteco.manager.get("audio/MenuMusic.mp3", Music.class);
+        music = ReinoCenfotecos.manager.get("audio/MenuMusic.mp3", Music.class);
         music.setLooping(true);
         music.play();
         defineTextures();
