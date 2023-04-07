@@ -1,0 +1,62 @@
+
+figuresAtlas.png
+size: 512, 256
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+figure1
+  rotate: false
+  xy: 147, 181
+  size: 163, 50
+  orig: 163, 50
+  offset: 0, 0
+  index: -1
+figure2
+  rotate: false
+  xy: 2, 2
+  size: 114, 73
+  orig: 114, 73
+  offset: 0, 0
+  index: -1
+figure3
+  rotate: false
+  xy: 2, 77
+  size: 143, 76
+  orig: 143, 76
+  offset: 0, 0
+  index: -1
+figure4
+  rotate: false
+  xy: 147, 64
+  size: 82, 115
+  orig: 82, 115
+  offset: 0, 0
+  index: -1
+figure5
+  rotate: false
+  xy: 231, 64
+  size: 82, 115
+  orig: 82, 115
+  offset: 0, 0
+  index: -1
+figure6
+  rotate: false
+  xy: 2, 155
+  size: 143, 76
+  orig: 143, 76
+  offset: 0, 0
+  index: -1
+figure7
+  rotate: false
+  xy: 315, 68
+  size: 50, 163
+  orig: 50, 163
+  offset: 0, 0
+  index: -1
+figure8
+  rotate: false
+  xy: 367, 117
+  size: 73, 114
+  orig: 73, 114
+  offset: 0, 0
+  index: -1

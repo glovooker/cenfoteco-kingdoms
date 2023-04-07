@@ -1,0 +1,20 @@
+
+Castles.png
+size: 1024, 512
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+CastlePlayer2
+  rotate: false
+  xy: 457, 115
+  size: 222, 227
+  orig: 222, 227
+  offset: 0, 0
+  index: -1
+castlePlayer1
+  rotate: false
+  xy: 2, 2
+  size: 453, 340
+  orig: 453, 340
+  offset: 0, 0
+  index: -1
