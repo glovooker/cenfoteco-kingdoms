@@ -116,20 +116,18 @@ public class GestorBridge {
         return mensaje;
     }
 
-    public void almacenarCofre(){
+    public ArrayList<Integer> almacenarCofre(){
+        ArrayList<Integer> dados = new ArrayList<Integer>();
 
-        dadosInfanteriaCofre += dadosInfanteriaVolatil;
-        dadosInfanteriaTotal = dadosInfanteriaCofre;
+        dados.add(0, dadosInfanteriaVolatil);
+        dados.add(0, dadosArtilleriaVolatil);
+        dados.add(0, dadosTanqueVolatil);
+
         dadosInfanteriaVolatil = 0;
-
-        dadosArtilleriaCofre += dadosArtilleriaVolatil;
-        dadosArtilleriaTotal = dadosArtilleriaCofre;
         dadosArtilleriaVolatil = 0;
-
-        dadosTanqueCofre += dadosTanqueVolatil;
-        dadosTanqueTotal = dadosTanqueCofre;
         dadosTanqueVolatil = 0;
 
+        return dados;
     }
 
     public String invocarInfanteria(){

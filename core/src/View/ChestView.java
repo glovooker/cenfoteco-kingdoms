@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.mygdx.game.logic.facade_manager;
 
 import java.util.ArrayList;
 
@@ -46,10 +47,12 @@ public class ChestView {
     private Stage stage;
 
     private Chest chest;
+    private facade_manager facadeManager;
     private final GameController gameController = GameController.getInstance();
 
-    public ChestView(Stage stage){
+    public ChestView(Stage stage, facade_manager manager){
         this.stage = stage;
+        facadeManager = manager;
         chest = gameController.getPlayerInTurn().getChest();
         hud  = new HudChest(this.stage, chest.getMovementsInChest(), chest.getGunner(), chest.getInfantry(), chest.getTank(), chest.getSpecialAttackInChest(), chest.getAttacksInChest());
         labelInfantry = hud.getLabelInfantry();
@@ -65,7 +68,7 @@ public class ChestView {
         buttonAddArmy = new ButtonComponent(this.stage, "chestClosed.png", 80, 100, 430,50, new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                addArmy(6);
+                addArmy(facadeManager.almacenarDados());
                 System.out.println("pp");
                 return super.touchDown(event, x, y, pointer, button);
             }

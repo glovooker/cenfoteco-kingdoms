@@ -3,7 +3,9 @@ package com.mygdx.game.logic;
 import com.mygdx.game.logic.bridge_dice_buttons.GestorBridge;
 import com.mygdx.game.logic.characters_fabric_method.GestorMetodoFabrica;
 import com.mygdx.game.logic.characters_fabric_method.products.Army;
+import View.ChestView.*;
 
+import java.security.PublicKey;
 import java.util.ArrayList;
 
 public class facade_manager {
@@ -13,11 +15,37 @@ public class facade_manager {
     public facade_manager() {
         gestorBridge = new GestorBridge();
         gestorMetodoFabrica = new GestorMetodoFabrica();
-
         gestorBridge.iniciarBotones();
     }
 
-    public String mostrarMenu() {
+    public String lanzarDados(){
+        return gestorBridge.lanzarDado();
+    }
+
+    public String invocarInfanteria(){
+        return gestorMetodoFabrica.createArmy(gestorBridge.invocarInfanteria(), "player");
+    }
+    public String invocarArtilleria(){
+        return gestorMetodoFabrica.createArmy(gestorBridge.invocarArtilleria(), "player");
+    }
+    public String invocarTanque(){
+        return gestorMetodoFabrica.createArmy(gestorBridge.invocarTanque(), "player");
+    }
+
+    public String obtenerArmada(){
+        ArrayList<Army> ejercito = gestorMetodoFabrica.getArmyPlayerList();
+        String mensaje = "";
+        for (Army army : ejercito) {
+            mensaje += army.toString() + "\n";
+        }
+        return mensaje;
+    }
+
+    public ArrayList<Integer> almacenarDados(){
+        return gestorBridge.almacenarCofre();
+    }
+
+    /*public String mostrarMenu() {
         return ("Bienvenido, seleccione una opcion: \n" +
                 "1. Lanzar dados \n" +
                 "2. Invocar infanteria \n" +
@@ -27,7 +55,8 @@ public class facade_manager {
                 "6. Atacar \n" +
                 "7. Ataque especial \n" +
                 "8. Mover \n" +
-                "9. Salir \n");
+                "9. Almacenar \n" +
+                "10. Salir \n");
     }
 
     public String ejectuar_funcion(int pIdx) {
@@ -46,8 +75,11 @@ public class facade_manager {
             case 6: return "";
             case 7: return "";
             case 8: return "";
-            case 9: return "Adios";
+            case 9:
+                gestorBridge.almacenarCofre();
+                return "";
+            case 10: return "Adios";
             default: return "Opcion invalida";
         }
-    }
+    }*/
 }

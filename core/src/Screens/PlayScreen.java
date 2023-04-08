@@ -23,8 +23,11 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.ReinoCenfotecos;
+import com.mygdx.game.logic.facade_manager;
 
 public class PlayScreen implements Screen {
+
+    private facade_manager manager = new facade_manager();
     private ReinoCenfotecos game;
 
     private OrthographicCamera gameCam;
@@ -106,7 +109,7 @@ public class PlayScreen implements Screen {
         this.chestStage.getRoot().setX(0);
         this.chestStage.getRoot().setY(0);
 
-        chest = new ChestView(chestStage);
+        chest = new ChestView(chestStage, manager);
         informationBar = new InformationBar(gamePort);
 
         InputMultiplexer inputMultiplexer = (InputMultiplexer) Gdx.input.getInputProcessor();
