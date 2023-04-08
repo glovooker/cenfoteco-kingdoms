@@ -1,0 +1,90 @@
+
+dicePackAtlas.png
+size: 2048, 2048
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+attack
+  rotate: false
+  xy: 2, 732
+  size: 626, 626
+  orig: 626, 626
+  offset: 0, 0
+  index: -1
+fiveDice
+  rotate: false
+  xy: 1886, 1886
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+fourDice
+  rotate: false
+  xy: 1258, 1258
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+gunner
+  rotate: false
+  xy: 630, 732
+  size: 626, 626
+  orig: 626, 626
+  offset: 0, 0
+  index: -1
+infantry
+  rotate: false
+  xy: 1258, 1360
+  size: 626, 626
+  orig: 626, 626
+  offset: 0, 0
+  index: -1
+movements
+  rotate: false
+  xy: 2, 104
+  size: 626, 626
+  orig: 626, 626
+  offset: 0, 0
+  index: -1
+oneDice
+  rotate: false
+  xy: 2, 2
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+sixDice
+  rotate: false
+  xy: 630, 630
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+specialAttack
+  rotate: false
+  xy: 2, 1360
+  size: 626, 626
+  orig: 626, 626
+  offset: 0, 0
+  index: -1
+tank
+  rotate: false
+  xy: 630, 1360
+  size: 626, 626
+  orig: 626, 626
+  offset: 0, 0
+  index: -1
+threeDice
+  rotate: false
+  xy: 630, 528
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+twoDice
+  rotate: false
+  xy: 104, 2
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1

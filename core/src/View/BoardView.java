@@ -116,6 +116,10 @@ public class BoardView  {
         return stageBoard;
     }
 
+    public static TileActor getTileByPosition(int x, int y) {
+        return matriz[y][x];
+    }
+
     public static int getLinesInBoard(){
         return linesInBoard;
     }

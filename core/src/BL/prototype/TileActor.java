@@ -12,11 +12,14 @@ public class TileActor extends Actor implements Clonable<TileActor> {
 
     public static int SIZE = 50;
 
+    private boolean isBusy;
+
 
     public TileActor(PlayScreen screen) {
         this.screen = screen;
         this.tile = new Tile(this.screen);
         this.tile.setSize(TileActor.SIZE,TileActor.SIZE);
+        this.isBusy = false;
     }
 
     @Override
@@ -39,4 +42,20 @@ public class TileActor extends Actor implements Clonable<TileActor> {
         this.tile.setTextureRegion(newRegionTexture);
     }
 
+    public boolean isBusy() {
+        return isBusy;
+    }
+
+    public void setBusy(boolean busy) {
+        isBusy = busy;
+    }
+
+    @Override
+    public String toString() {
+        return "TileActor{" +
+                "tile=" + tile +
+                ", screen=" + screen +
+                ", isBusy=" + isBusy +
+                '}';
+    }
 }

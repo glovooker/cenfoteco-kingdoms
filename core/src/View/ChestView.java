@@ -68,7 +68,7 @@ public class ChestView {
         buttonAddArmy = new ButtonComponent(this.stage, "chestClosed.png", 80, 100, 430,50, new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                addArmy(facadeManager.almacenarDados());
+                //addArmy(facadeManager.almacenarDados());
                 System.out.println("pp");
                 return super.touchDown(event, x, y, pointer, button);
             }
@@ -81,7 +81,6 @@ public class ChestView {
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
-
 
         buttonGetGunner = new ButtonComponent(this.stage, "arquero.png", 120, 120, 680, 120, new InputListener(){
             @Override
@@ -107,7 +106,6 @@ public class ChestView {
             }
         });
 
-
         buttonGetSpecialAttack = new ButtonComponent(this.stage, "specialAttack.png", 80, 80, 150, 150, new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -124,9 +122,8 @@ public class ChestView {
             }
         });
     }
-
-
     private void addArmy(ArrayList<Integer> dados){//recibir un objeto tipo armada
+
         int army = hud.getInitArmy();
         int movements = hud.getInitMovements();
         int attacks = hud.getInitAttacks();
@@ -213,7 +210,6 @@ public class ChestView {
         //se inserta el tanque en el array
     }
 
-
     private void addingGunner(int gunnersIncoming){
         hud.setInitInfantry(hud.getInitGunner() + gunnersIncoming);
         hud.setInitArmy(hud.getInitGunner() + hud.getInitInfantry() + hud.getInitTank());
@@ -272,7 +268,4 @@ public class ChestView {
         chest.setMovementsInChest(chest.getMovementsInChest() - 1);
         labelMovements.setText(chest.getMovementsInChest());
     }
-
-
-
 }
