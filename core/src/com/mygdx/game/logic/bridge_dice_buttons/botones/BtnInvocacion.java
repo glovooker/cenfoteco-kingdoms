@@ -1,0 +1,20 @@
+package com.mygdx.game.logic.bridge_dice_buttons.botones;
+
+import com.mygdx.game.logic.bridge_dice_buttons.abstracta.AbstractaBoton;
+
+public class BtnInvocacion extends AbstractaBoton {
+
+    public BtnInvocacion(String tipoBtn) {
+        this.tipoBtn = tipoBtn;
+    }
+
+    @Override
+    public String onPressed(boolean status) {
+        if(status)
+        {
+            return this.tipoBtn.toLowerCase();
+        } else {
+            return null;
+        }
+    }
+}

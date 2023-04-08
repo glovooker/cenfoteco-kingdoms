@@ -20,10 +20,10 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.mygdx.game.ReinoCenfoteco;
+import com.mygdx.game.ReinoCenfotecos;
 
 public class PlayScreen implements Screen {
-    private ReinoCenfoteco game;
+    private ReinoCenfotecos game;
 
     private OrthographicCamera gameCam;
 
@@ -83,7 +83,7 @@ public class PlayScreen implements Screen {
         heartRegion = new TextureRegion(heart, 5, 5, 100, 100);
         time = new Texture("player.png");
         timeRegion = new TextureRegion(time, 5, 5, 800, 100);
-        this.game = ReinoCenfoteco.getInstance();
+        this.game = ReinoCenfotecos.getInstance();
         gameCam = new OrthographicCamera();
         gamePort = new StretchViewport(1600, 1600, gameCam);
 
