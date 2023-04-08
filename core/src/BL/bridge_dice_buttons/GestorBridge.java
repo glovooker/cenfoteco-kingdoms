@@ -1,10 +1,10 @@
-package com.mygdx.game.logic.bridge_dice_buttons;
+package BL.bridge_dice_buttons;
 
-import com.mygdx.game.logic.bridge_dice_buttons.botones.BtnAccion;
-import com.mygdx.game.logic.bridge_dice_buttons.botones.BtnInvocacion;
-import com.mygdx.game.logic.bridge_dice_buttons.dadoMovimiento.DadoMovimiento;
-import com.mygdx.game.logic.bridge_dice_buttons.estadosInvocacion.Accion;
-import com.mygdx.game.logic.bridge_dice_buttons.estadosInvocacion.*;
+import BL.bridge_dice_buttons.botones.BtnAccion;
+import BL.bridge_dice_buttons.botones.BtnInvocacion;
+import BL.bridge_dice_buttons.dadoMovimiento.DadoMovimiento;
+import BL.bridge_dice_buttons.estadosInvocacion.Accion;
+import BL.bridge_dice_buttons.estadosInvocacion.*;
 
 import java.util.*;
 

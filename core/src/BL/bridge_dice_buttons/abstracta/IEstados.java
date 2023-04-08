@@ -1,4 +1,4 @@
-package com.mygdx.game.logic.bridge_dice_buttons.abstracta;
+package BL.bridge_dice_buttons.abstracta;
 
 public interface IEstados {
     public boolean getEstado();

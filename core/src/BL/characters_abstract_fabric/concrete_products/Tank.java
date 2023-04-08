@@ -1,11 +1,11 @@
-package com.mygdx.game.logic.characters_fabric_method.concrete_products;
+package BL.characters_abstract_fabric.concrete_products;
 
-import com.mygdx.game.logic.characters_fabric_method.products.Army;
+import BL.characters_abstract_fabric.abstract_product.Army;
 
 public class Tank extends Army {
 
         public Tank(String owner, String characterClass) {
-            setCharacterType("tank");
+            setCharacterType("tanque");
             setId(owner + '-' + characterClass);
             setMaxMove(calculateMovement(1, 2));
             setLife(2);

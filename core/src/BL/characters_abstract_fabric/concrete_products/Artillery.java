@@ -1,11 +1,11 @@
-package com.mygdx.game.logic.characters_fabric_method.concrete_products;
+package BL.characters_abstract_fabric.concrete_products;
 
-import com.mygdx.game.logic.characters_fabric_method.products.Army;
+import BL.characters_abstract_fabric.abstract_product.Army;
 
 public class Artillery extends Army {
 
     public Artillery(String owner, String characterClass) {
-        setCharacterType("artillery");
+        setCharacterType("artilleria");
         setId(owner + '-' + characterClass);
         setMaxMove(calculateMovement(1, 4));
         setLife(4);

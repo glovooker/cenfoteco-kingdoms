@@ -1,4 +1,4 @@
-package com.mygdx.game.logic.bridge_dice_buttons.dadoMovimiento;
+package BL.bridge_dice_buttons.dadoMovimiento;
 
 public class DadoMovimiento {
     public int movimiento;

@@ -1,6 +1,6 @@
-package com.mygdx.game.logic.bridge_dice_buttons.botones;
+package BL.bridge_dice_buttons.botones;
 
-import com.mygdx.game.logic.bridge_dice_buttons.abstracta.AbstractaBoton;
+import BL.bridge_dice_buttons.abstracta.AbstractaBoton;
 
 public class BtnInvocacion extends AbstractaBoton {
 

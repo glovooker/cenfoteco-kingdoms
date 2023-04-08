@@ -1,16 +1,14 @@
 package View;
 
 import BL.GameController;
-import BL.MementoController;
 import Model.Chest;
 import View.Components.ButtonComponent;
 import View.Components.HudChest;
-import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.mygdx.game.logic.facade_manager;
+import BL.facade_manager;
 
 import java.util.ArrayList;
 

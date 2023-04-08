@@ -1,6 +1,6 @@
-package com.mygdx.game.logic.bridge_dice_buttons.estadosInvocacion;
+package BL.bridge_dice_buttons.estadosInvocacion;
 
-import com.mygdx.game.logic.bridge_dice_buttons.abstracta.IEstados;
+import BL.bridge_dice_buttons.abstracta.IEstados;
 
 public class InvocacionTanqueEstado  implements IEstados {
     public boolean status;

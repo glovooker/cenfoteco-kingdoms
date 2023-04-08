@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package BL;
 
 import java.io.InputStream;
 import java.util.Vector;

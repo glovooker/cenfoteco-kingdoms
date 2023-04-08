@@ -23,7 +23,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.ReinoCenfotecos;
-import com.mygdx.game.logic.facade_manager;
+import BL.facade_manager;
 
 public class PlayScreen implements Screen {
 
