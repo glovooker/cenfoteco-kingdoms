@@ -1,13 +1,11 @@
-package BL;
+package BL.memento;
 
 
-import Memento.CareTaker;
-import Memento.Originator;
 import Model.GameState;
 import Model.Player;
-import Observer.Interface.Observer;
+import BL.observer.interfaces_observer.Observer;
 
-public class MementoController implements Observer {
+public class GestorMemento implements Observer {
     private Player player1;
 
     private Player player2;
@@ -20,7 +18,7 @@ public class MementoController implements Observer {
 
 
 
-    public MementoController(Player player1, Player player2, Player playerInTurn) {
+    public GestorMemento(Player player1, Player player2, Player playerInTurn) {
         this.originator = new Originator();
         this.careTaker = new CareTaker();
         this.player1 = player1;

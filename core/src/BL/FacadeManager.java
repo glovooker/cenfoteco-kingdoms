@@ -6,11 +6,11 @@ import BL.characters_abstract_fabric.abstract_product.Army;
 
 import java.util.ArrayList;
 
-public class facade_manager {
+public class FacadeManager {
     private static GestorBridge gestorBridge;
     private static GestorFabricaAbstracta gestorFabricaAbstracta;
 
-    public facade_manager() {
+    public FacadeManager() {
         gestorBridge = new GestorBridge();
         gestorFabricaAbstracta = new GestorFabricaAbstracta();
         gestorBridge.iniciarBotones();

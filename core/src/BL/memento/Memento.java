@@ -1,6 +1,6 @@
-package Memento;
+package BL.memento;
 
-import Model.Chest;
+import BL.memento.auxiliar.Snapshot;
 import Model.Player;
 
 public class Memento {

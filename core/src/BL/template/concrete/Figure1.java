@@ -1,10 +1,10 @@
-package View.Template.Concrete;
+package BL.template.concrete;
 
+import BL.template.abstract_figure.Figure;
 import Enums.Direction;
 import Model.Coordinates;
-import View.Actor.TileActor;
+import BL.prototype.TileActor;
 import View.BoardView;
-import View.Template.Figure;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
 public class Figure1 extends Figure {

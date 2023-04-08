@@ -1,4 +1,4 @@
-package View.Template;
+package BL.template.abstract_figure;
 
 import Enums.Direction;
 import Model.Coordinates;

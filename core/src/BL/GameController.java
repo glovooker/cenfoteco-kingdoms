@@ -1,13 +1,11 @@
 package BL;
 
-import Model.Castle;
+import BL.memento.GestorMemento;
 import Model.GameState;
 import Model.Player;
-import Model.TimerSec;
-import Observer.Interface.Subject;
+import BL.observer.concret.TimerSec;
 
 import java.util.Random;
-import java.util.Timer;
 
 public class GameController {
 
@@ -65,7 +63,7 @@ public class GameController {
         state.setPlayer2(this.player2);
         state.setPlayer(this.playerInTurn);
 
-        MementoController mementoController = new MementoController(this.player1, this.player2, this.playerInTurn);
+        GestorMemento mementoController = new GestorMemento(this.player1, this.player2, this.playerInTurn);
         this.timer = new TimerSec();
         this.timer.addObservers(mementoController);
         this.timer.start();

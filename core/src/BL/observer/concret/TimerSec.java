@@ -1,6 +1,8 @@
-package Model;
-import Observer.Interface.Observer;
-import Observer.Interface.Subject;
+package BL.observer.concret;
+import Model.GameState;
+import Model.Player;
+import BL.observer.interfaces_observer.Observer;
+import BL.observer.interfaces_observer.Subject;
 
 import java.util.ArrayList;
 import java.util.List;

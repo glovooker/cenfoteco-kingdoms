@@ -1,6 +1,4 @@
-package Prototype;
-
-import View.Actor.TileActor;
+package BL.prototype;
 
 public interface Clonable<T> {
     T clone();

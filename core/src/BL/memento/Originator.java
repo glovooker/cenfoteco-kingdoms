@@ -1,6 +1,7 @@
-package Memento;
+package BL.memento;
 
-import Model.Chest;
+import BL.memento.auxiliar.Snapshot;
+import BL.memento.Memento;
 import Model.Player;
 
 public class Originator {

@@ -1,4 +1,4 @@
-package Memento;
+package BL.memento;
 
 public class CareTaker {
     private Memento memento;

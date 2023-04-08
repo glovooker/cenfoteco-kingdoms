@@ -1,7 +1,6 @@
-package Observer.Interface;
+package BL.observer.interfaces_observer;
 
 import Model.GameState;
-import Model.Player;
 
 public interface Observer {
     void update(GameState state);

@@ -1,4 +1,4 @@
-package Screens;
+package View.Screens;
 
 import View.BoardView;
 import View.ChestView;
@@ -23,11 +23,11 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.ReinoCenfotecos;
-import BL.facade_manager;
+import BL.FacadeManager;
 
 public class PlayScreen implements Screen {
 
-    private facade_manager manager = new facade_manager();
+    private FacadeManager manager = new FacadeManager();
     private ReinoCenfotecos game;
 
     private OrthographicCamera gameCam;

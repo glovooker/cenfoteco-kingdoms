@@ -1,6 +1,4 @@
-package Observer.Interface;
-
-import Model.GameState;
+package BL.observer.interfaces_observer;
 
 public interface Subject {
     public void addObservers(Observer observer);

@@ -1,10 +1,8 @@
-package View.Actor;
+package BL.prototype;
 
-import Prototype.Clonable;
-import Screens.PlayScreen;
+import View.Screens.PlayScreen;
 import View.Sprite.Tile;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
 public class TileActor extends Actor implements Clonable<TileActor> {

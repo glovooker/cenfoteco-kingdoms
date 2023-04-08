@@ -8,7 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import BL.facade_manager;
+import BL.FacadeManager;
 
 import java.util.ArrayList;
 
@@ -46,11 +46,11 @@ public class ChestView {
 
     private Chest chest;
 
-    private facade_manager facadeManager;
+    private FacadeManager facadeManager;
 
     private final GameController gameController = GameController.getInstance();
 
-    public ChestView(Stage stage, facade_manager manager){
+    public ChestView(Stage stage, FacadeManager manager){
         this.stage = stage;
         facadeManager = manager;
         chest = gameController.getPlayerInTurn().getChest();

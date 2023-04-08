@@ -1,4 +1,4 @@
-package Screens;
+package View.Screens;
 
 import BL.GameController;
 import View.Components.ButtonComponent;
