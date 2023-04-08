@@ -1,9 +1,7 @@
 package Screens;
 
-import View.BoardView;
-import View.ChestView;
-import View.FiguresView;
-import View.InformationBar;
+import BL.GameController;
+import View.*;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
@@ -58,12 +56,15 @@ public class PlayScreen implements Screen {
     private Texture heart;
 
     private TextureAtlas atlasFigures;
+    private TextureAtlas atlasDice;
 
     private TextureAtlas castles;
 
     private TextureRegion timeRegion;
 
     private Texture time;
+
+    private DiceView diceView;
 
     private ChestView chest;
     private Stage figuresView;
@@ -75,6 +76,7 @@ public class PlayScreen implements Screen {
         atlasBoard = new TextureAtlas("boardAtlas.atlas");
         atlasFigures = new TextureAtlas("figuresAtlas.atlas");
         castles = new TextureAtlas("Castles.atlas");
+        atlasDice = new TextureAtlas("dicePackAtlas.atlas");
         player = new Texture("player.png");
         playerInGame = new TextureRegion(player, 5, 5, 1000, 100);
         heart = new Texture("heart.png");
@@ -106,13 +108,20 @@ public class PlayScreen implements Screen {
         this.chestStage.getRoot().setX(0);
         this.chestStage.getRoot().setY(0);
 
+        this.diceView = new DiceView(this, gamePort);
+        this.diceView.getRoot().setX(800);
+        this.diceView.getRoot().setY(500);
+
         chest = new ChestView(chestStage);
         informationBar = new InformationBar(gamePort);
+
+
 
         InputMultiplexer inputMultiplexer = (InputMultiplexer) Gdx.input.getInputProcessor();
         inputMultiplexer.addProcessor(chestStage);
         inputMultiplexer.addProcessor(figuresView);
         inputMultiplexer.addProcessor(boardStage);
+        inputMultiplexer.addProcessor(diceView);
     }
 
 
@@ -143,10 +152,12 @@ public class PlayScreen implements Screen {
         game.batch.end();
 
         boardStage.act(Gdx.graphics.getDeltaTime());
-
         boardStage.draw();
         chestStage.act(Gdx.graphics.getDeltaTime());
         chestStage.draw();
+
+        diceView.act(Gdx.graphics.getDeltaTime());
+        diceView.draw();
 
         informationBar.getStage().act(Gdx.graphics.getDeltaTime());
         informationBar.getStage().draw();
@@ -161,7 +172,7 @@ public class PlayScreen implements Screen {
         chestStage.draw();
         boardStage.draw();
         figuresView.draw();
-
+        diceView.draw();
     }
 
     @Override
@@ -188,6 +199,7 @@ public class PlayScreen implements Screen {
         boardStage.dispose();
         figuresView.dispose();
         player.dispose();
+        diceView.draw();
     }
 
     public World getWorld(){
@@ -209,4 +221,10 @@ public class PlayScreen implements Screen {
     public TextureAtlas getCastlesAtlas(){
         return this.castles;
     }
+
+    public TextureAtlas getDiceAtlas(){
+        return this.atlasDice;
+    }
+
+
 }

@@ -77,7 +77,6 @@ public class ChestView {
             }
         });
 
-
         buttonGetGunner = new ButtonComponent(this.stage, "arquero.png", 120, 120, 680, 120, new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -102,7 +101,6 @@ public class ChestView {
             }
         });
 
-
         buttonGetSpecialAttack = new ButtonComponent(this.stage, "specialAttack.png", 80, 80, 150, 150, new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -119,7 +117,6 @@ public class ChestView {
             }
         });
     }
-
 
     private void addArmy(int num){//recibir un objeto tipo armada
         int infantries = hud.getInitInfantry();
@@ -170,7 +167,6 @@ public class ChestView {
         labelTank.setText(hud.getInitTank());
         //se inserta el tanque en el array
     }
-
 
     private void addingGunner(int gunners){
         hud.setInitInfantry(gunners + 1);
@@ -230,7 +226,4 @@ public class ChestView {
         chest.setMovementsInChest(chest.getMovementsInChest() - 1);
         labelMovements.setText(chest.getMovementsInChest());
     }
-
-
-
 }

@@ -1,8 +1,10 @@
 package View.Template;
 
 import Enums.Direction;
-import Model.Coordinates;
+import Model.Coordinate;
 import Model.GameState;
+import View.Actor.TileActor;
+import View.BoardView;
 import View.Components.ButtonComponent;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -11,12 +13,10 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public abstract class Figure {
+    private final GameState state = GameState.getStateInstance();
 
-    private GameState state = GameState.getStateInstance();
-
-    private List<ButtonComponent> buttonComponents = new ArrayList<>();
+    private final List<ButtonComponent> buttonComponents = new ArrayList<>();
 
     protected Stage boardStage;
 
@@ -24,31 +24,33 @@ public abstract class Figure {
         this.boardStage = boardStage;
     }
 
-    public final static int AMOUNT_BLOCKS = 4;
+    public final static int AMOUNT_BLOCKS = 5;
 
+    protected final TileActor[][] board = BoardView.getMatriz();
 
-    protected abstract void paintingWayUp(Coordinates coordinates);
-    protected abstract void paintingWayDown(Coordinates coordinates);
+    protected abstract List<Coordinate> filterInvalidCoordinates(List<Coordinate> coordinates, Direction direction);
+    protected abstract boolean hasAnyCollision(Coordinate coordinate, Direction direction);
+    protected abstract void paintingWayUp(Coordinate coordinate);
+    protected abstract void paintingWayDown(Coordinate coordinate);
 
-    private boolean currentPlayer() {
+    private boolean isPaintingUp() {
         return getState().getPlayer().equals(getState().getPlayer1());
     }
 
     protected void createNextMoveButtons() {
-       List<Coordinates> coordinates = this.state.getPlayer().getCoordinatesList();
+        Direction direction = isPaintingUp() ? Direction.Up : Direction.Down;
+        List<Coordinate> coordinates = filterInvalidCoordinates(this.state.getPlayer().getCoordinatesList(), direction);
 
-        for (final Coordinates coordinate: coordinates) {
-            System.out.println(coordinate);
+        for (final Coordinate coordinate: coordinates) {
             ButtonComponent btnComp = new ButtonComponent(this.boardStage, "buttonNextMove.png", 50, 50, coordinate.getX() * 50,coordinate.getY() * 50, new InputListener(){
                 @Override
                 public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                     System.out.println(button);
-                    if(currentPlayer()){
+                    if(isPaintingUp()){
                         paintingWayUp(coordinate);
                     }else {
                         paintingWayDown(coordinate);
                     }
-
 
                     cleanUpButtons();
                     return super.touchDown(event, x, y, pointer, button);
@@ -59,19 +61,21 @@ public abstract class Figure {
         }
     }
 
-    public GameState getState() {
+    protected GameState getState() {
         return state;
     }
 
     public void creatingWay() {
-        if(this.state.getPlayer().getCoordinatesList().isEmpty()) {
-            Coordinates initialCoordinates = this.state.getPlayer().getCastle().getCoordinates();
-            if(currentPlayer()){
-                initialCoordinates.setY(initialCoordinates.getY() + 1);
-                paintingWayUp(initialCoordinates);
+        if(this.state.getPlayer().getCoordinatesList() == null) {
+            this.state.getPlayer().initializeCoordinatesList();
+
+            Coordinate initialCoordinate = this.state.getPlayer().getCastle().getCoordinates();
+            if(isPaintingUp()){
+                initialCoordinate.setY(initialCoordinate.getY() + 1);
+                paintingWayUp(initialCoordinate);
             }else {
-                initialCoordinates.setY(initialCoordinates.getY() - 1);
-                paintingWayDown(initialCoordinates);
+                initialCoordinate.setY(initialCoordinate.getY() - 1);
+                paintingWayDown(initialCoordinate);
             }
         }
         else {

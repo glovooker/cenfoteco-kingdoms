@@ -1,14 +1,14 @@
 package Model;
 
-public class Coordinates {
+public class Coordinate {
     private int x;
     private int y;
 
-    public Coordinates() {
+    public Coordinate() {
 
     }
 
-    public Coordinates(int x, int y) {
+    public Coordinate(int x, int y) {
         this.x = x;
         this.y = y;
     }

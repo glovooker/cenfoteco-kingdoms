@@ -5,12 +5,10 @@ public class Castle {
 
     private int id;
 
-    private Coordinates coordinates;
-
-
+    private Coordinate coordinate;
 
     public Castle() {
-        this.coordinates = new Coordinates();
+        this.coordinate = new Coordinate();
     }
 
     public int getLife() {
@@ -29,8 +27,8 @@ public class Castle {
         this.id = id;
     }
 
-    public Coordinates getCoordinates() {
-        return coordinates;
+    public Coordinate getCoordinates() {
+        return coordinate;
     }
 
     @Override
@@ -38,7 +36,7 @@ public class Castle {
         return "Castle{" +
                 "life=" + life +
                 ", id=" + id +
-                ", coordinates=" + coordinates +
+                ", coordinates=" + coordinate +
                 '}';
     }
 }
