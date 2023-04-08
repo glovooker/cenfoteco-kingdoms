@@ -47,7 +47,9 @@ public class ChestView {
     private Stage stage;
 
     private Chest chest;
+
     private facade_manager facadeManager;
+
     private final GameController gameController = GameController.getInstance();
 
     public ChestView(Stage stage, facade_manager manager){
