@@ -34,7 +34,6 @@ public class DiceView extends Stage {
     public DiceView(PlayScreen screen, Viewport gamePort){
         super(gamePort);
 
-        defineButton(imgButton);
         defineFirstDice(screen);
         defineSecondDice(screen);
         defineThirdDice(screen);
