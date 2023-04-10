@@ -1,7 +1,7 @@
 package Model;
 
 public class GameState {
-    private Player player;
+    private Player playerInTurn;
 
     private int time;
 
@@ -25,15 +25,15 @@ public class GameState {
     }
 
     public void setPlayer(Player player) {
-        this.player = player;
+        this.playerInTurn = player;
     }
 
     public void setTime(int time) {
         this.time = time;
     }
 
-    public Player getPlayer() {
-        return player;
+    public Player getPlayerInTurn() {
+        return playerInTurn;
     }
 
     public int getTime() {
@@ -54,5 +54,25 @@ public class GameState {
 
     public void setPlayer2(Player player2) {
         this.player2 = player2;
+    }
+
+    public void changePlayerInTurn() {
+        Player playerInTurn = this.getPlayerInTurn().equals(this.getPlayer1())
+                ? this.getPlayer2()
+                : this.getPlayer1();
+
+        this.player1.getCastle().setLife(this.player1.getCastle().getLife() - 1);
+
+        this.setPlayer(playerInTurn);
+    }
+
+    @Override
+    public String toString() {
+        return "GameState{" +
+                "playerInTurn=" + playerInTurn.toString() +
+                ", time=" + time +
+                ", player1=" + player1.toString() +
+                ", player2=" + player2.toString() +
+                '}';
     }
 }

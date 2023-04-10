@@ -21,6 +21,8 @@ public class GameController {
 
     private static GameController gameController;
 
+    private GameState gameState = GameState.getStateInstance();
+
 
     private GameController() {
         this.player1 = new Player(1);
@@ -60,16 +62,20 @@ public class GameController {
             this.playerInTurn = player2;
         }
 
-        GameState state = GameState.getStateInstance();
-        state.setPlayer1(this.player1);
-        state.setPlayer2(this.player2);
-        state.setPlayer(this.playerInTurn);
+        initializeGameState();
 
-        MementoController mementoController = new MementoController(this.player1, this.player2, this.playerInTurn);
+        MementoController mementoController = new MementoController();
         this.timer = new TimerSec();
         this.timer.addObservers(mementoController);
         this.timer.start();
     }
+
+    private void initializeGameState(){
+        this.gameState.setPlayer1(this.player1);
+        this.gameState.setPlayer2(this.player2);
+        this.gameState.setPlayer(this.playerInTurn);
+    }
+
 
     public Player getPlayerInTurn(){
         return this.playerInTurn;
