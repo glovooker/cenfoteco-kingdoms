@@ -123,7 +123,7 @@ public class Figure2 extends Figure {
         getState().getPlayerInTurn().getCoordinatesList().clear();
 
         int newY = direction == Direction.Down ? y - 1 : y + 1;
-        int newX = direction == Direction.Down ? x - 1 : x + 1;
+        int newX = x - 1;
 
         if(x >= 0 && !board[y][x].isBusy()){
             getState().getPlayerInTurn().getCoordinatesList().add(new Coordinate(x, y));

@@ -53,7 +53,7 @@ public class GameController {
 
     public void choosingStartPlayer(){
         Random r = new Random();
-        int luckyNumber =  1;
+        int luckyNumber =  r.nextInt() * 2 + 1;
         if(luckyNumber == this.player1.getLuckyNumber()){
             this.player1.setTurn(true);
             this.playerInTurn = player1;
