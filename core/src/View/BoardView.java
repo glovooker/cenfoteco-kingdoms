@@ -104,7 +104,7 @@ public class BoardView  {
         int x = ((int) (Math.random() * 20 + 0));
 
         castleActor.getCastleModel().getCoordinates().setY(row);
-        castleActor.getCastleModel().getCoordinates().setX(1);
+        castleActor.getCastleModel().getCoordinates().setX(18);
 
         int posX = castleActor.getCastleModel().getCoordinates().getX() * 50;
         int posY = castleActor.getCastleModel().getCoordinates().getY() * 50;
