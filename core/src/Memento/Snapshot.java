@@ -1,24 +1,17 @@
 package Memento;
 
+import Model.GameState;
 import Model.Player;
 
 public class Snapshot {
-    private Player player1;
-    private Player player2;
+    private GameState state;
 
-    public void newPhotoPlayer1(Player pLayer1){
-        this.player1 = pLayer1;
+    public void newPhotoGameState(GameState gameState){
+        this.state = gameState;
     }
 
-    public void newPhotoPlayer2(Player pLayer2){
-        this.player2 = pLayer2;
+    public GameState getGameState(){
+        return this.state;
     }
 
-    public Player getStatePlayer1(){
-        return this.player1;
-    }
-
-    public Player getStatePlayer2(){
-        return this.player2;
-    }
 }

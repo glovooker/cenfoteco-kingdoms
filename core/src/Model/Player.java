@@ -65,7 +65,8 @@ public class Player {
         return "Player{" +
                 "chest=" + chest.toString() +
                 "Player=" + this.name +
-                "number" + this.luckyNumber +
+                "number=" + this.luckyNumber +
+                "life = " + this.castle.getLife() +
                 '}';
     }
 }

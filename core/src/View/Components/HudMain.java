@@ -19,11 +19,15 @@ public class HudMain implements Observer {
 
 
 
-    public HudMain(Stage stage, Player playerInturn){
-        String player = playerInturn.getName();
+    public HudMain(Stage stage, Player playerInTurn){
+        initialize(stage, playerInTurn);
+    }
+
+    private void initialize(Stage stage, Player playerInTurn){
+        String player = playerInTurn.getName();
 
         playerInGame = new Label(player, new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        life = new Label(String.format("%01d", playerInturn.getCastle().getLife()), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        life = new Label(String.format("%01d", playerInTurn.getCastle().getLife()), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         seconds = new Label(String.format("%01d", 60), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
 
         playerInGame.setPosition(1330, 15 );
@@ -39,8 +43,6 @@ public class HudMain implements Observer {
         stage.addActor(playerInGame);
         stage.addActor(life);
         stage.addActor(seconds);
-
-
     }
 
     public Label getPlayerInGame() {
@@ -65,6 +67,7 @@ public class HudMain implements Observer {
             seconds.setPosition(40, 12 );
         }
 
-        this.playerInGame.setText(state.getPlayer().getName());
+        this.playerInGame.setText(state.getPlayerInTurn().getName());
+        this.life.setText(state.getPlayerInTurn().getCastle().getLife());
     }
 }
