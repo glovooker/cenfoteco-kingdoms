@@ -57,7 +57,7 @@ public class Figure2 extends Figure {
                     return true;
                 }
 
-                currentY += 2;
+                currentY = direction == Direction.Up ? currentY + 2 : currentY -2;
             }
 
             contX ++;

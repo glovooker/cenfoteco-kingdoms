@@ -76,7 +76,6 @@ public class GameController {
         this.gameState.setPlayer(this.playerInTurn);
     }
 
-
     public Player getPlayerInTurn(){
         return this.playerInTurn;
     }
