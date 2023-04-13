@@ -3,6 +3,7 @@ package View;
 import View.Components.ButtonComponent;
 import View.Template.Concrete.Figure1;
 import View.Template.Concrete.Figure2;
+import View.Template.Concrete.Figure6;
 import View.Template.Concrete.Figure3;
 import View.Template.Concrete.Figure7;
 import View.Template.Figure;
@@ -36,6 +37,7 @@ public class FiguresView extends Stage {
     private Figure figureSeven;
     private Figure figureFirst;
     private Figure figureSecond;
+    private Figure figureSix;
 
     private Figure figureThird;
 
@@ -45,6 +47,7 @@ public class FiguresView extends Stage {
         this.figureSeven = new Figure7(boardStage);
         this.figureFirst = new Figure1(boardStage);
         this.figureSecond = new Figure2(boardStage);
+        this.figureSix = new Figure6(boardStage);
         this.figureThird = new Figure3(boardStage);
 
     }
@@ -93,7 +96,7 @@ public class FiguresView extends Stage {
         figure6 = new ButtonComponent(this, "figure6.png", 200, 200, 20 ,350, new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("hola6");
+                figureSix.creatingWay();
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
