@@ -4,7 +4,10 @@ import BL.memento.GestorMemento;
 import Model.GameState;
 import Model.Player;
 import BL.observer.concret.TimerSec;
-
+import BL.bridge_dice_buttons.GestorBridge;
+import BL.characters_abstract_fabric.GestorFabricaAbstracta;
+import BL.characters_abstract_fabric.abstract_product.Army;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class GameController {
@@ -17,12 +20,18 @@ public class GameController {
 
     private TimerSec timer;
 
+    private static GestorBridge gestorBridge;
+    private static GestorFabricaAbstracta gestorFabricaAbstracta;
+
     private static GameController gameController;
 
 
     private GameController() {
         this.player1 = new Player(1);
         this.player2 = new Player(2);
+        gestorBridge = new GestorBridge();
+        gestorFabricaAbstracta = new GestorFabricaAbstracta();
+        gestorBridge.iniciarBotones();
     }
 
     public static GameController getInstance(){
@@ -71,6 +80,44 @@ public class GameController {
 
     public Player getPlayerInTurn(){
         return this.playerInTurn;
+    }
+    public String lanzarDados(){
+        return gestorBridge.lanzarDado();
+    }
+
+    public String invocarInfanteria(){
+        if(gestorBridge.invocarInfanteria() == null){
+            return "No se puede invocar infanteria";
+        } else {
+            return gestorFabricaAbstracta.createArmy(gestorBridge.invocarInfanteria(), "player");
+        }
+    }
+    public String invocarArtilleria(){
+        if(gestorBridge.invocarArtilleria() == null){
+            return "No se puede invocar artilleria";
+        } else {
+            return gestorFabricaAbstracta.createArmy(gestorBridge.invocarArtilleria(), "player");
+        }
+    }
+    public String invocarTanque(){
+        if(gestorBridge.invocarTanque() == null){
+            return "No se puede invocar tanque";
+        } else {
+            return gestorFabricaAbstracta.createArmy(gestorBridge.invocarTanque(), "player");
+        }
+    }
+
+    public String obtenerArmada(){
+        ArrayList<Army> ejercito = gestorFabricaAbstracta.getArmyPlayerList();
+        String mensaje = "";
+        for (Army army : ejercito) {
+            mensaje += army.toString() + "\n";
+        }
+        return mensaje;
+    }
+
+    public ArrayList<Integer> almacenarDados(){
+        return gestorBridge.almacenarCofre();
     }
 
 }
