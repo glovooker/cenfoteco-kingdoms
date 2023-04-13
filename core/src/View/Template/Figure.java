@@ -26,6 +26,7 @@ public abstract class Figure {
 
     public final static int AMOUNT_BLOCKS = 5;
 
+
     protected final TileActor[][] board = BoardView.getMatriz();
 
     protected abstract List<Coordinate> filterInvalidCoordinates(List<Coordinate> coordinates, Direction direction);
