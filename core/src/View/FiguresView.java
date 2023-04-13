@@ -3,6 +3,7 @@ package View;
 import View.Components.ButtonComponent;
 import View.Template.Concrete.Figure1;
 import View.Template.Concrete.Figure2;
+import View.Template.Concrete.Figure3;
 import View.Template.Concrete.Figure7;
 import View.Template.Figure;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -36,12 +37,15 @@ public class FiguresView extends Stage {
     private Figure figureFirst;
     private Figure figureSecond;
 
+    private Figure figureThird;
+
     public FiguresView(Viewport viewport, Stage boardStage) {
         super(viewport);
         defineFiguresButtons();
         this.figureSeven = new Figure7(boardStage);
         this.figureFirst = new Figure1(boardStage);
         this.figureSecond = new Figure2(boardStage);
+        this.figureThird = new Figure3(boardStage);
 
     }
 
@@ -65,7 +69,7 @@ public class FiguresView extends Stage {
         figure3 = new ButtonComponent(this, "figure3.png", 200, 200, 20 ,650, new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("hola3");
+                figureThird.creatingWay();
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
