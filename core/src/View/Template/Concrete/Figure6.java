@@ -13,7 +13,6 @@ import java.util.List;
 public class Figure6 extends Figure {
     int cont = 0;
 
-
     public Figure6(Stage boardStage) {
         super(boardStage);
     }
@@ -84,8 +83,6 @@ public class Figure6 extends Figure {
         return futureX < BoardView.getRowsInBoard() - 1 && (futureY >= 1 && futureY <= 20);
     }
 
-
-
     @Override
     protected void paintingWayUp(Coordinate coordinate) {
         int blockNumberToPaint = Figure.AMOUNT_BLOCKS;
@@ -152,7 +149,7 @@ public class Figure6 extends Figure {
                 coordinate.setX(coordinate.getX() + 1);
             }
 
-            tile = BoardView.getTileByPosition(coordinate.getX(), coordinate.getY());;
+            tile = BoardView.getTileByPosition(coordinate.getX(), coordinate.getY());
             tile.setRegionTexture("WhiteWay");
             tile.setBusy(true);
 
