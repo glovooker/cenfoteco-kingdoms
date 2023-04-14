@@ -2,9 +2,9 @@ package View;
 
 import BL.GameController;
 import Model.Board;
-import Screens.PlayScreen;
+import View.Screens.PlayScreen;
 import View.Actor.CastleActor;
-import View.Actor.TileActor;
+import BL.prototype.TileActor;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -104,7 +104,7 @@ public class BoardView  {
         int x = ((int) (Math.random() * 20 + 0));
 
         castleActor.getCastleModel().getCoordinates().setY(row);
-        castleActor.getCastleModel().getCoordinates().setX(14);
+        castleActor.getCastleModel().getCoordinates().setX(x);
 
         int posX = castleActor.getCastleModel().getCoordinates().getX() * 50;
         int posY = castleActor.getCastleModel().getCoordinates().getY() * 50;

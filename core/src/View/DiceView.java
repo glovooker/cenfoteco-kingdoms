@@ -1,9 +1,7 @@
 package View;
 
-import Screens.PlayScreen;
 import View.Components.ButtonComponent;
-import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Texture;
+import View.Screens.PlayScreen;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -35,7 +33,6 @@ public class DiceView extends Stage {
     public DiceView(PlayScreen screen, Viewport gamePort){
         super(gamePort);
 
-        defineButton(imgButton);
         defineFirstDice(screen);
         defineSecondDice(screen);
         defineThirdDice(screen);

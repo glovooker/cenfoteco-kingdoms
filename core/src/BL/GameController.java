@@ -1,30 +1,34 @@
 package BL;
 
-import Model.Castle;
+import BL.memento.GestorMemento;
 import Model.GameState;
 import Model.Player;
-import Model.TimerSec;
-import Observer.Interface.Subject;
-
+import BL.observer.concret.TimerSec;
+import BL.bridge_dice_buttons.GestorBridge;
+import BL.characters_abstract_fabric.GestorFabricaAbstracta;
+import BL.characters_abstract_fabric.abstract_product.Army;
+import java.util.ArrayList;
 import java.util.Random;
-import java.util.Timer;
 
 public class GameController {
 
     private Player player1;
-
     private Player player2;
-
     private  Player playerInTurn;
 
     private TimerSec timer;
 
+    private static GestorBridge gestorBridge;
+    private static GestorFabricaAbstracta gestorFabricaAbstracta;
     private static GameController gameController;
 
 
     private GameController() {
         this.player1 = new Player(1);
         this.player2 = new Player(2);
+        gestorBridge = new GestorBridge();
+        gestorFabricaAbstracta = new GestorFabricaAbstracta();
+        gestorBridge.iniciarBotones();
     }
 
     public static GameController getInstance(){
@@ -38,8 +42,6 @@ public class GameController {
     public Player getPlayer1() {
         return player1;
     }
-
-
     public Player getPlayer2() {
         return player2;
     }
@@ -48,10 +50,9 @@ public class GameController {
         return this.timer;
     }
 
-
     public void choosingStartPlayer(){
         Random r = new Random();
-        int luckyNumber = r.nextInt(2) + 1;
+        int luckyNumber =  1;
         if(luckyNumber == this.player1.getLuckyNumber()){
             this.player1.setTurn(true);
             this.playerInTurn = player1;
@@ -65,7 +66,7 @@ public class GameController {
         state.setPlayer2(this.player2);
         state.setPlayer(this.playerInTurn);
 
-        MementoController mementoController = new MementoController(this.player1, this.player2, this.playerInTurn);
+        GestorMemento mementoController = new GestorMemento(this.player1, this.player2, this.playerInTurn);
         this.timer = new TimerSec();
         this.timer.addObservers(mementoController);
         this.timer.start();
@@ -73,6 +74,45 @@ public class GameController {
 
     public Player getPlayerInTurn(){
         return this.playerInTurn;
+    }
+
+    public String lanzarDados(){
+        return gestorBridge.lanzarDado();
+    }
+
+    public String invocarInfanteria(){
+        if(gestorBridge.invocarInfanteria() == null){
+            return "No se puede invocar infanteria";
+        } else {
+            return gestorFabricaAbstracta.createArmy(gestorBridge.invocarInfanteria(), "player");
+        }
+    }
+    public String invocarArtilleria(){
+        if(gestorBridge.invocarArtilleria() == null){
+            return "No se puede invocar artilleria";
+        } else {
+            return gestorFabricaAbstracta.createArmy(gestorBridge.invocarArtilleria(), "player");
+        }
+    }
+    public String invocarTanque(){
+        if(gestorBridge.invocarTanque() == null){
+            return "No se puede invocar tanque";
+        } else {
+            return gestorFabricaAbstracta.createArmy(gestorBridge.invocarTanque(), "player");
+        }
+    }
+
+    public String obtenerArmada(){
+        ArrayList<Army> ejercito = gestorFabricaAbstracta.getArmyPlayerList();
+        String mensaje = "";
+        for (Army army : ejercito) {
+            mensaje += army.toString() + "\n";
+        }
+        return mensaje;
+    }
+
+    public ArrayList<Integer> almacenarDados(){
+        return gestorBridge.almacenarCofre();
     }
 
 }
