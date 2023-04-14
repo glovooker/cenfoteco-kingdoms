@@ -13,16 +13,13 @@ import java.util.Random;
 public class GameController {
 
     private Player player1;
-
     private Player player2;
-
     private  Player playerInTurn;
 
     private TimerSec timer;
 
     private static GestorBridge gestorBridge;
     private static GestorFabricaAbstracta gestorFabricaAbstracta;
-
     private static GameController gameController;
 
 
@@ -45,8 +42,6 @@ public class GameController {
     public Player getPlayer1() {
         return player1;
     }
-
-
     public Player getPlayer2() {
         return player2;
     }
@@ -54,7 +49,6 @@ public class GameController {
     public TimerSec getTimer() {
         return this.timer;
     }
-
 
     public void choosingStartPlayer(){
         Random r = new Random();
@@ -81,6 +75,7 @@ public class GameController {
     public Player getPlayerInTurn(){
         return this.playerInTurn;
     }
+
     public String lanzarDados(){
         return gestorBridge.lanzarDado();
     }
