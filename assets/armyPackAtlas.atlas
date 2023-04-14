@@ -1,89 +1,82 @@
 
-dicePackAtlas.png
-size: 2048, 2048
+armyPackAtlas.png
+size: 1024, 512
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
-attack
+archer
   rotate: false
-  xy: 2, 732
-  size: 626, 626
-  orig: 626, 626
+  xy: 216, 260
+  size: 120, 100
+  orig: 120, 100
   offset: 0, 0
   index: -1
-fiveDice
+daemon
   rotate: false
-  xy: 1886, 1886
+  xy: 567, 397
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
-fourDice
+dragon
   rotate: false
-  xy: 1258, 1258
-  size: 100, 100
-  orig: 100, 100
+  xy: 216, 362
+  size: 135, 135
+  orig: 135, 135
   offset: 0, 0
   index: -1
-artillery
+golem
   rotate: false
-  xy: 630, 732
-  size: 626, 626
-  orig: 626, 626
+  xy: 2, 237
+  size: 212, 260
+  orig: 212, 260
   offset: 0, 0
   index: -1
-infantry
-  rotate: false
-  xy: 1258, 1360
-  size: 626, 626
-  orig: 626, 626
-  offset: 0, 0
-  index: -1
-movements
-  rotate: false
-  xy: 2, 104
-  size: 626, 626
-  orig: 626, 626
-  offset: 0, 0
-  index: -1
-oneDice
+guardian
   rotate: false
   xy: 2, 2
+  size: 204, 233
+  orig: 204, 233
+  offset: 0, 0
+  index: -1
+kamikaze-iddle
+  rotate: false
+  xy: 771, 397
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
-sixDice
+knight-iddle
   rotate: false
-  xy: 630, 630
+  xy: 669, 397
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
-specialAttack
+orcus-iddle
   rotate: false
-  xy: 2, 1360
-  size: 626, 626
-  orig: 626, 626
+  xy: 465, 391
+  size: 100, 106
+  orig: 100, 106
   offset: 0, 0
   index: -1
-tank
+shaman-idle
   rotate: false
-  xy: 630, 1360
-  size: 626, 626
-  orig: 626, 626
-  offset: 0, 0
-  index: -1
-threeDice
-  rotate: false
-  xy: 630, 528
+  xy: 353, 285
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
-twoDice
+squire-idle
   rotate: false
-  xy: 104, 2
+  xy: 353, 387
+  size: 110, 110
+  orig: 110, 110
+  offset: 0, 0
+  index: -1
+witch-iddle
+  rotate: false
+  xy: 873, 397
   size: 100, 100
   orig: 100, 100
   offset: 0, 0

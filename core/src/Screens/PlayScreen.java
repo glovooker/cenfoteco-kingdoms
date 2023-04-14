@@ -9,6 +9,7 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -21,6 +22,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.ReinoCenfoteco;
+
 
 public class PlayScreen implements Screen {
     private ReinoCenfoteco game;
@@ -57,6 +59,8 @@ public class PlayScreen implements Screen {
 
     private TextureAtlas atlasFigures;
     private TextureAtlas atlasDice;
+    private TextureAtlas atlasArmy;
+
 
     private TextureAtlas castles;
 
@@ -66,10 +70,15 @@ public class PlayScreen implements Screen {
 
     private DiceView diceView;
 
+    private ArmyView armyView;
+
+    private ButtonsActionsView buttonsActionsView;
+
     private ChestView chest;
     private Stage figuresView;
 
     private InformationBar informationBar;
+
 
     public PlayScreen(Music music){
         music.stop();
@@ -77,6 +86,7 @@ public class PlayScreen implements Screen {
         atlasFigures = new TextureAtlas("figuresAtlas.atlas");
         castles = new TextureAtlas("Castles.atlas");
         atlasDice = new TextureAtlas("dicePackAtlas.atlas");
+        atlasArmy = new TextureAtlas("armyPackAtlas.atlas");
         player = new Texture("player.png");
         playerInGame = new TextureRegion(player, 5, 5, 1000, 100);
         heart = new Texture("heart.png");
@@ -112,6 +122,14 @@ public class PlayScreen implements Screen {
         this.diceView.getRoot().setX(800);
         this.diceView.getRoot().setY(500);
 
+        this.armyView = new ArmyView(this, gamePort);
+        this.armyView.getRoot().setX(400);
+        this.armyView.getRoot().setY(200);
+
+        this.buttonsActionsView = new ButtonsActionsView(this, gamePort);
+        this.buttonsActionsView.getRoot().setX(1300);
+        this.buttonsActionsView.getRoot().setY(875);
+
         chest = new ChestView(chestStage);
         informationBar = new InformationBar(gamePort);
 
@@ -122,6 +140,8 @@ public class PlayScreen implements Screen {
         inputMultiplexer.addProcessor(figuresView);
         inputMultiplexer.addProcessor(boardStage);
         inputMultiplexer.addProcessor(diceView);
+        inputMultiplexer.addProcessor(armyView);
+        inputMultiplexer.addProcessor(buttonsActionsView);
     }
 
 
@@ -153,11 +173,18 @@ public class PlayScreen implements Screen {
 
         boardStage.act(Gdx.graphics.getDeltaTime());
         boardStage.draw();
+
         chestStage.act(Gdx.graphics.getDeltaTime());
         chestStage.draw();
 
         diceView.act(Gdx.graphics.getDeltaTime());
         diceView.draw();
+
+        armyView.act(Gdx.graphics.getDeltaTime());
+        armyView.draw();
+
+        buttonsActionsView.act(Gdx.graphics.getDeltaTime());
+        buttonsActionsView.draw();
 
         informationBar.getStage().act(Gdx.graphics.getDeltaTime());
         informationBar.getStage().draw();
@@ -173,6 +200,8 @@ public class PlayScreen implements Screen {
         boardStage.draw();
         figuresView.draw();
         diceView.draw();
+        armyView.draw();
+        buttonsActionsView.draw();
     }
 
     @Override
@@ -199,7 +228,9 @@ public class PlayScreen implements Screen {
         boardStage.dispose();
         figuresView.dispose();
         player.dispose();
-        diceView.draw();
+        diceView.dispose();
+        armyView.dispose();
+        buttonsActionsView.dispose();
     }
 
     public World getWorld(){
@@ -224,6 +255,10 @@ public class PlayScreen implements Screen {
 
     public TextureAtlas getDiceAtlas(){
         return this.atlasDice;
+    }
+
+    public TextureAtlas getArmyAtlas(){
+        return this.atlasArmy;
     }
 
 
