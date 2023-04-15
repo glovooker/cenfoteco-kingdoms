@@ -1,5 +1,6 @@
 package View;
 
+import BL.GameController;
 import View.Components.ButtonComponent;
 import View.Screens.PlayScreen;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -9,6 +10,8 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.Viewport;
+
+import java.util.ArrayList;
 
 public class DiceView extends Stage {
 
@@ -26,32 +29,71 @@ public class DiceView extends Stage {
 
     private Image tankImg;
 
-    private String imgButton= "C:\\Users\\josih\\Desktop\\pixil-frame-0.png";
+    private String imgButton= "rollButton.png";
 
     private static final int SIZE = 90;
 
+    private int infanteria = 0;
+    private int artilleria = 0;
+    private int tanque = 0;
+    private int infanteria2 = 0;
+    private int artilleria2 = 0;
+    private int tanque2 = 0;
+    private int attack = 0;
+    private int sattack = 0;
+
+    private PlayScreen playScreen;
+
+    private final GameController gameController = GameController.getInstance();
+
     public DiceView(PlayScreen screen, Viewport gamePort){
         super(gamePort);
-
-        defineFirstDice(screen);
-        defineSecondDice(screen);
-        defineThirdDice(screen);
+        playScreen = screen;
+        defineButton(imgButton);
+        defineFirstDice(playScreen);
+        defineSecondDice(playScreen);
+        defineThirdDice(playScreen);
 
     }
 
-    public void defineFirstDice(PlayScreen screen){
+    public boolean defineFirstDice(PlayScreen screen){
 
-        firstDiceDefault = screen.getDiceAtlas().findRegion("artillery");
+        if (infanteria != 0 || artilleria != 0 || tanque != 0) {
+           if (infanteria == 1) {
+                firstDiceDefault = screen.getDiceAtlas().findRegion("infantry");
+            } else if (artilleria == 1) {
+                firstDiceDefault = screen.getDiceAtlas().findRegion("artillery");
+            } else if (tanque == 1) {
+                firstDiceDefault = screen.getDiceAtlas().findRegion("tank");
+            }
+        } else {
+            firstDiceDefault = screen.getDiceAtlas().findRegion("tank");
+        }
+
         attackImg = new Image();
         attackImg.setDrawable(new TextureRegionDrawable(firstDiceDefault));
         attackImg.setSize(SIZE,SIZE);
         attackImg.setPosition(640, 170);
         this.addActor(attackImg);
+
+        return true;
     }
 
 
     public void defineSecondDice(PlayScreen screen){
-        secondDiceDefault = screen.getDiceAtlas().findRegion("tank");
+
+        if (infanteria != 0 || artilleria != 0 || tanque != 0) {
+            if (infanteria2 == 1) {
+                secondDiceDefault = screen.getDiceAtlas().findRegion("infantry");
+            } else if (artilleria2 == 1) {
+                secondDiceDefault = screen.getDiceAtlas().findRegion("artillery");
+            } else if (tanque2 == 1) {
+                secondDiceDefault = screen.getDiceAtlas().findRegion("tank");
+            }
+        } else {
+            secondDiceDefault = screen.getDiceAtlas().findRegion("tank");
+        }
+
         specialAttackImg = new Image();
         specialAttackImg.setDrawable(new TextureRegionDrawable(secondDiceDefault));
         specialAttackImg.setSize(SIZE,SIZE);
@@ -61,7 +103,16 @@ public class DiceView extends Stage {
 
 
     public void defineThirdDice(PlayScreen screen){
-        thirdDiceDefault = screen.getDiceAtlas().findRegion("specialAttack");
+        if (attack != 0 || sattack != 0) {
+            if (attack == 1) {
+                thirdDiceDefault = screen.getDiceAtlas().findRegion("attack");
+            } else if (sattack == 1) {
+                thirdDiceDefault = screen.getDiceAtlas().findRegion("specialAttack");
+            }
+        } else {
+            thirdDiceDefault = screen.getDiceAtlas().findRegion("attack");
+        }
+
         tankImg = new Image();
         tankImg.setDrawable(new TextureRegionDrawable(thirdDiceDefault));
         tankImg.setSize(SIZE,SIZE);
@@ -74,13 +125,65 @@ public class DiceView extends Stage {
         rollDice = new ButtonComponent(this, img, 180, 180, 550, -70, new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("ROLL DICE");
+                rollDices(gameController.lanzarDados());
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
     }
 
+    private void rollDices(ArrayList<Integer> dados){
 
+        infanteria = 0;
+        infanteria2 = 0;
+        artilleria = 0;
+        artilleria2 = 0;
+        tanque = 0;
+        tanque2 = 0;
+        attack = 0;
+        sattack = 0;
 
+        if(dados.get(0) == 2){
+            infanteria = 1;
+            infanteria2 = 1;
+        } else if(dados.get(0) == 1){
+            infanteria = 1;
+        }
+
+        if(dados.get(1) == 2){
+            artilleria = 1;
+            artilleria2 = 1;
+        } else if (dados.get(1) == 1 && infanteria == 1) {
+            artilleria2 = 1;
+        } else if(dados.get(1) == 1 && infanteria2 == 1) {
+            artilleria = 1;
+        }
+
+        if(dados.get(2) == 2){
+            tanque = 1;
+            tanque2 = 1;
+        } else if (dados.get(2) == 1 && (infanteria == 1 || artilleria == 1)) {
+            tanque2 = 1;
+        } else if (dados.get(2) == 1 && (infanteria2 == 1 || artilleria2 == 1)) {
+            tanque = 1;
+        }
+
+        if(dados.get(3) == 1){
+            attack = 1;
+        } else if(dados.get(4) == 1){
+            sattack = 1;
+        }
+
+        System.out.println("infanteria1-" + infanteria);
+        System.out.println("artilleria1-" + artilleria);
+        System.out.println("tanque1-" + tanque);
+        System.out.println("infanteria2-" + infanteria2);
+        System.out.println("artilleria2-" + artilleria2);
+        System.out.println("tanque2-" + tanque2);
+
+        defineFirstDice(playScreen);
+        defineSecondDice(playScreen);
+        defineThirdDice(playScreen);
+
+    }
 
 }

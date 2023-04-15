@@ -6,8 +6,8 @@ import Model.Player;
 import BL.observer.interfaces_observer.Observer;
 
 public class GestorMemento implements Observer {
-    private Player player1;
 
+    private Player player1;
     private Player player2;
 
     private Player playerInTurn;
@@ -15,7 +15,6 @@ public class GestorMemento implements Observer {
     private Originator originator;
 
     private CareTaker careTaker;
-
 
 
     public GestorMemento(Player player1, Player player2, Player playerInTurn) {

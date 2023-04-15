@@ -1,6 +1,6 @@
 package View;
 
-import Screens.PlayScreen;
+import View.Screens.PlayScreen;
 import View.Components.ButtonComponent;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -102,7 +102,7 @@ public class ButtonsActionsView extends Stage {
         });
     }
     public void defineButtonTank(String imgButton){
-        buttonTank = new ButtonComponent(this, imgButton, WIDTH, HEIGHT, 120, 380, new InputListener() {
+        buttonTank = new ButtonComponent(this, imgButton, WIDTH, HEIGHT, 145, 380, new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 System.out.println("Summon Tank");

@@ -1,7 +1,7 @@
 package View;
 
 import Model.Army;
-import Screens.PlayScreen;
+import View.Screens.PlayScreen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;

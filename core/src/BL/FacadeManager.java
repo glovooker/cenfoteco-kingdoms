@@ -1,4 +1,4 @@
-package BL;
+/*package BL;
 
 import BL.bridge_dice_buttons.GestorBridge;
 import BL.characters_abstract_fabric.GestorFabricaAbstracta;
@@ -55,4 +55,4 @@ public class FacadeManager {
         return gestorBridge.almacenarCofre();
     }
 
-}
+}*/

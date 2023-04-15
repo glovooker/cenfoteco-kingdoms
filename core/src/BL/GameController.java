@@ -22,7 +22,6 @@ public class GameController {
     private static GestorFabricaAbstracta gestorFabricaAbstracta;
     private static GameController gameController;
 
-
     private GameController() {
         this.player1 = new Player(1);
         this.player2 = new Player(2);
@@ -76,7 +75,7 @@ public class GameController {
         return this.playerInTurn;
     }
 
-    public String lanzarDados(){
+    public ArrayList<Integer> lanzarDados(){
         return gestorBridge.lanzarDado();
     }
 

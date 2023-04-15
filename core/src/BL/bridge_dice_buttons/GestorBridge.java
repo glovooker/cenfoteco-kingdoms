@@ -52,16 +52,16 @@ public class GestorBridge {
         put(6, "sattack");
     }};
 
-
     public GestorBridge() { }
 
-    public String lanzarDado() {
+    public ArrayList<Integer> lanzarDado() {
+        ArrayList<Integer> dadosVolatiles = new ArrayList<Integer>();
 
         dadosInfanteriaVolatil = 0;
         dadosArtilleriaVolatil = 0;
         dadosTanqueVolatil = 0;
-
-        String mensaje = "";
+        dadosAtaque = 0;
+        dadosAtaqueEspecial = 0;
 
         Random random = new Random();
 
@@ -84,12 +84,7 @@ public class GestorBridge {
                 dadosTanqueTotal = dadosTanqueVolatil + dadosTanqueCofre;
 
             }
-
-            mensaje += "Dado invocación " + (i+1) + ": " + TIPOS_DE_INVOCACION.getOrDefault(numRandom, null) + "\n";
         }
-        mensaje += "Dados infanteria acumulados: " + dadosInfanteriaTotal + "\n";
-        mensaje += "Dados artilleria acumulados: " + dadosArtilleriaTotal + "\n";
-        mensaje += "Dados tanque acumulados: " + dadosTanqueTotal + "\n";
 
         int numRandom = random.nextInt(6) + 1;
 
@@ -103,29 +98,38 @@ public class GestorBridge {
             dadosMovimiento.add(dadoMovimiento);
             cantDadosMovimiento = dadosMovimiento.size();
 
+
         } else if (TIPOS_DE_ACCION.getOrDefault(numRandom, null).equals("attack")) {
             dadosAtaque++;
+
         } else if (TIPOS_DE_ACCION.getOrDefault(numRandom, null).equals("sattack")) {
             dadosAtaqueEspecial++;
         }
-        mensaje += "Dado acción " + TIPOS_DE_ACCION.getOrDefault(numRandom, null) + "\n";
-        mensaje += "Ataques acumulados: " + dadosAtaque + "\n";
-        mensaje += "Ataques especiales acumulados: " + dadosAtaqueEspecial + "\n";
-        mensaje += "Movimiento acumulados: " + cantDadosMovimiento + "\n";
 
-        return mensaje;
+        dadosVolatiles.add(0, dadosInfanteriaVolatil);
+        dadosVolatiles.add(1, dadosArtilleriaVolatil);
+        dadosVolatiles.add(2, dadosTanqueVolatil);
+        dadosVolatiles.add(3, dadosAtaque);
+        dadosVolatiles.add(4, dadosAtaqueEspecial);
+
+        return dadosVolatiles;
     }
 
     public ArrayList<Integer> almacenarCofre(){
         ArrayList<Integer> dados = new ArrayList<Integer>();
 
         dados.add(0, dadosInfanteriaVolatil);
-        dados.add(0, dadosArtilleriaVolatil);
-        dados.add(0, dadosTanqueVolatil);
+        dados.add(1, dadosArtilleriaVolatil);
+        dados.add(2, dadosTanqueVolatil);
+        dados.add(3, dadosAtaque);
+        dados.add(4, dadosAtaqueEspecial);
+        dados.add(5, 0);
 
         dadosInfanteriaVolatil = 0;
         dadosArtilleriaVolatil = 0;
         dadosTanqueVolatil = 0;
+        dadosAtaque = 0;
+        dadosAtaqueEspecial = 0;
 
         return dados;
     }

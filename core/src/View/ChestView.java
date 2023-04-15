@@ -146,6 +146,11 @@ public class ChestView {
             }
         }
 
+        System.out.println("Incoming infantries " + incomingInfantries);
+        System.out.println("Incoming gunner " + incomingGunners);
+        System.out.println("Incoming tanks " + incomingTanks);
+        System.out.println("Incoming attacks" + attacks);
+
         if (army < chest.ARMY_AMOUNT_MAX) {
             if (incomingInfantries > 0) {
                 addingInfantries(incomingInfantries);
@@ -193,13 +198,14 @@ public class ChestView {
     }
 
     private void addingAttacks(int attacks){
-        hud.setInitAttacks(attacks + 1);
+        chest.setAttacksInChest(chest.getAttacksInChest() + 1);
         System.out.println("se añadio un ataque");
-        labelAttack.setText(hud.getInitAttacks());
+        labelAttack.setText(chest.getAttacksInChest());
         //se inserta el tanque en el array
     }
 
     private void addingTank(int tanksIncoming){
+        chest.setTank(chest.getTank() + tanksIncoming);
         hud.setInitTank(hud.getInitTank() + tanksIncoming);
         hud.setInitArmy(hud.getInitGunner() + hud.getInitInfantry() + hud.getInitTank());
         System.out.println("se añadio un tanque");
@@ -208,7 +214,8 @@ public class ChestView {
     }
 
     private void addingGunner(int gunnersIncoming){
-        hud.setInitInfantry(hud.getInitGunner() + gunnersIncoming);
+        chest.setGunner(chest.getGunner() + gunnersIncoming);
+        hud.setInitGunner(hud.getInitGunner() + gunnersIncoming);
         hud.setInitArmy(hud.getInitGunner() + hud.getInitInfantry() + hud.getInitTank());
         System.out.println("se añadio un artillero");
         labelGunner.setText(hud.getInitGunner());
@@ -216,6 +223,7 @@ public class ChestView {
     }
 
     private void addingInfantries(int infantriesIncoming){
+        chest.setInfantry(chest.getInfantry() + infantriesIncoming);
         hud.setInitInfantry(hud.getInitInfantry() + infantriesIncoming);
         hud.setInitArmy(hud.getInitGunner() + hud.getInitInfantry() + hud.getInitTank());
         System.out.println("se añadio un infantero");
