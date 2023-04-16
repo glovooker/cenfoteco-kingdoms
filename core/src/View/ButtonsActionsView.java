@@ -23,8 +23,8 @@ public class ButtonsActionsView extends Stage {
     private ButtonComponent buttonDown;
     private ButtonComponent buttonMovements;
 
-    private static final int HEIGHT = 150;
-    private static final int WIDTH = 135;
+    private static final int HEIGHT = 100;
+    private static final int WIDTH = 140;
     private PlayScreen playScreen;
 
     private final GameController gameController = GameController.getInstance();
