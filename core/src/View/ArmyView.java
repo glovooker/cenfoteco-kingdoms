@@ -16,6 +16,8 @@ import java.awt.*;
 
 public class ArmyView extends Stage {
 
+    private Image currentArmyImg;
+
     private TextureRegion armyDefault;
 
     private Image armyImg;
@@ -78,7 +80,9 @@ public class ArmyView extends Stage {
     public void defineArmy(Army armyToInvoque){
 
 
-
+        if (currentArmyImg != null) {
+            currentArmyImg.remove();
+        }
         // Actualiza los valores de los labels con las estadísticas del ejército
         if(armyToInvoque == null){
             movementsLabel.setText("Movements: ");
@@ -88,6 +92,7 @@ public class ArmyView extends Stage {
             categoryLabel.setText("Category: ");
             characterLabel.setText("Character: ");
             //specialAttackLabel.setText("Special Attack: " + army.getSpecialAttack());
+            currentArmyImg = armyImg;
 
         } else {
 
@@ -99,7 +104,7 @@ public class ArmyView extends Stage {
             characterLabel.setText("Character: " + armyToInvoque.getCharacterClass());
             //specialAttackLabel.setText("Special Attack: " + army.getSpecialAttack());
 
-            /*switch (armyToInvoque.getCharacterClass()) {
+            switch (armyToInvoque.getCharacterClass()) {
                 case "ratallero":
                     armyDefault = playScreen.getArmyAtlas().findRegion("knight-iddle");
                     armyImg = new Image();
@@ -107,6 +112,7 @@ public class ArmyView extends Stage {
                     armyImg.setSize(SIZE, SIZE);
                     armyImg.setPosition(600, -100);
                     this.addActor(armyImg);
+                    currentArmyImg = armyImg;
                     break;
                 case "orco":
                     armyDefault = playScreen.getArmyAtlas().findRegion("orcus-iddle");
@@ -115,22 +121,28 @@ public class ArmyView extends Stage {
                     armyImg.setSize(SIZE, SIZE);
                     armyImg.setPosition(600, -100);
                     this.addActor(armyImg);
+                    currentArmyImg = armyImg;
+
                     break;
                 case "chaman":
-                    armyDefault = playScreen.getArmyAtlas().findRegion("shaman-iddle");
+                    armyDefault = playScreen.getArmyAtlas().findRegion("shaman-idle");
                     armyImg = new Image();
                     armyImg.setDrawable(new TextureRegionDrawable(armyDefault));
                     armyImg.setSize(SIZE, SIZE);
                     armyImg.setPosition(600, -100);
                     this.addActor(armyImg);
+                    currentArmyImg = armyImg;
+
                     break;
-                case "lanzero":
-                    armyDefault = playScreen.getArmyAtlas().findRegion("squire-iddle");
+                case "escudero":
+                    armyDefault = playScreen.getArmyAtlas().findRegion("squire-idle");
                     armyImg = new Image();
                     armyImg.setDrawable(new TextureRegionDrawable(armyDefault));
                     armyImg.setSize(SIZE, SIZE);
                     armyImg.setPosition(600, -100);
                     this.addActor(armyImg);
+                    currentArmyImg = armyImg;
+
                     break;
                 case "archero":
                     armyDefault = playScreen.getArmyAtlas().findRegion("archer");
@@ -139,6 +151,8 @@ public class ArmyView extends Stage {
                     armyImg.setSize(SIZE, SIZE);
                     armyImg.setPosition(600, -100);
                     this.addActor(armyImg);
+                    currentArmyImg = armyImg;
+
                     break;
                 case "daemon":
                     armyDefault = playScreen.getArmyAtlas().findRegion("daemon");
@@ -147,6 +161,7 @@ public class ArmyView extends Stage {
                     armyImg.setSize(SIZE, SIZE);
                     armyImg.setPosition(600, -100);
                     this.addActor(armyImg);
+                    currentArmyImg = armyImg;
                     break;
                 case "bruja":
                     armyDefault = playScreen.getArmyAtlas().findRegion("witch-iddle");
@@ -155,15 +170,18 @@ public class ArmyView extends Stage {
                     armyImg.setSize(SIZE, SIZE);
                     armyImg.setPosition(600, -100);
                     this.addActor(armyImg);
+                    currentArmyImg = armyImg;
                     break;
-                case "mago":
-                    armyDefault = playScreen.getArmyAtlas().findRegion("");
-                    armyImg = new Image();
-                    armyImg.setDrawable(new TextureRegionDrawable(armyDefault));
-                    armyImg.setSize(SIZE, SIZE);
-                    armyImg.setPosition(600, -100);
-                    this.addActor(armyImg);
-                    break;
+//                case "mago":
+//                    armyDefault = playScreen.getArmyAtlas().findRegion("");
+//                    armyImg = new Image();
+//                    armyImg.setDrawable(new TextureRegionDrawable(armyDefault));
+//                    armyImg.setSize(SIZE, SIZE);
+//                    armyImg.setPosition(600, -100);
+//                    this.addActor(armyImg);
+                      //currentArmyImg = armyImg;
+
+//                    break;
                 case "dragon":
                     armyDefault = playScreen.getArmyAtlas().findRegion("dragon");
                     armyImg = new Image();
@@ -171,6 +189,7 @@ public class ArmyView extends Stage {
                     armyImg.setSize(SIZE, SIZE);
                     armyImg.setPosition(600, -100);
                     this.addActor(armyImg);
+                    currentArmyImg = armyImg;
                     break;
                 case "golem":
                     armyDefault = playScreen.getArmyAtlas().findRegion("golem");
@@ -179,6 +198,7 @@ public class ArmyView extends Stage {
                     armyImg.setSize(SIZE, SIZE);
                     armyImg.setPosition(600, -100);
                     this.addActor(armyImg);
+                    currentArmyImg = armyImg;
                     break;
                 case "guardian":
                     armyDefault = playScreen.getArmyAtlas().findRegion("guardian");
@@ -187,16 +207,18 @@ public class ArmyView extends Stage {
                     armyImg.setSize(SIZE, SIZE);
                     armyImg.setPosition(600, -100);
                     this.addActor(armyImg);
+                    currentArmyImg = armyImg;
                     break;
-                case "kamikaze-iddle":
+                case "kamikaze":
                     armyDefault = playScreen.getArmyAtlas().findRegion("kamikaze-iddle");
                     armyImg = new Image();
                     armyImg.setDrawable(new TextureRegionDrawable(armyDefault));
                     armyImg.setSize(SIZE, SIZE);
                     armyImg.setPosition(600, -100);
                     this.addActor(armyImg);
+                    currentArmyImg = armyImg;
                     break;
-            }*/
+            }
         }
     }
 }
