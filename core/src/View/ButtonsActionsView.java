@@ -70,7 +70,7 @@ public class ButtonsActionsView extends Stage {
         buttonArtillery = new ButtonComponent(this, imgButton, WIDTH, HEIGHT, 145, 320, new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println(gameController.invocarArtilleria().toString());
+                System.out.println("INVOCANDO: " + gameController.invocarArtilleria().getCharacterType());
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
@@ -80,7 +80,7 @@ public class ButtonsActionsView extends Stage {
         buttonInfatery = new ButtonComponent(this, imgButton, WIDTH, HEIGHT, 145, 440, new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println(gameController.invocarInfanteria().toString());
+                System.out.println("INVOCANDO: " + gameController.invocarInfanteria().getCharacterType());
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
@@ -110,7 +110,7 @@ public class ButtonsActionsView extends Stage {
         buttonTank = new ButtonComponent(this, imgButton, WIDTH, HEIGHT, 145, 380, new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println(gameController.invocarTanque().toString());
+                System.out.println("INVOCANDO: " + gameController.invocarTanque().getCharacterType());
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
