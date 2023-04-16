@@ -1,6 +1,7 @@
 package View.Screens;
 
 import BL.GameController;
+import BL.characters_abstract_fabric.abstract_product.Army;
 import View.*;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
@@ -261,5 +262,7 @@ public class PlayScreen implements Screen {
         return this.atlasArmy;
     }
 
-
+    public void showArmyData(Army army){
+        this.armyView.defineArmy(army);
+    }
 }

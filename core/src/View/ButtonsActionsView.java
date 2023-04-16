@@ -32,6 +32,8 @@ public class ButtonsActionsView extends Stage {
     public ButtonsActionsView(PlayScreen screen, Viewport gamePort){
         super(gamePort);
 
+        playScreen = screen;
+
         defineButtonAttack("AttackButton.png");
         defineButtonSpecialAttack("SpecialAttackButton.png");
         defineButtonTank("SummonTankButton.png");
@@ -70,7 +72,7 @@ public class ButtonsActionsView extends Stage {
         buttonArtillery = new ButtonComponent(this, imgButton, WIDTH, HEIGHT, 145, 320, new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("INVOCANDO: " + gameController.invocarArtilleria().getCharacterType());
+                playScreen.showArmyData(gameController.invocarArtilleria());
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
@@ -80,7 +82,7 @@ public class ButtonsActionsView extends Stage {
         buttonInfatery = new ButtonComponent(this, imgButton, WIDTH, HEIGHT, 145, 440, new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("INVOCANDO: " + gameController.invocarInfanteria().getCharacterType());
+                playScreen.showArmyData(gameController.invocarInfanteria());
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
@@ -110,7 +112,7 @@ public class ButtonsActionsView extends Stage {
         buttonTank = new ButtonComponent(this, imgButton, WIDTH, HEIGHT, 145, 380, new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("INVOCANDO: " + gameController.invocarTanque().getCharacterType());
+                playScreen.showArmyData(gameController.invocarTanque());
                 return super.touchDown(event, x, y, pointer, button);
             }
         });

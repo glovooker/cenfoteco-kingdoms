@@ -27,6 +27,7 @@ public class GameController {
     private GameController() {
         this.player1 = new Player(1);
         this.player2 = new Player(2);
+
         gestorBridge = new GestorBridge();
         gestorFabricaAbstracta = new GestorFabricaAbstracta();
         gestorBridge.iniciarBotones();
