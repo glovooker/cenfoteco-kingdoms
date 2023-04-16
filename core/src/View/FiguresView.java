@@ -54,7 +54,7 @@ public class FiguresView extends Stage {
     }
 
     private void defineFiguresButtons(){
-        figure1 = new ButtonComponent(this, "figure1.png", 160, 160, 40,900, new InputListener(){
+        figure1 = new ButtonComponent(this, "figure1.png", 165, 200, 25 ,890, new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 figureFirst.creatingWay();
@@ -62,7 +62,7 @@ public class FiguresView extends Stage {
             }
         });
 
-        figure2 = new ButtonComponent(this, "figure2.png", 120, 120, 60 ,810, new InputListener(){
+        figure2 = new ButtonComponent(this, "figure2.png", 110, 110, 45 ,840, new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 figureSecond.creatingWay();
@@ -70,7 +70,7 @@ public class FiguresView extends Stage {
             }
         });
 
-        figure3 = new ButtonComponent(this, "figure3.png", 200, 200, 20 ,650, new InputListener(){
+        figure3 = new ButtonComponent(this, "figure3.png", 110, 110, 45 ,700, new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 figureThird.creatingWay();
@@ -78,7 +78,7 @@ public class FiguresView extends Stage {
             }
         });
 
-        figure4 = new ButtonComponent(this, "figure4.png", 180, 180, -35 ,500, new InputListener(){
+        figure4 = new ButtonComponent(this, "figure4.png", 150, 150, -15 ,530, new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 figureFour.creatingWay();
@@ -86,7 +86,7 @@ public class FiguresView extends Stage {
             }
         });
 
-        figure5 = new ButtonComponent(this, "figure5.png", 180, 180, 80 ,500, new InputListener(){
+        figure5 = new ButtonComponent(this, "figure5.png", 150, 150, 75 ,530, new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 figureFive.creatingWay();
@@ -94,7 +94,7 @@ public class FiguresView extends Stage {
             }
         });
 
-        figure6 = new ButtonComponent(this, "figure6.png", 200, 200, 20 ,350, new InputListener(){
+        figure6 = new ButtonComponent(this, "figure6.png", 110, 110, 45 ,400, new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 figureSix.creatingWay();
@@ -102,7 +102,7 @@ public class FiguresView extends Stage {
             }
         });
 
-        figure7 = new ButtonComponent(this, "figure7.png", 180, 180, 30 ,220, new InputListener(){
+        figure7 = new ButtonComponent(this, "figure7.png", 180, 180, 10 ,200, new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 figureSeven.creatingWay();
@@ -110,7 +110,7 @@ public class FiguresView extends Stage {
             }
         });
 
-        figure8 = new ButtonComponent(this, "figure8.png", 180, 180, 20 ,60, new InputListener(){
+        figure8 = new ButtonComponent(this, "figure8.png", 105, 105, 50 ,80, new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 System.out.println("hola8");
