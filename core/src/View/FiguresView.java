@@ -38,6 +38,7 @@ public class FiguresView extends Stage {
     private Figure figureThird;
 
     private Figure figureFour;
+    private Figure figureFive;
 
     public FiguresView(Viewport viewport, Stage boardStage) {
         super(viewport);
@@ -48,6 +49,7 @@ public class FiguresView extends Stage {
         this.figureSix = new Figure6(boardStage);
         this.figureThird = new Figure3(boardStage);
         this.figureFour = new Figure4(boardStage);
+        this.figureFive = new Figure5(boardStage);
 
     }
 
@@ -87,7 +89,7 @@ public class FiguresView extends Stage {
         figure5 = new ButtonComponent(this, "figure5.png", 180, 180, 80 ,500, new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("hola5");
+                figureFive.creatingWay();
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
