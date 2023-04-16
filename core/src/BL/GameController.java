@@ -7,6 +7,8 @@ import BL.observer.concret.TimerSec;
 import BL.bridge_dice_buttons.GestorBridge;
 import BL.characters_abstract_fabric.GestorFabricaAbstracta;
 import BL.characters_abstract_fabric.abstract_product.Army;
+import View.ArmyView;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -14,7 +16,7 @@ public class GameController {
 
     private Player player1;
     private Player player2;
-    private  Player playerInTurn;
+    private Player playerInTurn;
 
     private TimerSec timer;
 
@@ -79,26 +81,29 @@ public class GameController {
         return gestorBridge.lanzarDado();
     }
 
-    public String invocarInfanteria(){
-        if(gestorBridge.invocarInfanteria() == null){
-            return "No se puede invocar infanteria";
-        } else {
-            return gestorFabricaAbstracta.createArmy(gestorBridge.invocarInfanteria(), "player");
+    public Army invocarInfanteria(){
+        if(!(gestorBridge.invocarInfanteria(getPlayerInTurn().getChest().getInfantry()) == null)) {
+            Army infanteriaInvocada = gestorFabricaAbstracta.createArmy(gestorBridge.invocarInfanteria(getPlayerInTurn().getChest().getInfantry()), "player");
+            getPlayerInTurn().getChest().setInfantry(gestorBridge.evaluarCofreInfanteria(getPlayerInTurn().getChest().getInfantry()));
+            return infanteriaInvocada;
         }
+        return null;
     }
-    public String invocarArtilleria(){
-        if(gestorBridge.invocarArtilleria() == null){
-            return "No se puede invocar artilleria";
-        } else {
-            return gestorFabricaAbstracta.createArmy(gestorBridge.invocarArtilleria(), "player");
+    public Army invocarArtilleria(){
+        if(!(gestorBridge.invocarArtilleria(getPlayerInTurn().getChest().getGunner()) == null)){
+            Army artilleriaInvocada = gestorFabricaAbstracta.createArmy(gestorBridge.invocarArtilleria(getPlayerInTurn().getChest().getGunner()), "player");
+            getPlayerInTurn().getChest().setGunner(gestorBridge.evaluarCofreArtilleria(getPlayerInTurn().getChest().getGunner()));
+            return artilleriaInvocada;
         }
+        return null;
     }
-    public String invocarTanque(){
-        if(gestorBridge.invocarTanque() == null){
-            return "No se puede invocar tanque";
-        } else {
-            return gestorFabricaAbstracta.createArmy(gestorBridge.invocarTanque(), "player");
+    public Army invocarTanque(){
+        if(!(gestorBridge.invocarTanque(getPlayerInTurn().getChest().getTank()) == null)){
+            Army tanqueInvocado = gestorFabricaAbstracta.createArmy(gestorBridge.invocarTanque(getPlayerInTurn().getChest().getTank()), "player");
+            getPlayerInTurn().getChest().setTank(gestorBridge.evaluarCofreTanque(getPlayerInTurn().getChest().getTank()));
+            return tanqueInvocado;
         }
+        return null;
     }
 
     public String obtenerArmada(){

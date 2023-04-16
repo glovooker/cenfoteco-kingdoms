@@ -1,8 +1,7 @@
 package View;
 
-import Model.Army;
+import BL.characters_abstract_fabric.abstract_product.Army;
 import View.Screens.PlayScreen;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -11,8 +10,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.Viewport;
-
-import java.awt.*;
 
 public class ArmyView extends Stage {
 
@@ -25,16 +22,14 @@ public class ArmyView extends Stage {
     private Label defenseLabel;
     private Label categoryLabel;
     private Label specialAttackLabel;
-    private Army army = new Army();
 
     private static final int SIZE = 130;
 
     public ArmyView(PlayScreen screen, Viewport gamePort){
         super(gamePort);
 
-
         defineLabels();
-        defineArmy(screen);
+        defineArmy(screen, null);
     }
 
     private void defineLabels() {
@@ -69,33 +64,39 @@ public class ArmyView extends Stage {
         this.addActor(specialAttackLabel);
     }
 
-    public void defineArmy(PlayScreen screen){
-
-
-        army.setMovements(5);
-        army.setHitPoints(10);
-        army.setAttacks(3);
-        army.setDefense(2);
-        army.setCategory("Infantry");
-        army.setSpecialAttack("Charge");
+    public void defineArmy(PlayScreen screen, Army army){
 
         // Actualiza los valores de los labels con las estadísticas del ejército
-        movementsLabel.setText("Movements: " + army.getMovements());
-        hitPointsLabel.setText("Hit Points: " + army.getHitPoints());
-        attacksLabel.setText("Attacks: " + army.getAttacks());
-        defenseLabel.setText("Defense: " + army.getDefense());
-        categoryLabel.setText("Category: " + army.getCategory());
-        specialAttackLabel.setText("Special Attack: " + army.getSpecialAttack());
+        if(army == null){
+            movementsLabel.setText("Movements: ");
+            hitPointsLabel.setText("Hit Points: ");
+            attacksLabel.setText("Attacks: ");
+            defenseLabel.setText("Defense: ");
+            categoryLabel.setText("Category: ");
+            //specialAttackLabel.setText("Special Attack: " + army.getSpecialAttack());
 
+            armyDefault = screen.getArmyAtlas().findRegion("guardian");
+            armyImg = new Image();
+            armyImg.setDrawable(new TextureRegionDrawable(armyDefault));
+            armyImg.setSize(SIZE,SIZE);
+            armyImg.setPosition(600, -100);
+            this.addActor(armyImg);
 
-        armyDefault = screen.getArmyAtlas().findRegion("guardian");
-        armyImg = new Image();
-        armyImg.setDrawable(new TextureRegionDrawable(armyDefault));
-        armyImg.setSize(SIZE,SIZE);
-        armyImg.setPosition(600, -100);
-        this.addActor(armyImg);
+        } else {
+
+            movementsLabel.setText("Movements: " + army.getMaxMove());
+            hitPointsLabel.setText("Life: " + army.getLife());
+            attacksLabel.setText("Attacks: " + army.getAttack());
+            defenseLabel.setText("Defense: " + army.getDefense());
+            categoryLabel.setText("Category: " + army.getCharacterType());
+            //specialAttackLabel.setText("Special Attack: " + army.getSpecialAttack());
+
+            armyDefault = screen.getArmyAtlas().findRegion("guardian");
+            armyImg = new Image();
+            armyImg.setDrawable(new TextureRegionDrawable(armyDefault));
+            armyImg.setSize(SIZE,SIZE);
+            armyImg.setPosition(600, -100);
+            this.addActor(armyImg);
+        }
     }
-
-
-
 }

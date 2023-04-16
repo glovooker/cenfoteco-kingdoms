@@ -87,5 +87,5 @@ public class Chest {
                 ", tank=" + tank +
                 ", armyInChest=" + armyInChest +
                 '}';
-    }   
+    }
 }

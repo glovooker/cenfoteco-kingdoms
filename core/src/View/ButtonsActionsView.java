@@ -1,5 +1,7 @@
 package View;
 
+import BL.GameController;
+import BL.characters_abstract_fabric.abstract_product.Army;
 import View.Screens.PlayScreen;
 import View.Components.ButtonComponent;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -23,6 +25,9 @@ public class ButtonsActionsView extends Stage {
 
     private static final int HEIGHT = 150;
     private static final int WIDTH = 135;
+    private PlayScreen playScreen;
+
+    private final GameController gameController = GameController.getInstance();
 
     public ButtonsActionsView(PlayScreen screen, Viewport gamePort){
         super(gamePort);
@@ -65,7 +70,7 @@ public class ButtonsActionsView extends Stage {
         buttonArtillery = new ButtonComponent(this, imgButton, WIDTH, HEIGHT, 145, 320, new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("Summon Artillery");
+                System.out.println(gameController.invocarArtilleria().toString());
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
@@ -75,7 +80,7 @@ public class ButtonsActionsView extends Stage {
         buttonInfatery = new ButtonComponent(this, imgButton, WIDTH, HEIGHT, 145, 440, new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("Summon Infantery");
+                System.out.println(gameController.invocarInfanteria().toString());
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
@@ -105,7 +110,7 @@ public class ButtonsActionsView extends Stage {
         buttonTank = new ButtonComponent(this, imgButton, WIDTH, HEIGHT, 145, 380, new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("Summon Tank");
+                System.out.println(gameController.invocarTanque().toString());
                 return super.touchDown(event, x, y, pointer, button);
             }
         });

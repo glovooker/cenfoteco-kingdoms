@@ -17,15 +17,12 @@ public class GestorBridge {
     private BtnAccion btnMovimiento = new BtnAccion("Movimiento");
 
     private int dadosInfanteriaVolatil = 0;
-    private int dadosInfanteriaCofre = 0;
     private int dadosInfanteriaTotal = 0;
 
     private int dadosArtilleriaVolatil = 0;
-    private int dadosArtilleriaCofre = 0;
     private int dadosArtilleriaTotal = 0;
 
     private int dadosTanqueVolatil = 0;
-    private int dadosTanqueCofre = 0;
     private int dadosTanqueTotal = 0;
 
     private ArrayList<DadoMovimiento> dadosMovimiento = new ArrayList<DadoMovimiento>();
@@ -71,17 +68,14 @@ public class GestorBridge {
             if (TIPOS_DE_INVOCACION.getOrDefault(numRandom, null).equals("infanteria")) {
 
                 dadosInfanteriaVolatil++;
-                dadosInfanteriaTotal = dadosInfanteriaVolatil + dadosInfanteriaCofre;
 
             } else if (TIPOS_DE_INVOCACION.getOrDefault(numRandom, null).equals("artilleria")) {
 
                 dadosArtilleriaVolatil++;
-                dadosArtilleriaTotal = dadosArtilleriaVolatil + dadosArtilleriaCofre;
 
             } else if (TIPOS_DE_INVOCACION.getOrDefault(numRandom, null).equals("tanque")) {
 
                 dadosTanqueVolatil++;
-                dadosTanqueTotal = dadosTanqueVolatil + dadosTanqueCofre;
 
             }
         }
@@ -134,19 +128,57 @@ public class GestorBridge {
         return dados;
     }
 
-    public String invocarInfanteria(){
-        dadosInfanteriaTotal = btnInvocacionInfanteria.getGlobalValidacion().validar(dadosInfanteriaTotal);
+    public String invocarInfanteria(int infanteriasCofre){
+        dadosInfanteriaTotal = btnInvocacionInfanteria.getGlobalValidacion().validar(dadosInfanteriaVolatil + infanteriasCofre) ;
         return btnInvocacionInfanteria.onPressed(btnInvocacionInfanteria.getGlobalValidacion().getEstado());
     }
 
-    public String invocarArtilleria(){
-        dadosArtilleriaTotal = btnInvocacionArtilleria.getGlobalValidacion().validar(dadosArtilleriaTotal);
+    public int evaluarCofreInfanteria(int infanteriasCofre){
+        if (dadosInfanteriaVolatil == 1){
+            dadosInfanteriaVolatil = 0;
+            infanteriasCofre -= 1;
+        } else if (dadosInfanteriaVolatil == 0){
+            infanteriasCofre -= 2;
+        }else if (dadosInfanteriaVolatil == 2){
+            dadosInfanteriaVolatil = 0;
+        }
+        return infanteriasCofre;
+    }
+
+    public String invocarArtilleria(int artilleriasCofre){
+        dadosArtilleriaTotal = btnInvocacionArtilleria.getGlobalValidacion().validar(dadosArtilleriaVolatil + artilleriasCofre);
         return btnInvocacionArtilleria.onPressed(btnInvocacionArtilleria.getGlobalValidacion().getEstado());
     }
 
-    public String invocarTanque(){
-        dadosTanqueTotal = btnInvocacionTanque.getGlobalValidacion().validar(dadosTanqueTotal);
+    public int evaluarCofreArtilleria(int artilleriasCofre){
+        if (dadosArtilleriaVolatil == 1){
+            dadosArtilleriaVolatil = 0;
+            artilleriasCofre -= 2;
+        } else if (dadosArtilleriaVolatil == 0){
+            artilleriasCofre -= 3;
+        } else if (dadosArtilleriaVolatil == 2){
+            dadosArtilleriaVolatil = 0;
+            artilleriasCofre -= 1;
+        }
+        return artilleriasCofre;
+    }
+
+    public String invocarTanque(int tanquesCofre){
+        dadosTanqueTotal = btnInvocacionTanque.getGlobalValidacion().validar(dadosTanqueVolatil + tanquesCofre);
         return btnInvocacionTanque.onPressed(btnInvocacionTanque.getGlobalValidacion().getEstado());
+    }
+
+    public int evaluarCofreTanque(int tanquesCofre){
+        if (dadosTanqueVolatil == 1){
+            dadosTanqueVolatil = 0;
+            tanquesCofre -= 3;
+        } else if (dadosTanqueVolatil == 0){
+            tanquesCofre -= 4;
+        } else if (dadosTanqueVolatil == 2){
+            dadosTanqueVolatil = 0;
+            tanquesCofre -= 2;
+        }
+        return tanquesCofre;
     }
 
     public String atacar(){

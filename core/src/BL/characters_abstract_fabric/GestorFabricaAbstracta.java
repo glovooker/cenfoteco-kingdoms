@@ -29,7 +29,7 @@ public class GestorFabricaAbstracta {
         playerMax.put("artilleria", 4);
     }
 
-    public String createArmy(String characterType, String owner) {
+    public Army createArmy(String characterType, String owner) {
         Army army = null;
         if (owner.equals("player")) {
             do{
@@ -44,7 +44,7 @@ public class GestorFabricaAbstracta {
             if (playerMax.get(characterType) > 0 && army != null) {
                 playerMax.put(characterType, playerMax.get(characterType) - 1);
                 armyPlayerList.add(army);
-                return "Personaje " + characterType + " creado correctamente";
+                return army;
             }
         } else {
             do{
@@ -59,10 +59,10 @@ public class GestorFabricaAbstracta {
             if (enemyMax.get(characterType) > 0 && army != null) {
                 enemyMax.put(characterType, enemyMax.get(characterType) - 1);
                 armyEnemyList.add(army);
-                return "Personaje " + characterType + " creado correctamente";
+                return army;
             }
         }
-        return "No hay espacio para crear más personajes " + characterType + " para el jugador " + owner;
+        return null;
     }
 
     public ArrayList<Army> getArmyPlayerList() {
