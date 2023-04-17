@@ -135,7 +135,7 @@ public class Figure1 extends Figure {
 
     @Override
     protected void calculatingNextMovement(int x, int y, Direction direction) {
-        getState().getPlayer().getCoordinatesList().clear();
+        getState().getPlayerInTurn().getCoordinatesList().clear();
 
         int newY = direction == Direction.Down ? y - 1 : y + 1;
 
@@ -143,15 +143,15 @@ public class Figure1 extends Figure {
         int leftButtonX = initialX -1;
 
         if(initialX > 0 && !board[y][leftButtonX].isBusy()){
-            getState().getPlayer().getCoordinatesList().add(new Coordinate(leftButtonX, y));
+            getState().getPlayerInTurn().getCoordinatesList().add(new Coordinate(leftButtonX, y));
         }
 
         if(x < 19 && !board[y][x].isBusy()){
-            getState().getPlayer().getCoordinatesList().add(new Coordinate(x, y));
+            getState().getPlayerInTurn().getCoordinatesList().add(new Coordinate(x, y));
         }
 
         if(newY < 21 && newY > 0 && !board[newY][initialX+2].isBusy()){
-            getState().getPlayer().getCoordinatesList().add(new Coordinate(initialX + 2, newY));
+            getState().getPlayerInTurn().getCoordinatesList().add(new Coordinate(initialX + 2, newY));
         }
 
     }

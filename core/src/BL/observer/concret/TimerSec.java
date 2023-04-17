@@ -34,7 +34,7 @@ public class TimerSec extends TimerTask implements Subject {
         this.time--;
 
         if(this.time == 0) {
-            changePlayerInTurn();
+            this.state.changePlayerInTurn();
         }
 
         notifyObserver();
@@ -43,7 +43,6 @@ public class TimerSec extends TimerTask implements Subject {
             this.time = TIME_IN_GAME;
         }
     }
-
 
 
     @Override
@@ -64,12 +63,4 @@ public class TimerSec extends TimerTask implements Subject {
         }
     }
 
-    private void changePlayerInTurn() {
-        Player playerInTurn = this.state.getPlayer().equals(this.state.getPlayer1())
-                ? this.state.getPlayer2()
-                : this.state.getPlayer1();
-
-        this.state.setPlayer(playerInTurn);
-        System.out.println(this.state.getPlayer().toString());
-    }
 }

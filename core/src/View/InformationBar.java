@@ -1,6 +1,7 @@
 package View;
 
 import BL.GameController;
+import Model.GameState;
 import Model.Player;
 import View.Components.HudChest;
 import View.Components.HudMain;
@@ -24,12 +25,11 @@ public class InformationBar {
     private HudMain hud;
 
 
-
-    private final GameController gameController = GameController.getInstance();
+    private final GameState gameState = GameState.getStateInstance();
 
     public InformationBar(Viewport gamePort){
         this.stage = new Stage(gamePort);
-        playerInTurn = gameController.getPlayerInTurn();
+        playerInTurn = gameState.getPlayerInTurn();
         hud  = new HudMain(this.stage, playerInTurn);
         labelPlayerGaming = hud.getPlayerInGame();
         labelLife = hud.getLife();

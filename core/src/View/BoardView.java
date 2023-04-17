@@ -101,7 +101,8 @@ public class BoardView  {
     }
 
     private void addingCastlesToBoard(int row, CastleActor castleActor){
-        int x = ((int) (Math.random() * 20 + 0));
+        int x = ((int) (Math.random() * 10 + 5));
+
 
         castleActor.getCastleModel().getCoordinates().setY(row);
         castleActor.getCastleModel().getCoordinates().setX(x);

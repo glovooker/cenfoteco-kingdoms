@@ -1,48 +1,34 @@
 package BL.memento;
 
-
+import BL.memento.CareTaker;
+import BL.memento.Originator;
 import Model.GameState;
-import Model.Player;
+
 import BL.observer.interfaces_observer.Observer;
 
 public class GestorMemento implements Observer {
 
-    private Player player1;
-    private Player player2;
-
-    private Player playerInTurn;
+    private GameState gameState = GameState.getStateInstance();
 
     private Originator originator;
 
     private CareTaker careTaker;
 
 
-    public GestorMemento(Player player1, Player player2, Player playerInTurn) {
+
+    public GestorMemento() {
         this.originator = new Originator();
         this.careTaker = new CareTaker();
-        this.player1 = player1;
-        this.player2 = player2;
-        this.playerInTurn = playerInTurn;
     }
 
-    private void updatePlayer1(Player player1){
-        this.originator.newStatePlayer1(player1);
-        this.player1 = player1;
+    private void updateGameState(GameState state){
+        this.originator.newGameState(state);
+        this.gameState = state;
         this.careTaker.setMemento(this.careTaker.getMemento());
     }
 
-    private void updatePlayer2(Player player2){
-        this.originator.newStatePlayer2(player2);
-        this.player2 = player2;
-        this.careTaker.setMemento(this.careTaker.getMemento());
-    }
-
-    public void saveStatePlayer1(Player playerInTurn){
-        updatePlayer1(playerInTurn);
-    }
-
-    public void saveStatePlayer2(Player playerInTurn){
-        updatePlayer2(playerInTurn);
+    private void saveGameState(GameState state){
+        updateGameState(state);
     }
 
     private void updateMemento(){
@@ -55,12 +41,6 @@ public class GestorMemento implements Observer {
 
     @Override
     public void update(GameState state) {
-        if(this.playerInTurn.equals(this.player1)){
-            saveStatePlayer1(this.playerInTurn);
-        }else{
-            saveStatePlayer2(this.playerInTurn);
-        }
-
-        this.playerInTurn = state.getPlayer();
+        saveGameState(state);
     }
 }

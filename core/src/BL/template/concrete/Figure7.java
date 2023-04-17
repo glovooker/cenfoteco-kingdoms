@@ -98,24 +98,24 @@ public class Figure7 extends Figure {
 
     @Override
     protected void calculatingNextMovement(int x, int y, Direction direction) {
-        getState().getPlayer().getCoordinatesList().clear();
+        getState().getPlayerInTurn().getCoordinatesList().clear();
 
         int newY = direction == Direction.Down ? y + 1 : y -1;
         if(x > 0){
-            getState().getPlayer().getCoordinatesList().add(new Coordinate(x-1, newY));
+            getState().getPlayerInTurn().getCoordinatesList().add(new Coordinate(x-1, newY));
         }
 
         if(x < 19){
 
-            getState().getPlayer().getCoordinatesList().add(new Coordinate(x+1, newY));
+            getState().getPlayerInTurn().getCoordinatesList().add(new Coordinate(x+1, newY));
         }
 
         if(direction == Direction.Up && y < 19){
-            getState().getPlayer().getCoordinatesList().add(new Coordinate(x, y));
+            getState().getPlayerInTurn().getCoordinatesList().add(new Coordinate(x, y));
         }
 
         if(direction == Direction.Down && y > 0){
-            getState().getPlayer().getCoordinatesList().add(new Coordinate(x, y));
+            getState().getPlayerInTurn().getCoordinatesList().add(new Coordinate(x, y));
         }
     }
 }

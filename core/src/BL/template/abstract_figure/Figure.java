@@ -26,6 +26,7 @@ public abstract class Figure {
 
     public final static int AMOUNT_BLOCKS = 5;
 
+
     protected final TileActor[][] board = BoardView.getMatriz();
 
     protected abstract List<Coordinate> filterInvalidCoordinates(List<Coordinate> coordinates, Direction direction);
@@ -34,12 +35,12 @@ public abstract class Figure {
     protected abstract void paintingWayDown(Coordinate coordinate);
 
     private boolean isPaintingUp() {
-        return getState().getPlayer().equals(getState().getPlayer1());
+        return getState().getPlayerInTurn().equals(getState().getPlayer1());
     }
 
     protected void createNextMoveButtons() {
         Direction direction = isPaintingUp() ? Direction.Up : Direction.Down;
-        List<Coordinate> coordinates = filterInvalidCoordinates(this.state.getPlayer().getCoordinatesList(), direction);
+        List<Coordinate> coordinates = filterInvalidCoordinates(this.state.getPlayerInTurn().getCoordinatesList(), direction);
 
         for (final Coordinate coordinate: coordinates) {
             ButtonComponent btnComp = new ButtonComponent(this.boardStage, "buttonNextMove.png", 50, 50, coordinate.getX() * 50,coordinate.getY() * 50, new InputListener(){
@@ -66,10 +67,10 @@ public abstract class Figure {
     }
 
     public void creatingWay() {
-        if(this.state.getPlayer().getCoordinatesList() == null) {
-            this.state.getPlayer().initializeCoordinatesList();
+        if(this.state.getPlayerInTurn().getCoordinatesList() == null) {
+            this.state.getPlayerInTurn().initializeCoordinatesList();
 
-            Coordinate initialCoordinate = this.state.getPlayer().getCastle().getCoordinates();
+            Coordinate initialCoordinate = this.state.getPlayerInTurn().getCastle().getCoordinates();
             if(isPaintingUp()){
                 initialCoordinate.setY(initialCoordinate.getY() + 1);
                 paintingWayUp(initialCoordinate);

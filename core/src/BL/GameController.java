@@ -7,7 +7,6 @@ import BL.observer.concret.TimerSec;
 import BL.bridge_dice_buttons.GestorBridge;
 import BL.characters_abstract_fabric.GestorFabricaAbstracta;
 import BL.characters_abstract_fabric.abstract_product.Army;
-import View.ArmyView;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -23,6 +22,9 @@ public class GameController {
     private static GestorBridge gestorBridge;
     private static GestorFabricaAbstracta gestorFabricaAbstracta;
     private static GameController gameController;
+
+    private GameState gameState = GameState.getStateInstance();
+
 
     private GameController() {
         this.player1 = new Player(1);
@@ -54,7 +56,7 @@ public class GameController {
 
     public void choosingStartPlayer(){
         Random r = new Random();
-        int luckyNumber =  1;
+        int luckyNumber = /*1;//*/r.nextInt() * 2 + 1;
         if(luckyNumber == this.player1.getLuckyNumber()){
             this.player1.setTurn(true);
             this.playerInTurn = player1;
@@ -63,15 +65,18 @@ public class GameController {
             this.playerInTurn = player2;
         }
 
-        GameState state = GameState.getStateInstance();
-        state.setPlayer1(this.player1);
-        state.setPlayer2(this.player2);
-        state.setPlayer(this.playerInTurn);
+        initializeGameState();
 
-        GestorMemento mementoController = new GestorMemento(this.player1, this.player2, this.playerInTurn);
+        GestorMemento mementoController = new GestorMemento();
         this.timer = new TimerSec();
         this.timer.addObservers(mementoController);
         this.timer.start();
+    }
+
+    private void initializeGameState(){
+        this.gameState.setPlayer1(this.player1);
+        this.gameState.setPlayer2(this.player2);
+        this.gameState.setPlayer(this.playerInTurn);
     }
 
     public Player getPlayerInTurn(){
