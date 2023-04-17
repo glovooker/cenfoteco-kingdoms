@@ -5,9 +5,9 @@ import Model.GameState;
 import Model.Player;
 import Model.TimerSec;
 import Observer.Interface.Subject;
-
 import java.util.Random;
 import java.util.Timer;
+
 
 public class GameController {
 
@@ -63,7 +63,6 @@ public class GameController {
         }
 
         initializeGameState();
-
         MementoController mementoController = new MementoController();
         this.timer = new TimerSec();
         this.timer.addObservers(mementoController);

@@ -1,6 +1,4 @@
 package BL;
-
-
 import Memento.CareTaker;
 import Memento.Originator;
 import Model.GameState;
@@ -14,7 +12,6 @@ public class MementoController implements Observer {
     private Originator originator;
 
     private CareTaker careTaker;
-
 
 
     public MementoController() {

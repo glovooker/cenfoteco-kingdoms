@@ -62,7 +62,6 @@ public class GameState {
                 : this.getPlayer1();
 
         this.player1.getCastle().setLife(this.player1.getCastle().getLife() - 1);
-
         this.setPlayer(playerInTurn);
     }
 

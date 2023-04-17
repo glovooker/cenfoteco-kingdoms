@@ -9,7 +9,6 @@ public class Originator {
         this.state = new Snapshot();
     }
 
-
     public void newGameState(GameState state){
         this.state.newPhotoGameState(state);
     }
