@@ -2,12 +2,11 @@ package Model;
 
 public class Chest {
 
-    private int movementsInChest = 0;//deberia ser un array de enteros con los movimientos
+    private int movementsInChest = 0;
 
-    private int attacksInChest = 0;//deberia ser un array de objetos tipo attaque
+    private int attacksInChest = 0;
 
-    private int specialAttackInChest = 0;//deberia ser un array de objetos tipo ataque especial
-
+    private int specialAttackInChest = 0;
     private int gunner = 0;
 
     private int infantry = 0;

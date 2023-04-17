@@ -2,9 +2,9 @@ package View;
 
 import BL.GameController;
 import Model.Board;
-import Screens.PlayScreen;
+import View.Screens.PlayScreen;
 import View.Actor.CastleActor;
-import View.Actor.TileActor;
+import BL.prototype.TileActor;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.Viewport;

@@ -1,24 +1,25 @@
 package BL;
 
-import Model.Castle;
+import BL.memento.GestorMemento;
 import Model.GameState;
 import Model.Player;
-import Model.TimerSec;
-import Observer.Interface.Subject;
+import BL.observer.concret.TimerSec;
+import BL.bridge_dice_buttons.GestorBridge;
+import BL.characters_abstract_fabric.GestorFabricaAbstracta;
+import BL.characters_abstract_fabric.abstract_product.Army;import java.util.ArrayList;
 import java.util.Random;
-import java.util.Timer;
 
 
 public class GameController {
 
     private Player player1;
-
     private Player player2;
-
-    private  Player playerInTurn;
+    private Player playerInTurn;
 
     private TimerSec timer;
 
+    private static GestorBridge gestorBridge;
+    private static GestorFabricaAbstracta gestorFabricaAbstracta;
     private static GameController gameController;
 
     private GameState gameState = GameState.getStateInstance();
@@ -27,6 +28,11 @@ public class GameController {
     private GameController() {
         this.player1 = new Player(1);
         this.player2 = new Player(2);
+        player1.getChest().setAttacksInChest(2);
+        player1.getChest().setSpecialAttackInChest(1);
+        gestorBridge = new GestorBridge();
+        gestorFabricaAbstracta = new GestorFabricaAbstracta();
+        gestorBridge.iniciarBotones();
     }
 
     public static GameController getInstance(){
@@ -40,8 +46,6 @@ public class GameController {
     public Player getPlayer1() {
         return player1;
     }
-
-
     public Player getPlayer2() {
         return player2;
     }
@@ -49,7 +53,6 @@ public class GameController {
     public TimerSec getTimer() {
         return this.timer;
     }
-
 
     public void choosingStartPlayer(){
         Random r = new Random();
@@ -63,7 +66,7 @@ public class GameController {
         }
 
         initializeGameState();
-        MementoController mementoController = new MementoController();
+        GestorMemento mementoController = new GestorMemento();
         this.timer = new TimerSec();
         this.timer.addObservers(mementoController);
         this.timer.start();
@@ -77,6 +80,48 @@ public class GameController {
 
     public Player getPlayerInTurn(){
         return this.playerInTurn;
+    }
+
+    public ArrayList<Integer> lanzarDados(){
+        return gestorBridge.lanzarDado();
+    }
+
+    public Army invocarInfanteria(){
+        if(!(gestorBridge.invocarInfanteria(gameState.getPlayerInTurn().getChest().getInfantry()) == null)) {
+            Army infanteriaInvocada = gestorFabricaAbstracta.createArmy(gestorBridge.invocarInfanteria(gameState.getPlayerInTurn().getChest().getInfantry()), "player");
+            getPlayerInTurn().getChest().setInfantry(gestorBridge.evaluarCofreInfanteria(gameState.getPlayerInTurn().getChest().getInfantry()));
+            return infanteriaInvocada;
+        }
+        return null;
+    }
+    public Army invocarArtilleria(){
+        if(!(gestorBridge.invocarArtilleria(gameState.getPlayerInTurn().getChest().getGunner()) == null)){
+            Army artilleriaInvocada = gestorFabricaAbstracta.createArmy(gestorBridge.invocarArtilleria(gameState.getPlayerInTurn().getChest().getGunner()), "player");
+            getPlayerInTurn().getChest().setGunner(gestorBridge.evaluarCofreArtilleria(gameState.getPlayerInTurn().getChest().getGunner()));
+            return artilleriaInvocada;
+        }
+        return null;
+    }
+    public Army invocarTanque(){
+        if(!(gestorBridge.invocarTanque(gameState.getPlayerInTurn().getChest().getTank()) == null)){
+            Army tanqueInvocado = gestorFabricaAbstracta.createArmy(gestorBridge.invocarTanque(gameState.getPlayerInTurn().getChest().getTank()), "player");
+            getPlayerInTurn().getChest().setTank(gestorBridge.evaluarCofreTanque(gameState.getPlayerInTurn().getChest().getTank()));
+            return tanqueInvocado;
+        }
+        return null;
+    }
+
+    public String obtenerArmada(){
+        ArrayList<Army> ejercito = gestorFabricaAbstracta.getArmyPlayerList();
+        String mensaje = "";
+        for (Army army : ejercito) {
+            mensaje += army.toString() + "\n";
+        }
+        return mensaje;
+    }
+
+    public ArrayList<Integer> almacenarDados(){
+        return gestorBridge.almacenarCofre();
     }
 
 }

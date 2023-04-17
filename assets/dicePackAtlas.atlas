@@ -25,7 +25,7 @@ fourDice
   orig: 100, 100
   offset: 0, 0
   index: -1
-gunner
+artillery
   rotate: false
   xy: 630, 732
   size: 626, 626
