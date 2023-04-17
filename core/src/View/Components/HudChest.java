@@ -1,11 +1,14 @@
 package View.Components;
 
+import BL.GameController;
+import BL.observer.interfaces_observer.Observer;
+import Model.GameState;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 
-public class HudChest {
+public class HudChest implements Observer {
 
     private Label countGunner;
 
@@ -29,7 +32,7 @@ public class HudChest {
     private int initAttacks;
     private int initSpecialAttack;
 
-
+    private GameController controller = GameController.getInstance();
 
     public HudChest(Stage stage, int initMovements, int initGunner, int initInfantry, int initTank, int initSpecialAttack, int initAttacks){
         this.initMovements = initMovements;
@@ -38,6 +41,7 @@ public class HudChest {
         this.initTank = initTank;
         this.initSpecialAttack = initSpecialAttack;
         this.initAttacks = initAttacks;
+        controller.getTimer().addObservers(this);
 
 
         countGunner = new Label(String.format("%01d", initGunner), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
@@ -156,4 +160,16 @@ public class HudChest {
         this.initSpecialAttack = amount;
     }
 
+    @Override
+    public void update(GameState state) {
+        if(state.getTime() < 0){
+            this.countGunner.setText(state.getPlayerInTurn().getChest().getGunner());
+            this.countInfantry.setText(state.getPlayerInTurn().getChest().getInfantry());
+            this.countTank.setText(state.getPlayerInTurn().getChest().getTank());
+            this.countMovement.setText(state.getPlayerInTurn().getChest().getMovementsInChest());
+            this.countAttack.setText(state.getPlayerInTurn().getChest().getAttacksInChest());
+            this.countSpecialAttack.setText(state.getPlayerInTurn().getChest().getSpecialAttackInChest());
+            System.out.println(state.getPlayerInTurn());
+        }
+    }
 }

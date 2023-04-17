@@ -1,6 +1,6 @@
 package View.Actor;
 
-import Screens.PlayScreen;
+import View.Screens.PlayScreen;
 import View.Sprite.Castle;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;

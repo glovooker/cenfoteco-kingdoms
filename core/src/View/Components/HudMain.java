@@ -3,7 +3,7 @@ package View.Components;
 import BL.GameController;
 import Model.GameState;
 import Model.Player;
-import Observer.Interface.Observer;
+import BL.observer.interfaces_observer.Observer;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -16,8 +16,6 @@ public class HudMain implements Observer {
     private Label life;
 
     private Label seconds;
-
-
 
     public HudMain(Stage stage, Player playerInTurn){
         initialize(stage, playerInTurn);

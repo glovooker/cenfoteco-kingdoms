@@ -1,7 +1,6 @@
 package View.Sprite;
 
-import Screens.PlayScreen;
-import com.badlogic.gdx.graphics.Texture;
+import View.Screens.PlayScreen;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
