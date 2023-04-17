@@ -133,6 +133,10 @@ public class DiceView extends Stage {
 
     private void rollDices(ArrayList<Integer> dados){
 
+        for (int dado:dados) {
+            System.out.println(dado+" dado es este");
+        }
+
         infanteria = 0;
         infanteria2 = 0;
         artilleria = 0;
@@ -156,7 +160,10 @@ public class DiceView extends Stage {
             artilleria2 = 1;
         } else if(dados.get(1) == 1 && infanteria2 == 1) {
             artilleria = 1;
+        } else if (dados.get(1)==1) {
+            artilleria = 1;
         }
+
 
         if(dados.get(2) == 2){
             tanque = 1;
