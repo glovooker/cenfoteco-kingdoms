@@ -1,6 +1,6 @@
 package View.Sprite;
 
-import Screens.PlayScreen;
+import View.Screens.PlayScreen;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class Castle extends Sprite {

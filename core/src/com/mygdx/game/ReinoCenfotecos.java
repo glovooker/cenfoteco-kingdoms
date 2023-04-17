@@ -1,7 +1,7 @@
 package com.mygdx.game;
 
-import Screens.Menu;
-import Screens.PlayScreen;
+import View.Screens.Menu;
+import View.Screens.PlayScreen;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;

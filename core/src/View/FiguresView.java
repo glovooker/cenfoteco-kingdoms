@@ -1,8 +1,9 @@
 package View;
 
 import View.Components.ButtonComponent;
-import View.Template.Concrete.*;
-import View.Template.Figure;
+import BL.template.abstract_figure.Figure;
+import BL.template.concrete.*;
+
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
