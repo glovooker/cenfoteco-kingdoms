@@ -103,7 +103,10 @@ public class ButtonsActionsView extends Stage {
         buttonEndTurn = new ButtonComponent(this, imgButton, WIDTH, HEIGHT,70, 260, new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("End Turn");
+                if(gameController.getGameState().getTime() > 0) {
+                    gameController.setTime();
+                }
+
                 return super.touchDown(event, x, y, pointer, button);
             }
         });

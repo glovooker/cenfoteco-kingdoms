@@ -1,5 +1,6 @@
 package View;
 
+import Model.GameState;
 import View.Components.ButtonComponent;
 import BL.template.abstract_figure.Figure;
 import BL.template.concrete.*;
@@ -41,6 +42,8 @@ public class FiguresView extends Stage {
     private Figure figureFour;
     private Figure figureFive;
 
+    private GameState gameState = GameState.getStateInstance();
+
     public FiguresView(Viewport viewport, Stage boardStage) {
         super(viewport);
         defineFiguresButtons();
@@ -54,11 +57,22 @@ public class FiguresView extends Stage {
 
     }
 
+    private void summon(Figure figure){
+        if(gameState.isPrefaReady()){
+            if( figure.creatingWay()){
+                this.gameState.setPrefaReady(false);
+            }
+
+        }
+    }
+
+
+
     private void defineFiguresButtons(){
         figure1 = new ButtonComponent(this, "figure1.png", 165, 200, 25 ,890, new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                figureFirst.creatingWay();
+                summon(figureFirst);
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
@@ -66,7 +80,7 @@ public class FiguresView extends Stage {
         figure2 = new ButtonComponent(this, "figure2.png", 110, 110, 45 ,840, new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                figureSecond.creatingWay();
+                summon(figureSecond);
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
@@ -74,7 +88,7 @@ public class FiguresView extends Stage {
         figure3 = new ButtonComponent(this, "figure3.png", 110, 110, 45 ,700, new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                figureThird.creatingWay();
+                summon(figureThird);
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
@@ -82,15 +96,16 @@ public class FiguresView extends Stage {
         figure4 = new ButtonComponent(this, "figure4.png", 150, 150, -15 ,530, new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                figureFour.creatingWay();
+                summon(figureFour);
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
 
         figure5 = new ButtonComponent(this, "figure5.png", 150, 150, 75 ,530, new InputListener(){
+
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                figureFive.creatingWay();
+                summon(figureFive);
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
@@ -98,7 +113,7 @@ public class FiguresView extends Stage {
         figure6 = new ButtonComponent(this, "figure6.png", 110, 110, 45 ,400, new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                figureSix.creatingWay();
+                summon(figureSix);
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
@@ -106,7 +121,7 @@ public class FiguresView extends Stage {
         figure7 = new ButtonComponent(this, "figure7.png", 180, 180, 10 ,200, new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                figureSeven.creatingWay();
+                summon(figureSeven);
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
@@ -119,6 +134,9 @@ public class FiguresView extends Stage {
             }
         });
     }
+
+
+
 
 
 

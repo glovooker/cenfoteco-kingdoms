@@ -38,9 +38,12 @@ public abstract class Figure {
         return getState().getPlayerInTurn().equals(getState().getPlayer1());
     }
 
-    protected void createNextMoveButtons() {
+    protected boolean createNextMoveButtons() {
         Direction direction = isPaintingUp() ? Direction.Up : Direction.Down;
         List<Coordinate> coordinates = filterInvalidCoordinates(this.state.getPlayerInTurn().getCoordinatesList(), direction);
+        if(coordinates.isEmpty()){
+            return false;
+        }
 
         for (final Coordinate coordinate: coordinates) {
             ButtonComponent btnComp = new ButtonComponent(this.boardStage, "buttonNextMove.png", 50, 50, coordinate.getX() * 50,coordinate.getY() * 50, new InputListener(){
@@ -60,13 +63,15 @@ public abstract class Figure {
 
             this.buttonComponents.add(btnComp);
         }
+
+        return true;
     }
 
     protected GameState getState() {
         return state;
     }
 
-    public void creatingWay() {
+    public boolean creatingWay() {
         if(this.state.getPlayerInTurn().getCoordinatesList() == null) {
             this.state.getPlayerInTurn().initializeCoordinatesList();
 
@@ -78,10 +83,12 @@ public abstract class Figure {
                 initialCoordinate.setY(initialCoordinate.getY() - 1);
                 paintingWayDown(initialCoordinate);
             }
+            return true;
         }
         else {
-            this.createNextMoveButtons();
+           return this.createNextMoveButtons();
         }
+
     }
 
     protected abstract void calculatingNextMovement(int x, int y, Direction direction);

@@ -51,11 +51,11 @@ public class HudChest implements Observer {
         countSpecialAttack = new Label(String.format("%01d", initSpecialAttack), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         countMovement =  new Label(String.format("%01d", initMovements), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
 
-        countGunner.setPosition(610, 90 );
-        countGunner.setFontScale(2.5f);
-
-        countInfantry.setPosition(710, 90);
+        countInfantry.setPosition(610, 90);
         countInfantry.setFontScale(2.5f);
+
+        countGunner.setPosition(710, 90 );
+        countGunner.setFontScale(2.5f);
 
         countTank.setPosition(830, 90);
         countTank.setFontScale(2.5f);
@@ -162,6 +162,7 @@ public class HudChest implements Observer {
 
     @Override
     public void update(GameState state) {
+
         if(state.getTime() < 0){
             this.countGunner.setText(state.getPlayerInTurn().getChest().getGunner());
             this.countInfantry.setText(state.getPlayerInTurn().getChest().getInfantry());
@@ -169,7 +170,6 @@ public class HudChest implements Observer {
             this.countMovement.setText(state.getPlayerInTurn().getChest().getMovementsInChest());
             this.countAttack.setText(state.getPlayerInTurn().getChest().getAttacksInChest());
             this.countSpecialAttack.setText(state.getPlayerInTurn().getChest().getSpecialAttackInChest());
-            System.out.println(state.getPlayerInTurn());
         }
     }
 }

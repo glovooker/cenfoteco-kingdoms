@@ -132,10 +132,14 @@ public class DiceView extends Stage {
     }
 
     private void rollDices(ArrayList<Integer> dados){
-
-        for (int dado:dados) {
-            System.out.println(dado+" dado es este");
-        }
+        // The result of the dice is the following by index:
+        /*
+            0:  amount of infantry dice
+            1:  amount of gunner dice
+            2:  amount of tank dice
+            3:  amount of attack dice
+            4:  amount of special attack dice
+         */
 
         infanteria = 0;
         infanteria2 = 0;
@@ -179,13 +183,6 @@ public class DiceView extends Stage {
         } else if(dados.get(4) == 1){
             sattack = 1;
         }
-
-        System.out.println("infanteria1-" + infanteria);
-        System.out.println("artilleria1-" + artilleria);
-        System.out.println("tanque1-" + tanque);
-        System.out.println("infanteria2-" + infanteria2);
-        System.out.println("artilleria2-" + artilleria2);
-        System.out.println("tanque2-" + tanque2);
 
         defineFirstDice(playScreen);
         defineSecondDice(playScreen);

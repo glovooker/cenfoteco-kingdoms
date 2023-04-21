@@ -3,6 +3,7 @@ package View.Screens;
 import BL.GameController;
 import BL.characters_abstract_fabric.abstract_product.Army;
 import View.*;
+import View.Components.HudChest;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
@@ -232,6 +233,10 @@ public class PlayScreen implements Screen {
         diceView.dispose();
         armyView.dispose();
         buttonsActionsView.dispose();
+    }
+
+    public HudChest getHudChest(){
+        return this.chest.getHudChest();
     }
 
     public World getWorld(){

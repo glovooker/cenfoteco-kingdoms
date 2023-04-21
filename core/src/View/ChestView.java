@@ -61,12 +61,15 @@ public class ChestView {
         defineButtons();
     }
 
+    public HudChest getHudChest(){
+        return this.hud;
+    }
+
     public void defineButtons(){
         buttonAddArmy = new ButtonComponent(this.stage, "chestClosed.png", 80, 100, 430,50, new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 addArmy(gameController.almacenarDados());
-                System.out.println("pp");
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
@@ -119,7 +122,7 @@ public class ChestView {
             }
         });
     }
-    private void addArmy(ArrayList<Integer> dados){//recibir un objeto tipo armada
+    private void addArmy(ArrayList<Integer> dados){
 
         int army = hud.getInitArmy();
         int movements = hud.getInitMovements();

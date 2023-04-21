@@ -22,14 +22,14 @@ public class GameController {
     private static GestorFabricaAbstracta gestorFabricaAbstracta;
     private static GameController gameController;
 
+    private GestorMemento mementoController;
+
     private GameState gameState = GameState.getStateInstance();
 
 
     private GameController() {
         this.player1 = new Player(1);
         this.player2 = new Player(2);
-        player1.getChest().setAttacksInChest(2);
-        player1.getChest().setSpecialAttackInChest(1);
         gestorBridge = new GestorBridge();
         gestorFabricaAbstracta = new GestorFabricaAbstracta();
         gestorBridge.iniciarBotones();
@@ -41,6 +41,10 @@ public class GameController {
         }
 
         return gameController;
+    }
+
+    public void setTime(){
+        this.timer.setTime(0);
     }
 
     public Player getPlayer1() {
@@ -66,16 +70,24 @@ public class GameController {
         }
 
         initializeGameState();
-        GestorMemento mementoController = new GestorMemento();
+        this.mementoController = new GestorMemento();
         this.timer = new TimerSec();
         this.timer.addObservers(mementoController);
         this.timer.start();
+    }
+
+    public GestorMemento getMementoController(){
+        return this.mementoController;
     }
 
     private void initializeGameState(){
         this.gameState.setPlayer1(this.player1);
         this.gameState.setPlayer2(this.player2);
         this.gameState.setPlayer(this.playerInTurn);
+    }
+
+    public GameState getGameState(){
+        return this.gameState;
     }
 
     public Player getPlayerInTurn(){
@@ -85,6 +97,7 @@ public class GameController {
     public ArrayList<Integer> lanzarDados(){
         return gestorBridge.lanzarDado();
     }
+
 
     public Army invocarInfanteria(){
         if(!(gestorBridge.invocarInfanteria(gameState.getPlayerInTurn().getChest().getInfantry()) == null)) {
@@ -123,5 +136,7 @@ public class GameController {
     public ArrayList<Integer> almacenarDados(){
         return gestorBridge.almacenarCofre();
     }
+
+
 
 }

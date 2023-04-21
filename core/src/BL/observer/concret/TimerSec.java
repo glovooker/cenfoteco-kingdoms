@@ -12,7 +12,7 @@ import java.util.TimerTask;
 public class TimerSec extends TimerTask implements Subject {
     private int time;
 
-    private static final int TIME_IN_GAME = 6;
+    public static final int TIME_IN_GAME = 59;
 
     private final List<Observer> observers = new ArrayList<>();
 
@@ -33,17 +33,20 @@ public class TimerSec extends TimerTask implements Subject {
     public void run() {
         this.time--;
 
-        if(this.time == 0) {
+        if(this.time <= 0) {
             this.state.changePlayerInTurn();
         }
 
         notifyObserver();
 
-        if(time == -3) {
+        if(time < -1) {
             this.time = TIME_IN_GAME;
         }
     }
 
+    public void setTime(int time) {
+        this.time = time;
+    }
 
     @Override
     public void addObservers(Observer observer) {
