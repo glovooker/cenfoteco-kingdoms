@@ -22,14 +22,14 @@ public class GameController {
     private static GestorFabricaAbstracta gestorFabricaAbstracta;
     private static GameController gameController;
 
+    private GestorMemento mementoController;
+
     private GameState gameState = GameState.getStateInstance();
 
 
     private GameController() {
         this.player1 = new Player(1);
         this.player2 = new Player(2);
-        player1.getChest().setAttacksInChest(2);
-        player1.getChest().setSpecialAttackInChest(1);
         gestorBridge = new GestorBridge();
         gestorFabricaAbstracta = new GestorFabricaAbstracta();
         gestorBridge.iniciarBotones();
@@ -41,6 +41,10 @@ public class GameController {
         }
 
         return gameController;
+    }
+
+    public void setTime(){
+        this.timer.setTime(0);
     }
 
     public Player getPlayer1() {
@@ -66,16 +70,24 @@ public class GameController {
         }
 
         initializeGameState();
-        GestorMemento mementoController = new GestorMemento();
+        this.mementoController = new GestorMemento();
         this.timer = new TimerSec();
         this.timer.addObservers(mementoController);
         this.timer.start();
+    }
+
+    public GestorMemento getMementoController(){
+        return this.mementoController;
     }
 
     private void initializeGameState(){
         this.gameState.setPlayer1(this.player1);
         this.gameState.setPlayer2(this.player2);
         this.gameState.setPlayer(this.playerInTurn);
+    }
+
+    public GameState getGameState(){
+        return this.gameState;
     }
 
     public Player getPlayerInTurn(){
@@ -86,7 +98,9 @@ public class GameController {
         return gestorBridge.lanzarDado();
     }
 
+
     public Army invocarInfanteria(){
+
         if(!(gestorBridge.invocarInfanteria(gameState.getPlayerInTurn().getChest().getInfantry()) == null)) {
             Army infanteriaInvocada = gestorFabricaAbstracta.createArmy(gestorBridge.invocarInfanteria(gameState.getPlayerInTurn().getChest().getInfantry()), "player");
             getPlayerInTurn().getChest().setInfantry(gestorBridge.evaluarCofreInfanteria(gameState.getPlayerInTurn().getChest().getInfantry()));
@@ -95,6 +109,7 @@ public class GameController {
         return null;
     }
     public Army invocarArtilleria(){
+
         if(!(gestorBridge.invocarArtilleria(gameState.getPlayerInTurn().getChest().getGunner()) == null)){
             Army artilleriaInvocada = gestorFabricaAbstracta.createArmy(gestorBridge.invocarArtilleria(gameState.getPlayerInTurn().getChest().getGunner()), "player");
             getPlayerInTurn().getChest().setGunner(gestorBridge.evaluarCofreArtilleria(gameState.getPlayerInTurn().getChest().getGunner()));
@@ -127,4 +142,5 @@ public class GameController {
     public void atacar(Army armyAttacks, Army armyToAttack){
         armyAttacks.attack(armyToAttack);
     }
+
 }
