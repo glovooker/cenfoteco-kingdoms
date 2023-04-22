@@ -25,8 +25,9 @@ public class GestorBridge {
     private int dadosTanqueVolatil = 0;
     private int dadosTanqueTotal = 0;
 
-    private ArrayList<DadoMovimiento> dadosMovimiento = new ArrayList<DadoMovimiento>();
     private int cantDadosMovimiento = 0;
+
+    private ArrayList<DadoMovimiento> dadosMovimiento = new ArrayList<DadoMovimiento>();
     private int dadosAtaqueEspecial = 0;
     private int dadosAtaque = 0;
     Scanner scanner = new Scanner(System.in);
@@ -90,7 +91,6 @@ public class GestorBridge {
             System.out.println(dadoMovimiento.getMovimiento());
 
             dadosMovimiento.add(dadoMovimiento);
-            cantDadosMovimiento = dadosMovimiento.size();
 
 
         } else if (TIPOS_DE_ACCION.getOrDefault(numRandom, null).equals("attack")) {

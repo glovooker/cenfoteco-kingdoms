@@ -93,5 +93,10 @@ public class DecoratedInfantry extends DecoratedArmy {
         dArmy.setAttack(originalAttack);
         dArmy.setDefense(originalDefense);
     }
+
+    @Override
+    public void attack(Army armyToAttack) {
+
+    }
 }
 

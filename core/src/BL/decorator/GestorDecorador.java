@@ -16,7 +16,7 @@ public class GestorDecorador {
 
         Army decoratedArmy = null;
 
-        switch (army.getCharacterClass()) {
+        switch (army.getCharacterType()) {
             case "infanteria":
                 decoratedArmy = applyInfantrySpecialAttack(army, specialAttack);
                 break;

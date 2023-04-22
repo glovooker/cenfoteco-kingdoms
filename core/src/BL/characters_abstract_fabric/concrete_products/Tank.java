@@ -14,4 +14,13 @@ public class Tank extends Army {
             setOwner(owner);
             setCharacterClass(characterClass);
         }
+
+    @Override
+    public void attack(Army armyToAttack) {
+        if(armyToAttack.getDefense() >= 3){
+            armyToAttack.setDefense(armyToAttack.getDefense() - 3);
+        }else{
+            armyToAttack.setLife(armyToAttack.getLife() - 3);
+        }
+    }
 }

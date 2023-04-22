@@ -14,4 +14,13 @@ public class Infantry extends Army {
             setOwner(owner);
             setCharacterClass(characterClass);
         }
+
+    @Override
+    public void attack(Army armyToAttack) {
+        if(armyToAttack.getDefense() >= 1){
+            armyToAttack.setDefense(armyToAttack.getDefense() - 1);
+        }else{
+            armyToAttack.setLife(armyToAttack.getLife() - 1);
+        }
+    }
 }

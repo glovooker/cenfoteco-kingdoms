@@ -64,4 +64,8 @@ public class DecoratedArtillery extends DecoratedArmy {
         System.out.println("Artillery decreases enemy defense by " + (defenseReductionPercentage * 100) + "% for two turns");
     }
 
+    @Override
+    public void attack(Army armyToAttack) {
+
+    }
 }

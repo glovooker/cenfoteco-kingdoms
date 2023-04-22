@@ -124,4 +124,7 @@ public class GameController {
         return gestorBridge.almacenarCofre();
     }
 
+    public void atacar(Army armyAttacks, Army armyToAttack){
+        armyAttacks.attack(armyToAttack);
+    }
 }
