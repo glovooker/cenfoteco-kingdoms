@@ -5,6 +5,7 @@ import BL.template.abstract_figure.Figure;
 import Enums.Direction;
 import Model.Coordinate;
 import View.BoardView;
+import View.Screens.PlayScreen;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
 import java.util.ArrayList;
@@ -13,8 +14,8 @@ import java.util.List;
 public class Figure5 extends Figure {
 
 
-    public Figure5(Stage boardStage) {
-        super(boardStage);
+    public Figure5(PlayScreen playScreen, Stage boardStage) {
+        super(playScreen, boardStage);
     }
 
     @Override
@@ -85,18 +86,20 @@ public class Figure5 extends Figure {
 
         while (blockNumber >= 0){
             tile = BoardView.getTileByPosition(coordinate.getX(), coordinate.getY());
-            tile.setRegionTexture("BlackWay");
+            tile.setRegionTexture(Figure.tileCastlePlayer1);
             tile.setBusy(true);
 
             if(blockNumber == Figure.AMOUNT_BLOCKS - 2){
                 plusY = true;
             }
 
+
             if(minusX){
                 coordinate.setX(coordinate.getX() - 1);
                 minusX = false;
             }
 
+            saveMiddleCoordinates(blockNumber, coordinate);
             if(plusY){
                 coordinate.setY(coordinate.getY() + 1);
             }
@@ -121,18 +124,21 @@ public class Figure5 extends Figure {
 
         while (blockNumber >= 0){
             tile = BoardView.getTileByPosition(coordinate.getX(), coordinate.getY());
-            tile.setRegionTexture("WhiteWay");
+            tile.setRegionTexture(Figure.tileCastlePlayer2);
             tile.setBusy(true);
 
             if(blockNumber == Figure.AMOUNT_BLOCKS - 2){
                 plusY = true;
             }
 
+
+
             if(minusX){
                 coordinate.setX(coordinate.getX() - 1);
                 minusX = false;
             }
 
+            saveMiddleCoordinates(blockNumber, coordinate);
             if(plusY){
                 coordinate.setY(coordinate.getY() - 1);
             }
@@ -171,7 +177,12 @@ public class Figure5 extends Figure {
         if(y >= 1 && y <= 20 && !BoardView.getTileByPosition(x, y).isBusy()) {
             getState().getPlayerInTurn().getCoordinatesList().add(new Coordinate(x, y));
         }
+    }
 
-
+    @Override
+    protected void saveMiddleCoordinates(int tileNumber, Coordinate coordinate) {
+        if(tileNumber == 2){
+            this.setMiddleCoordinates(new Coordinate(coordinate.getX(), coordinate.getY()));
+        }
     }
 }

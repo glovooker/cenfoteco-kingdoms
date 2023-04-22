@@ -2,7 +2,10 @@ package View.Screens;
 
 import BL.GameController;
 import BL.characters_abstract_fabric.abstract_product.Army;
+import Model.Coordinate;
 import View.*;
+import View.Components.ButtonComponent;
+import View.Components.HudChest;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
@@ -19,6 +22,8 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -84,7 +89,7 @@ public class PlayScreen implements Screen {
 
     public PlayScreen(Music music){
         music.stop();
-        atlasBoard = new TextureAtlas("boardAtlas.atlas");
+        atlasBoard = new TextureAtlas("boardAtlas2.atlas");
         atlasFigures = new TextureAtlas("figuresAtlas.atlas");
         castles = new TextureAtlas("Castles.atlas");
         atlasDice = new TextureAtlas("dicePackAtlas.atlas");
@@ -112,14 +117,13 @@ public class PlayScreen implements Screen {
         this.boardStage.getRoot().setX(250);
         this.boardStage.getRoot().setY(400);
 
-        this.figuresView = new FiguresView(this.gamePort, this.boardStage);
+        this.figuresView = new FiguresView(this.gamePort, this.boardStage, this);
         this.figuresView.getRoot().setX(0);
         this.figuresView.getRoot().setY(400);
 
         this.chestStage = new Stage(gamePort);
         this.chestStage.getRoot().setX(0);
         this.chestStage.getRoot().setY(0);
-
 
         this.diceView = new DiceView(this, gamePort);
         this.diceView.getRoot().setX(800);
@@ -143,6 +147,10 @@ public class PlayScreen implements Screen {
         inputMultiplexer.addProcessor(diceView);
         inputMultiplexer.addProcessor(armyView);
         inputMultiplexer.addProcessor(buttonsActionsView);
+    }
+
+    public BoardView getBoardView() {
+        return boardView;
     }
 
 
@@ -234,6 +242,10 @@ public class PlayScreen implements Screen {
         buttonsActionsView.dispose();
     }
 
+    public HudChest getHudChest(){
+        return this.chest.getHudChest();
+    }
+
     public World getWorld(){
         return world;
     }
@@ -264,5 +276,65 @@ public class PlayScreen implements Screen {
 
     public void showArmyData(Army army){
         this.armyView.defineArmy(army);
+    }
+
+    public Stage getBoardStage(){
+        return this.boardStage;
+    }
+
+    private ButtonComponent createButton(final Army armyInvoked, String imgPath, Coordinate coordinate, Stage boardStage){
+        final Army army = armyInvoked;
+        int x = coordinate.getX() * 50;
+        int y = coordinate.getY() * 50;
+        return new ButtonComponent(boardStage, imgPath, 80, 80, x, y, new InputListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                showArmyData(army);
+                return super.touchDown(event, x, y, pointer, button);
+            }
+        });
+    }
+
+    public ButtonComponent knowWhatButtonCreate(final Army armyInvoked){
+        ButtonComponent buttonArmy = null;
+        Stage stageBoard = this.getBoardStage();
+
+        switch (armyInvoked.getCharacterClass()) {
+            case "ratallero":
+                buttonArmy = createButton(armyInvoked, "ratallero.png", armyInvoked.getPosition(), stageBoard);
+                break;
+            case "orco":
+                buttonArmy = createButton(armyInvoked, "orco.png", armyInvoked.getPosition(), stageBoard);
+                break;
+            case "chaman":
+                buttonArmy = createButton(armyInvoked, "chaman.png", armyInvoked.getPosition(), stageBoard);
+                break;
+            case "escudero":
+                buttonArmy = createButton(armyInvoked, "escudero.png", armyInvoked.getPosition(), stageBoard);
+                break;
+            case "archero":
+                buttonArmy = createButton(armyInvoked, "arquero.png", armyInvoked.getPosition(), stageBoard);
+                break;
+            case "daemon":
+                buttonArmy = createButton(armyInvoked, "daemon.png", armyInvoked.getPosition(), stageBoard);
+                break;
+            case "bruja":
+                buttonArmy = createButton(armyInvoked, "bruja.png", armyInvoked.getPosition(), stageBoard);
+                break;
+            case "dragon":
+                buttonArmy = createButton(armyInvoked, "dragon.png", armyInvoked.getPosition(), stageBoard);
+                break;
+            case "golem":
+                buttonArmy = createButton(armyInvoked, "golem.png", armyInvoked.getPosition(), stageBoard);
+                break;
+            case "guardian":
+                buttonArmy = createButton(armyInvoked, "guardian.png", armyInvoked.getPosition(), stageBoard);
+                break;
+            case "kamikaze":
+                buttonArmy = createButton(armyInvoked, "kamikaze.png", armyInvoked.getPosition(), stageBoard);
+                break;
+        }
+
+        return buttonArmy;
     }
 }

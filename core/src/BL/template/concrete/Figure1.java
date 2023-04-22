@@ -5,14 +5,15 @@ import BL.template.abstract_figure.Figure;
 import Enums.Direction;
 import Model.Coordinate;
 import View.BoardView;
+import View.Screens.PlayScreen;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Figure1 extends Figure {
-    public Figure1(Stage boardStage) {
-        super(boardStage);
+    public Figure1(PlayScreen playScreen, Stage boardStage) {
+        super(playScreen, boardStage);
     }
 
     @Override
@@ -103,7 +104,7 @@ public class Figure1 extends Figure {
 
     @Override
     protected void paintingWayUp(Coordinate coordinate) {
-        String texture = "BlackWay";
+        String texture = Figure.tileCastlePlayer1;
         paint(texture, coordinate, Direction.Up);
     }
 
@@ -119,6 +120,7 @@ public class Figure1 extends Figure {
         while(blockNumberToPaint > 0 ){
             board[coordinate.getY()][coordinate.getX()].setRegionTexture(texture);
             board[coordinate.getY()][coordinate.getX()].setBusy(true);
+            saveMiddleCoordinates(blockNumberToPaint, coordinate);
             coordinate.setX((coordinate.getX() + 1));
             blockNumberToPaint--;
         }
@@ -127,8 +129,15 @@ public class Figure1 extends Figure {
     }
 
     @Override
+    protected void saveMiddleCoordinates(int tileNumber, Coordinate coordinate) {
+        if(tileNumber == 3){
+            this.setMiddleCoordinates(new Coordinate(coordinate.getX(), coordinate.getY()));
+        }
+    }
+
+    @Override
     protected void paintingWayDown(Coordinate coordinate) {
-        String texture = "WhiteWay";
+        String texture = Figure.tileCastlePlayer2;
         paint(texture, coordinate, Direction.Down);
     }
 

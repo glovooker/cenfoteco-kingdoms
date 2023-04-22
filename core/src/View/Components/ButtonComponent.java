@@ -31,9 +31,4 @@ public class ButtonComponent
         return button;
     }
 
-
-
-
-
-
 }

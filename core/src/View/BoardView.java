@@ -28,12 +28,11 @@ public class BoardView  {
     private GameController gameController = GameController.getInstance();
 
     public BoardView(PlayScreen screen, Viewport gameport) {
-
         stageBoard = new Stage(gameport);
         tileActor = new TileActor(screen);
         this.castleActorPLayer1 = new CastleActor(screen, "CastlePlayer2");
         this.castleActorPLayer2 = new CastleActor(screen, "castlePlayer1");
-        this.board = new Board();
+        this.board = gameController.getGameState().getBoard();
         linesInBoard = board.getLINES();
         rowsInBoard = board.getROWS();
         matriz = new TileActor[linesInBoard][rowsInBoard];
@@ -77,9 +76,9 @@ public class BoardView  {
                 }
 
                 if(i == 0){
-                    tileActorTemp.setRegionTexture("tileCastle");
+                    tileActorTemp.setRegionTexture("TileCastle");
                 } else if (i == 21) {
-                    tileActorTemp.setRegionTexture("tileCastle");
+                    tileActorTemp.setRegionTexture("TileCastle2");
                 }
             }
 

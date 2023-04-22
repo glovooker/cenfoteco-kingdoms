@@ -66,15 +66,12 @@ public class GestorBridge {
             int numRandom = random.nextInt(6) + 1;
 
             if (TIPOS_DE_INVOCACION.getOrDefault(numRandom, null).equals("infanteria")) {
-
                 dadosInfanteriaVolatil++;
 
             } else if (TIPOS_DE_INVOCACION.getOrDefault(numRandom, null).equals("artilleria")) {
-
                 dadosArtilleriaVolatil++;
 
             } else if (TIPOS_DE_INVOCACION.getOrDefault(numRandom, null).equals("tanque")) {
-
                 dadosTanqueVolatil++;
 
             }

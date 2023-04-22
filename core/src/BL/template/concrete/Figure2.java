@@ -6,6 +6,7 @@ import Enums.Direction;
 import Model.Coordinate;
 
 import View.BoardView;
+import View.Screens.PlayScreen;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
 import java.util.ArrayList;
@@ -13,8 +14,8 @@ import java.util.List;
 
 public class Figure2 extends Figure {
 
-    public Figure2(Stage boardStage) {
-        super(boardStage);
+    public Figure2(PlayScreen playScreen, Stage boardStage) {
+        super(playScreen, boardStage);
     }
 
     @Override
@@ -112,7 +113,7 @@ public class Figure2 extends Figure {
 
         while(!(blockNumberToPaint == Figure.AMOUNT_BLOCKS - 3 )){
             tile = BoardView.getTileByPosition(coordinate.getX(), coordinate.getY());;
-            tile.setRegionTexture("BlackWay");
+            tile.setRegionTexture(Figure.tileCastlePlayer1);
             tile.setBusy(true);
 
             if(blockNumberToPaint == Figure.AMOUNT_BLOCKS - 1){
@@ -133,8 +134,9 @@ public class Figure2 extends Figure {
 
         while( blockNumber != 0){
             coordinate.setY(coordinate.getY() + 1);
+            saveMiddleCoordinates(blockNumber, coordinate);
             TileActor tile = BoardView.getTileByPosition(coordinate.getX(), coordinate.getY());
-            tile.setRegionTexture("BlackWay");
+            tile.setRegionTexture(Figure.tileCastlePlayer1);
             tile.setBusy(true);
 
             blockNumber --;
@@ -160,7 +162,7 @@ public class Figure2 extends Figure {
 
         while(blockNumberToPaint != (Figure.AMOUNT_BLOCKS - 3)){
             tile = BoardView.getTileByPosition(coordinate.getX(), coordinate.getY());
-            tile.setRegionTexture("WhiteWay");
+            tile.setRegionTexture(Figure.tileCastlePlayer2);
             tile.setBusy(true);
 
             if(blockNumberToPaint == Figure.AMOUNT_BLOCKS - 1){
@@ -179,8 +181,9 @@ public class Figure2 extends Figure {
 
         while(blockNumber != 0){
             coordinate.setY(coordinate.getY() - 1);
+            saveMiddleCoordinates(blockNumber, coordinate);
             TileActor tile = BoardView.getTileByPosition(coordinate.getX(), coordinate.getY());
-            tile.setRegionTexture("WhiteWay");
+            tile.setRegionTexture(Figure.tileCastlePlayer2);
             tile.setBusy(true);
 
             blockNumber --;
@@ -203,5 +206,12 @@ public class Figure2 extends Figure {
             getState().getPlayerInTurn().getCoordinatesList().add(new Coordinate(newX, newY));
         }
 
+    }
+
+    @Override
+    protected void saveMiddleCoordinates(int tileNumber, Coordinate coordinate) {
+        if(tileNumber == 2){
+            this.setMiddleCoordinates(new Coordinate(coordinate.getX(), coordinate.getY()));
+        }
     }
 }

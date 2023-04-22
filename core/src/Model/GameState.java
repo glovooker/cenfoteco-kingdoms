@@ -11,6 +11,8 @@ public class GameState {
 
     private static GameState stateInstance;
 
+    private Board board;
+
 
     public static GameState getStateInstance(){
         if(stateInstance == null){
@@ -21,7 +23,15 @@ public class GameState {
     }
 
     private GameState() {
+        this.board = new Board();
+    }
 
+    public Board getBoard() {
+        return board;
+    }
+
+    public void setBoard(Board board) {
+        this.board = board;
     }
 
     public void setPlayer(Player player) {
@@ -56,13 +66,25 @@ public class GameState {
         this.player2 = player2;
     }
 
+    private boolean isPrefaReady = false;
+
     public void changePlayerInTurn() {
+        this.setPrefaReady(false);
+
         Player playerInTurn = this.getPlayerInTurn().equals(this.getPlayer1())
                 ? this.getPlayer2()
                 : this.getPlayer1();
 
-        this.player1.getCastle().setLife(this.player1.getCastle().getLife() - 1);
         this.setPlayer(playerInTurn);
+    }
+
+
+    public boolean isPrefaReady() {
+        return isPrefaReady;
+    }
+
+    public void setPrefaReady(boolean prefaReady) {
+        isPrefaReady = prefaReady;
     }
 
     @Override
