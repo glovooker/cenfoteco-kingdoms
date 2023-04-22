@@ -1,11 +1,13 @@
 package BL.template.abstract_figure;
 
+import BL.characters_abstract_fabric.abstract_product.Army;
 import BL.prototype.TileActor;
 import Enums.Direction;
 import Model.Coordinate;
 import Model.GameState;
 import View.BoardView;
 import View.Components.ButtonComponent;
+import View.Screens.PlayScreen;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -14,14 +16,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Figure {
+    private Coordinate middleCoordinates;
+
+    protected final static String tileCastlePlayer1 = "TileCastle";
+
+    protected final static String tileCastlePlayer2 = "TileCastle2";
+
     private final GameState state = GameState.getStateInstance();
 
     private final List<ButtonComponent> buttonComponents = new ArrayList<>();
 
     protected Stage boardStage;
 
-    public Figure(Stage boardStage) {
+    protected PlayScreen playScreen;
+
+    public Figure(PlayScreen playScreen, Stage boardStage) {
         this.boardStage = boardStage;
+        this.playScreen = playScreen;
+    }
+
+    public void setMiddleCoordinates(Coordinate middleCoordinates) {
+        this.middleCoordinates = middleCoordinates;
     }
 
     public final static int AMOUNT_BLOCKS = 5;
@@ -38,9 +53,13 @@ public abstract class Figure {
         return getState().getPlayerInTurn().equals(getState().getPlayer1());
     }
 
-    protected void createNextMoveButtons() {
+    protected boolean createNextMoveButtons(final Army army) {
         Direction direction = isPaintingUp() ? Direction.Up : Direction.Down;
         List<Coordinate> coordinates = filterInvalidCoordinates(this.state.getPlayerInTurn().getCoordinatesList(), direction);
+
+        if(coordinates.isEmpty()){
+            return false;
+        }
 
         for (final Coordinate coordinate: coordinates) {
             ButtonComponent btnComp = new ButtonComponent(this.boardStage, "buttonNextMove.png", 50, 50, coordinate.getX() * 50,coordinate.getY() * 50, new InputListener(){
@@ -53,6 +72,7 @@ public abstract class Figure {
                         paintingWayDown(coordinate);
                     }
 
+                    positionArmyOnFigure(army);
                     cleanUpButtons();
                     return super.touchDown(event, x, y, pointer, button);
                 }
@@ -60,13 +80,15 @@ public abstract class Figure {
 
             this.buttonComponents.add(btnComp);
         }
+
+        return true;
     }
 
     protected GameState getState() {
         return state;
     }
 
-    public void creatingWay() {
+    public void creatingWay(Army army) {
         if(this.state.getPlayerInTurn().getCoordinatesList() == null) {
             this.state.getPlayerInTurn().initializeCoordinatesList();
 
@@ -78,13 +100,25 @@ public abstract class Figure {
                 initialCoordinate.setY(initialCoordinate.getY() - 1);
                 paintingWayDown(initialCoordinate);
             }
+
+            positionArmyOnFigure(army);
         }
         else {
-            this.createNextMoveButtons();
+            this.createNextMoveButtons(army);
         }
+
     }
 
     protected abstract void calculatingNextMovement(int x, int y, Direction direction);
+
+    protected abstract void saveMiddleCoordinates(int tileNumber, Coordinate coordinate);
+
+    private void positionArmyOnFigure(Army army) {
+        army.setPosition(middleCoordinates);
+        state.setPrefaReady(false);
+        this.playScreen.knowWhatButtonCreate(army);
+        this.playScreen.getHudChest().updateLabels(state);
+    }
 
     private void cleanUpButtons() {
         for (ButtonComponent buttonComp: this.buttonComponents) {

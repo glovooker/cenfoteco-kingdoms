@@ -5,14 +5,15 @@ import BL.template.abstract_figure.Figure;
 import Enums.Direction;
 import Model.Coordinate;
 import View.BoardView;
+import View.Screens.PlayScreen;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Figure3 extends Figure {
-    public Figure3(Stage boardStage) {
-        super(boardStage);
+    public Figure3(PlayScreen playScreen, Stage boardStage) {
+        super(playScreen, boardStage);
     }
 
     @Override
@@ -88,7 +89,7 @@ public class Figure3 extends Figure {
             }
 
             tile = BoardView.getTileByPosition(coordinate.getX(), coordinate.getY());;
-            tile.setRegionTexture("BlackWay");
+            tile.setRegionTexture(Figure.tileCastlePlayer1);
             tile.setBusy(true);
 
             if(plusX){
@@ -99,6 +100,7 @@ public class Figure3 extends Figure {
                 coordinate.setY(coordinate.getY() + 1);
             }
 
+            saveMiddleCoordinates(blockNumberToPaint, coordinate);
             blockNumberToPaint--;
         }
 
@@ -121,7 +123,7 @@ public class Figure3 extends Figure {
                 coordinate.setX(coordinate.getX() + 1);
             }
             tile = BoardView.getTileByPosition(coordinate.getX(), coordinate.getY());;
-            tile.setRegionTexture("WhiteWay");
+            tile.setRegionTexture(Figure.tileCastlePlayer2);
             tile.setBusy(true);
 
             if(minusX){
@@ -133,6 +135,7 @@ public class Figure3 extends Figure {
             }
 
 
+            saveMiddleCoordinates(blockNumberToPaint, coordinate);
             blockNumberToPaint--;
         }
 
@@ -157,6 +160,13 @@ public class Figure3 extends Figure {
 
         if(newY > 0 && newY <= 20 && middleX >= 0 && middleX <= 19 && !BoardView.getTileByPosition(middleX, newY).isBusy()) {
             getState().getPlayerInTurn().getCoordinatesList().add(new Coordinate(middleX, newY));
+        }
+    }
+
+    @Override
+    protected void saveMiddleCoordinates(int tileNumber, Coordinate coordinate) {
+        if(tileNumber == 3){
+            this.setMiddleCoordinates(new Coordinate(coordinate.getX(), coordinate.getY()));
         }
     }
 }

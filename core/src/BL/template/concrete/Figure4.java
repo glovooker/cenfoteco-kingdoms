@@ -5,6 +5,7 @@ import BL.template.abstract_figure.Figure;
 import Enums.Direction;
 import Model.Coordinate;
 import View.BoardView;
+import View.Screens.PlayScreen;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
 import java.util.ArrayList;
@@ -14,8 +15,8 @@ public class Figure4 extends Figure {
 
 
 
-    public Figure4(Stage boardStage) {
-        super(boardStage);
+    public Figure4(PlayScreen playScreen, Stage boardStage) {
+        super(playScreen, boardStage);
     }
 
     @Override
@@ -82,8 +83,9 @@ public class Figure4 extends Figure {
         while(blockNumberToPaint > 0){
 
             tile = BoardView.getTileByPosition(coordinate.getX(), coordinate.getY());;
-            tile.setRegionTexture("BlackWay");
+            tile.setRegionTexture(Figure.tileCastlePlayer1);
             tile.setBusy(true);
+
 
 
             if(blockNumberToPaint == Figure.AMOUNT_BLOCKS - 3){
@@ -91,6 +93,7 @@ public class Figure4 extends Figure {
                 minusX = true;
             }
 
+            saveMiddleCoordinates(blockNumberToPaint, coordinate);
             if(minusX){
                 coordinate.setX(coordinate.getX() - 1);
             }
@@ -117,13 +120,15 @@ public class Figure4 extends Figure {
         while(blockNumberToPaint > 0){
 
             tile = BoardView.getTileByPosition(coordinate.getX(), coordinate.getY());;
-            tile.setRegionTexture("WhiteWay");
+            tile.setRegionTexture(Figure.tileCastlePlayer2);
             tile.setBusy(true);
+
 
             if(blockNumberToPaint == Figure.AMOUNT_BLOCKS - 3){
                 plusY = false;
                 minusX = true;
             }
+            saveMiddleCoordinates(blockNumberToPaint, coordinate);
 
             if(minusX){
                 coordinate.setX(coordinate.getX() - 1);
@@ -132,6 +137,7 @@ public class Figure4 extends Figure {
             if(plusY){
                 coordinate.setY(coordinate.getY() - 1);
             }
+
 
             blockNumberToPaint--;
         }
@@ -183,5 +189,13 @@ public class Figure4 extends Figure {
             }
         }
 
+    }
+
+
+    @Override
+    protected void saveMiddleCoordinates(int tileNumber, Coordinate coordinate) {
+        if(tileNumber == 3){
+            this.setMiddleCoordinates(new Coordinate(coordinate.getX(), coordinate.getY()));
+        }
     }
 }

@@ -1,6 +1,7 @@
 package View.Components;
 
 import BL.GameController;
+import BL.observer.concret.TimerSec;
 import Model.GameState;
 import Model.Player;
 import BL.observer.interfaces_observer.Observer;
@@ -17,6 +18,8 @@ public class HudMain implements Observer {
 
     private Label seconds;
 
+    private GameController controller = GameController.getInstance();
+
     public HudMain(Stage stage, Player playerInTurn){
         initialize(stage, playerInTurn);
     }
@@ -26,7 +29,7 @@ public class HudMain implements Observer {
 
         playerInGame = new Label(player, new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         life = new Label(String.format("%01d", playerInTurn.getCastle().getLife()), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        seconds = new Label(String.format("%01d", 60), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        seconds = new Label(String.format("%01d", TimerSec.TIME_IN_GAME), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
 
         playerInGame.setPosition(1330, 15 );
         playerInGame.setFontScale(3);

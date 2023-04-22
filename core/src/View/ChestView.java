@@ -45,13 +45,12 @@ public class ChestView {
 
     private Chest chest;
 
-
     private final GameController gameController = GameController.getInstance();
 
     public ChestView(Stage stage){
         this.stage = stage;
         chest = gameController.getPlayerInTurn().getChest();
-        hud  = new HudChest(this.stage, chest.getMovementsInChest(), chest.getGunner(), chest.getInfantry(), chest.getTank(), chest.getSpecialAttackInChest(), chest.getAttacksInChest());
+        hud  = new HudChest(this.stage);
         labelInfantry = hud.getLabelInfantry();
         labelAttack = hud.getLabelAttack();
         labelGunner = hud.getLabelGunner();
@@ -61,12 +60,15 @@ public class ChestView {
         defineButtons();
     }
 
+    public HudChest getHudChest(){
+        return this.hud;
+    }
+
     public void defineButtons(){
         buttonAddArmy = new ButtonComponent(this.stage, "chestClosed.png", 80, 100, 430,50, new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 addArmy(gameController.almacenarDados());
-                System.out.println("pp");
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
@@ -119,12 +121,12 @@ public class ChestView {
             }
         });
     }
-    private void addArmy(ArrayList<Integer> dados){//recibir un objeto tipo armada
-
-        int army = hud.getInitArmy();
-        int movements = hud.getInitMovements();
-        int attacks = hud.getInitAttacks();
-        int specialAttacks = hud.getInitSpecialAttack();
+    private void addArmy(ArrayList<Integer> dados){
+        Chest chest = this.gameController.getGameState().getPlayerInTurn().getChest();
+        int army = chest.getArmyInChest();
+        int movements = chest.getMovementsInChest();
+        int attacks = chest.getAttacksInChest();
+        int specialAttacks = chest.getSpecialAttackInChest();
 
         int incomingInfantries = dados.get(0);
         int incomingGunners = dados.get(1);
@@ -146,26 +148,22 @@ public class ChestView {
             }
         }
 
-        System.out.println("Incoming infantries " + incomingInfantries);
-        System.out.println("Incoming gunner " + incomingGunners);
-        System.out.println("Incoming tanks " + incomingTanks);
-        System.out.println("Incoming attacks" + attacks);
-
-        if (army < chest.ARMY_AMOUNT_MAX) {
+        if (army < Chest.ARMY_AMOUNT_MAX) {
             if (incomingInfantries > 0) {
-                addingInfantries(incomingInfantries);
+                addingInfantries(incomingInfantries, chest);
             }
             if (incomingGunners > 0) {
-                addingGunner(incomingGunners);
+                addingGunner(incomingGunners, chest);
             }
             if (incomingTanks > 0) {
-                addingTank(incomingTanks);
+                addingTank(incomingTanks, chest);
             }
         } else {
+            //TODO retumba todo la maire
             System.out.println("No se pueden añadir mas elementos");
         }
 
-        if (attacks < chest.MAX_ATTACK) {
+        if (attacks < Chest.MAX_ATTACK) {
             if (dados.get(3) > 0) {
                 addingAttacks(attacks);
             }
@@ -173,7 +171,7 @@ public class ChestView {
             System.out.println("No se pueden añadir mas elementos");
         }
 
-        if (specialAttacks < chest.MAX_SPECIAL_ATTACK) {
+        if (specialAttacks < Chest.MAX_SPECIAL_ATTACK) {
             if (dados.get(4) > 0) {
                 addingSpecialAttacks();
             }
@@ -181,7 +179,7 @@ public class ChestView {
             System.out.println("No se pueden añadir mas elementos");
         }
 
-        if (movements < chest.MAX_MOVEMENTS) {
+        if (movements < Chest.MAX_MOVEMENTS) {
             if (dados.get(5) > 0) {
                 addingMovements(movements);
             }
@@ -192,54 +190,39 @@ public class ChestView {
 
     private void addingSpecialAttacks(){
         chest.setSpecialAttackInChest(chest.getSpecialAttackInChest() + 1);
-        System.out.println("se añadio un ataque especial");
         labelSpecialAttack.setText(chest.getSpecialAttackInChest());
         //se inserta el ataque especial en el array
     }
 
     private void addingAttacks(int attacks){
-        chest.setAttacksInChest(chest.getAttacksInChest() + 1);
-        System.out.println("se añadio un ataque");
+        chest.setAttacksInChest(chest.getAttacksInChest() + attacks);
         labelAttack.setText(chest.getAttacksInChest());
         //se inserta el tanque en el array
     }
 
-    private void addingTank(int tanksIncoming){
+    private void addingTank(int tanksIncoming, Chest chest){
         chest.setTank(chest.getTank() + tanksIncoming);
-        hud.setInitTank(hud.getInitTank() + tanksIncoming);
-        hud.setInitArmy(hud.getInitGunner() + hud.getInitInfantry() + hud.getInitTank());
-        System.out.println("se añadio un tanque");
-        labelTank.setText(hud.getInitTank());
-        //se inserta el tanque en el array
+        labelTank.setText(chest.getTank());
     }
 
-    private void addingGunner(int gunnersIncoming){
+    private void addingGunner(int gunnersIncoming, Chest chest){
         chest.setGunner(chest.getGunner() + gunnersIncoming);
-        hud.setInitGunner(hud.getInitGunner() + gunnersIncoming);
-        hud.setInitArmy(hud.getInitGunner() + hud.getInitInfantry() + hud.getInitTank());
-        System.out.println("se añadio un artillero");
-        labelGunner.setText(hud.getInitGunner());
-        //se inserta el artillero en el array
+        labelGunner.setText(chest.getGunner());
     }
 
-    private void addingInfantries(int infantriesIncoming){
+    private void addingInfantries(int infantriesIncoming, Chest chest){
         chest.setInfantry(chest.getInfantry() + infantriesIncoming);
-        hud.setInitInfantry(hud.getInitInfantry() + infantriesIncoming);
-        hud.setInitArmy(hud.getInitGunner() + hud.getInitInfantry() + hud.getInitTank());
-        System.out.println("se añadio un infantero");
-        labelInfantry.setText(hud.getInitInfantry());
-        //se inserta el infantero en el array
+        labelInfantry.setText(chest.getInfantry());
+
     }
 
     private void addingMovements(int movementsInChest){
-        hud.setInitMovements(movementsInChest + 1);
-        System.out.println("se añadio un movimiento");
-        labelMovements.setText(hud.getInitMovements());
-        //se inserta el movimiento en el array
+        chest.setMovementsInChest(chest.getMovementsInChest() + movementsInChest);
+        labelMovements.setText(chest.getMovementsInChest());
+
     }
 
-    private void getInfantry(){//retornar un objeto de tipo infanteria
-        System.out.println("getting infantry");
+    private void getInfantry(){
         chest.setInfantry(chest.getInfantry() - 1);
         labelInfantry.setText(chest.getInfantry());
     }

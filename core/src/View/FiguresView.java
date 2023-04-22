@@ -1,13 +1,20 @@
 package View;
 
+import BL.characters_abstract_fabric.abstract_product.Army;
+import Model.Chest;
+import Model.Coordinate;
+import Model.GameState;
 import View.Components.ButtonComponent;
 import BL.template.abstract_figure.Figure;
 import BL.template.concrete.*;
 
+import View.Screens.PlayScreen;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.Viewport;
+
+import java.util.List;
 
 
 public class FiguresView extends Stage {
@@ -29,8 +36,6 @@ public class FiguresView extends Stage {
     private ButtonComponent figure7;
 
 
-    private ButtonComponent figure8;
-
     private Figure figureSeven;
     private Figure figureFirst;
     private Figure figureSecond;
@@ -41,84 +46,91 @@ public class FiguresView extends Stage {
     private Figure figureFour;
     private Figure figureFive;
 
-    public FiguresView(Viewport viewport, Stage boardStage) {
+    private GameState gameState = GameState.getStateInstance();
+
+    public FiguresView(Viewport viewport, Stage boardStage, PlayScreen playScreen) {
         super(viewport);
         defineFiguresButtons();
-        this.figureSeven = new Figure7(boardStage);
-        this.figureFirst = new Figure1(boardStage);
-        this.figureSecond = new Figure2(boardStage);
-        this.figureSix = new Figure6(boardStage);
-        this.figureThird = new Figure3(boardStage);
-        this.figureFour = new Figure4(boardStage);
-        this.figureFive = new Figure5(boardStage);
+        this.figureSeven = new Figure7(playScreen, boardStage);
+        this.figureFirst = new Figure1(playScreen, boardStage);
+        this.figureSecond = new Figure2(playScreen, boardStage);
+        this.figureSix = new Figure6(playScreen, boardStage);
+        this.figureThird = new Figure3(playScreen, boardStage);
+        this.figureFour = new Figure4(playScreen, boardStage);
+        this.figureFive = new Figure5(playScreen, boardStage);
+    }
 
+    private void summon(Figure figure){
+        List<Army> armyList = this.gameState.getBoard().getArmyList();
+
+        if(gameState.isPrefaReady()){
+            Army army = (armyList.get(armyList.size() - 1));
+            figure.creatingWay(army);
+        }
     }
 
     private void defineFiguresButtons(){
-        figure1 = new ButtonComponent(this, "figure1.png", 165, 200, 25 ,890, new InputListener(){
+        figure1 = new ButtonComponent(this, "figure1.png", 155, 200, 30 ,860, new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                figureFirst.creatingWay();
+                summon(figureFirst);
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
 
-        figure2 = new ButtonComponent(this, "figure2.png", 110, 110, 45 ,840, new InputListener(){
+        figure2 = new ButtonComponent(this, "figure2.png", 100, 110, 55 ,790, new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                figureSecond.creatingWay();
+                summon(figureSecond);
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
 
-        figure3 = new ButtonComponent(this, "figure3.png", 110, 110, 45 ,700, new InputListener(){
+        figure3 = new ButtonComponent(this, "figure3.png", 100, 110, 55 ,630, new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                figureThird.creatingWay();
+                summon(figureThird);
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
 
-        figure4 = new ButtonComponent(this, "figure4.png", 150, 150, -15 ,530, new InputListener(){
+        figure4 = new ButtonComponent(this, "figure4.png", 80, 130, 15,450, new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                figureFour.creatingWay();
+                summon(figureFour);
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
 
-        figure5 = new ButtonComponent(this, "figure5.png", 150, 150, 75 ,530, new InputListener(){
+        figure5 = new ButtonComponent(this, "figure5.png", 80, 130, 127,450, new InputListener(){
+
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                figureFive.creatingWay();
+                summon(figureFive);
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
 
-        figure6 = new ButtonComponent(this, "figure6.png", 110, 110, 45 ,400, new InputListener(){
+        figure6 = new ButtonComponent(this, "figure6.png", 100, 110, 60,300, new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                figureSix.creatingWay();
+                summon(figureSix);
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
 
-        figure7 = new ButtonComponent(this, "figure7.png", 180, 180, 10 ,200, new InputListener(){
+        figure7 = new ButtonComponent(this, "figure7.png", 160, 160, 25 ,90, new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                figureSeven.creatingWay();
+                summon(figureSeven);
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
 
-        figure8 = new ButtonComponent(this, "figure8.png", 105, 105, 50 ,80, new InputListener(){
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("hola8");
-                return super.touchDown(event, x, y, pointer, button);
-            }
-        });
     }
+
+
+
 
 
 

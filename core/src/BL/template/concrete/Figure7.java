@@ -5,14 +5,15 @@ import Enums.Direction;
 import BL.prototype.TileActor;
 import Model.Coordinate;
 import View.BoardView;
+import View.Screens.PlayScreen;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Figure7 extends Figure {
-    public Figure7(Stage boardStage) {
-        super(boardStage);
+    public Figure7(PlayScreen playScreen, Stage boardStage) {
+        super(playScreen, boardStage);
     }
 
     @Override
@@ -72,9 +73,10 @@ public class Figure7 extends Figure {
 
         while(!(blockNumberToPaint == 0 )){
             TileActor tile = BoardView.getTileByPosition(coordinate.getX(), coordinate.getY());
-            tile.setRegionTexture("BlackWay");
+            tile.setRegionTexture(Figure.tileCastlePlayer1);
             tile.setBusy(true);
             coordinate.setY(coordinate.getY() + 1);
+            saveMiddleCoordinates(blockNumberToPaint, coordinate);
             blockNumberToPaint --;
         }
 
@@ -87,9 +89,10 @@ public class Figure7 extends Figure {
 
         while(!(blockNumberToPaint == 0 )){
             TileActor tile = BoardView.getTileByPosition(coordinate.getX(), coordinate.getY());
-            tile.setRegionTexture("WhiteWay");
+            tile.setRegionTexture(Figure.tileCastlePlayer2);
             tile.setBusy(true);
             coordinate.setY(coordinate.getY() - 1);
+            saveMiddleCoordinates(blockNumberToPaint, coordinate);
             blockNumberToPaint --;
         }
 
@@ -116,6 +119,13 @@ public class Figure7 extends Figure {
 
         if(direction == Direction.Down && y > 0){
             getState().getPlayerInTurn().getCoordinatesList().add(new Coordinate(x, y));
+        }
+    }
+
+    @Override
+    protected void saveMiddleCoordinates(int tileNumber, Coordinate coordinate) {
+        if(tileNumber == 4){
+            this.setMiddleCoordinates(new Coordinate(coordinate.getX(), coordinate.getY()));
         }
     }
 }

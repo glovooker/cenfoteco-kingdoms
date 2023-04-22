@@ -1,5 +1,7 @@
 package BL.characters_abstract_fabric.abstract_product;
 
+import Model.Coordinate;
+
 public abstract class Army {
 
     private String characterType;
@@ -10,6 +12,8 @@ public abstract class Army {
     private int defense;
     private String owner;
     private String characterClass;
+
+    private Coordinate position;
 
 
     public Army() {
@@ -23,6 +27,14 @@ public abstract class Army {
         setCharacterClass("Army");
     }
 
+
+    public Coordinate getPosition() {
+        return position;
+    }
+
+    public void setPosition(Coordinate position) {
+        this.position = position;
+    }
 
     public String getCharacterType() { return characterType; }
     public String getId() { return id; }
