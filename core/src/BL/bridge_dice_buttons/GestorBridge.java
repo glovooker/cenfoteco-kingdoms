@@ -26,6 +26,7 @@ public class GestorBridge {
     private int dadosTanqueTotal = 0;
 
     private int cantDadosMovimiento = 0;
+    private int dadosMovimientoVolatil = 0;
 
     private ArrayList<DadoMovimiento> dadosMovimiento = new ArrayList<DadoMovimiento>();
     private int dadosAtaqueEspecial = 0;
@@ -54,6 +55,8 @@ public class GestorBridge {
 
     public ArrayList<Integer> lanzarDado() {
         ArrayList<Integer> dadosVolatiles = new ArrayList<Integer>();
+
+        dadosMovimiento = new ArrayList<DadoMovimiento>();
 
         dadosInfanteriaVolatil = 0;
         dadosArtilleriaVolatil = 0;
@@ -85,8 +88,6 @@ public class GestorBridge {
             DadoMovimiento dadoMovimiento = new DadoMovimiento();
             dadoMovimiento.setMovimiento(random.nextInt(6) + 1);
 
-            System.out.println(dadoMovimiento.getMovimiento());
-
             dadosMovimiento.add(dadoMovimiento);
 
 
@@ -103,6 +104,12 @@ public class GestorBridge {
         dadosVolatiles.add(3, dadosAtaque);
         dadosVolatiles.add(4, dadosAtaqueEspecial);
 
+        if(dadosMovimiento.size() != 0){
+            dadosVolatiles.add(5, dadosMovimiento.get(0).getMovimiento());
+        } else {
+            dadosVolatiles.add(5, 0);
+        }
+
         return dadosVolatiles;
     }
 
@@ -114,13 +121,14 @@ public class GestorBridge {
         dados.add(2, dadosTanqueVolatil);
         dados.add(3, dadosAtaque);
         dados.add(4, dadosAtaqueEspecial);
-        dados.add(5, 0);
+        dados.add(5, dadosMovimiento.get(0).getMovimiento());
 
         dadosInfanteriaVolatil = 0;
         dadosArtilleriaVolatil = 0;
         dadosTanqueVolatil = 0;
         dadosAtaque = 0;
         dadosAtaqueEspecial = 0;
+        dadosMovimiento = new ArrayList<>();
 
         return dados;
     }
@@ -188,29 +196,14 @@ public class GestorBridge {
         return btnAtaqueEspecial.onPressed(btnAtaqueEspecial.getGlobalValidacion().getEstado());
     }
 
-    public String mover(){
-        cantDadosMovimiento = btnMovimiento.getGlobalValidacion().validar(cantDadosMovimiento);
+    public int mover(){
+        cantDadosMovimiento = btnMovimiento.getGlobalValidacion().validar(dadosMovimiento.size());
         if(btnMovimiento.getGlobalValidacion().getEstado())
         {
-            return seleccionarMovimiento();
+            return dadosMovimiento.get(0).getMovimiento();
         } else {
-            return "No tiene suficientes dados para moverse";
+            return 0;
         }
-    }
-
-    private String seleccionarMovimiento(){
-        for (DadoMovimiento dadoMovimiento : dadosMovimiento)
-        {
-            int i = 0;
-            i++;
-            System.out.println("- Dado: " + i + " con movimiento: " + dadoMovimiento.getMovimiento() + "\n");
-        }
-        System.out.println("Seleccione el dado que desea usar: ");
-        int dadoSeleccionado = scanner.nextInt();
-        String msg = "Mover: " + dadosMovimiento.get(dadoSeleccionado).getMovimiento();
-        System.out.println(msg);
-        dadosMovimiento.remove(dadoSeleccionado);
-        return msg;
     }
 
     private void cambiarEstadoBotones(String tipoBtn) {

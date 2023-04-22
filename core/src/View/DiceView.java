@@ -41,6 +41,7 @@ public class DiceView extends Stage {
     private int tanque2 = 0;
     private int attack = 0;
     private int sattack = 0;
+    private int move = 0;
 
     private PlayScreen playScreen;
 
@@ -103,14 +104,35 @@ public class DiceView extends Stage {
 
 
     public void defineThirdDice(PlayScreen screen){
-        if (attack != 0 || sattack != 0) {
+        if (attack != 0 || sattack != 0 || move != 0) {
             if (attack == 1) {
                 thirdDiceDefault = screen.getDiceAtlas().findRegion("attack");
             } else if (sattack == 1) {
                 thirdDiceDefault = screen.getDiceAtlas().findRegion("specialAttack");
+            } else {
+                switch (move) {
+                    case 1:
+                        thirdDiceDefault = screen.getDiceAtlas().findRegion("oneDice");
+                        break;
+                    case 2:
+                        thirdDiceDefault = screen.getDiceAtlas().findRegion("twoDice");
+                        break;
+                    case 3:
+                        thirdDiceDefault = screen.getDiceAtlas().findRegion("threeDice");
+                        break;
+                    case 4:
+                        thirdDiceDefault = screen.getDiceAtlas().findRegion("fourDice");
+                        break;
+                    case 5:
+                        thirdDiceDefault = screen.getDiceAtlas().findRegion("fiveDice");
+                        break;
+                    case 6:
+                        thirdDiceDefault = screen.getDiceAtlas().findRegion("sixDice");
+                        break;
+                }
             }
         } else {
-            thirdDiceDefault = screen.getDiceAtlas().findRegion("attack");
+            thirdDiceDefault = screen.getDiceAtlas().findRegion("specialAttack");
         }
 
         tankImg = new Image();
@@ -149,6 +171,8 @@ public class DiceView extends Stage {
         tanque2 = 0;
         attack = 0;
         sattack = 0;
+        move = 0;
+
 
         if(dados.get(0) == 2){
             infanteria = 1;
@@ -182,6 +206,8 @@ public class DiceView extends Stage {
             attack = 1;
         } else if(dados.get(4) == 1){
             sattack = 1;
+        } else if(dados.get(5) != 0){
+            move = dados.get(5);
         }
 
         defineFirstDice(playScreen);
