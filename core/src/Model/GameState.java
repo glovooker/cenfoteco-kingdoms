@@ -76,6 +76,7 @@ public class GameState {
                 : this.getPlayer1();
 
         this.setPlayer(playerInTurn);
+        this.playerInTurn.setRollDice(true);
     }
 
 

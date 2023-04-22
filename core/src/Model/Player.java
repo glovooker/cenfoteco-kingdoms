@@ -8,8 +8,9 @@ public class Player {
     private Castle castle;
     private boolean turn;
     private final int luckyNumber;
-
     private String name;
+
+    private boolean rollDice = true;
 
     private List<Coordinate> coordinateList;
 
@@ -58,6 +59,14 @@ public class Player {
 
     public String getName() {
         return name;
+    }
+
+    public boolean isRollDice() {
+        return rollDice;
+    }
+
+    public void setRollDice(boolean rollDice) {
+        this.rollDice = rollDice;
     }
 
     @Override
