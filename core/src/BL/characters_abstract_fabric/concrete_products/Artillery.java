@@ -14,4 +14,13 @@ public class Artillery extends Army {
         setOwner(owner);
         setCharacterClass(characterClass);
     }
+
+    @Override
+    public void attack(Army armyToAttack) {
+        if(armyToAttack.getDefense() >= 2){
+            armyToAttack.setDefense(armyToAttack.getDefense() - 2);
+        }else{
+            armyToAttack.setLife(armyToAttack.getLife() - 2);
+        }
+    }
 }

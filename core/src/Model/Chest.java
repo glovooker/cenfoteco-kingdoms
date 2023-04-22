@@ -1,10 +1,13 @@
 package Model;
 
+import BL.bridge_dice_buttons.dadoMovimiento.DadoMovimiento;
 import BL.characters_abstract_fabric.abstract_product.Army;
+
+import java.util.ArrayList;
 
 public class Chest {
 
-    private int movementsInChest = 0;
+    private ArrayList<DadoMovimiento> movementsInChest = new ArrayList<>();
 
     private int attacksInChest = 0;
 
@@ -51,12 +54,12 @@ public class Chest {
         this.tank = tank;
     }
 
-    public int getMovementsInChest() {
+    public ArrayList<DadoMovimiento> getMovementsInChest() {
         return movementsInChest;
     }
 
-    public void setMovementsInChest(int movementsInChest) {
-        this.movementsInChest = movementsInChest;
+    public void setMovementsInChest(DadoMovimiento movementsInChest) {
+        this.movementsInChest.add(movementsInChest);
     }
 
     public int getAttacksInChest() {
@@ -98,7 +101,7 @@ public class Chest {
     @Override
     public String toString() {
         return "Chest{" +
-                "movementsInChest=" + movementsInChest +
+                "movementsInChest=" + movementsInChest.size() +
                 ", attacksInChest=" + attacksInChest +
                 ", specialAttackInChest=" + specialAttackInChest +
                 ", gunner=" + gunner +

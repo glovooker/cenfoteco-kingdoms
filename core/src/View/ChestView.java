@@ -1,6 +1,7 @@
 package View;
 
 import BL.GameController;
+import BL.bridge_dice_buttons.dadoMovimiento.DadoMovimiento;
 import Model.Chest;
 import View.Components.ButtonComponent;
 import View.Components.HudChest;
@@ -116,7 +117,7 @@ public class ChestView {
         buttonGetMovement = new ButtonComponent(this.stage, "movements.png", 80, 80, 250, 150, new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                getMovement();
+                //getMovement();
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
@@ -124,7 +125,7 @@ public class ChestView {
     private void addArmy(ArrayList<Integer> dados){
         Chest chest = this.gameController.getGameState().getPlayerInTurn().getChest();
         int army = chest.getArmyInChest();
-        int movements = chest.getMovementsInChest();
+        int movements = chest.getMovementsInChest().size();
         int attacks = chest.getAttacksInChest();
         int specialAttacks = chest.getSpecialAttackInChest();
 
@@ -181,7 +182,9 @@ public class ChestView {
 
         if (movements < Chest.MAX_MOVEMENTS) {
             if (dados.get(5) > 0) {
-                addingMovements(movements);
+                DadoMovimiento newDadoMovimiento = new DadoMovimiento();
+                newDadoMovimiento.setMovimiento(dados.get(5));
+                addingMovements(newDadoMovimiento);
             }
         } else {
             System.out.println("No se pueden añadir mas elementos");
@@ -216,9 +219,9 @@ public class ChestView {
 
     }
 
-    private void addingMovements(int movementsInChest){
-        chest.setMovementsInChest(chest.getMovementsInChest() + movementsInChest);
-        labelMovements.setText(chest.getMovementsInChest());
+    private void addingMovements(DadoMovimiento movementsInChest){
+        chest.setMovementsInChest(movementsInChest);
+        labelMovements.setText(chest.getMovementsInChest().size());
 
     }
 
@@ -251,9 +254,9 @@ public class ChestView {
         labelSpecialAttack.setText(chest.getSpecialAttackInChest());
     }
 
-    private void getMovement(){//retornar un objeto de tipo ataque expecial y ataca
+    /*private void getMovement(){//retornar un objeto de tipo ataque expecial y ataca
         System.out.println("getting movements");
         chest.setMovementsInChest(chest.getMovementsInChest() - 1);
         labelMovements.setText(chest.getMovementsInChest());
-    }
+    }*/
 }

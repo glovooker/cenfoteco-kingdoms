@@ -67,4 +67,6 @@ public abstract class Army {
         Army army = (Army) o;
         return getId().equals(army.getId());
     }
+
+    public abstract void attack(Army armyToAttack);
 }

@@ -63,5 +63,9 @@ public class DecoratedTank extends DecoratedArmy {
         // This should be managed in the game logic, not here
     }
 
+    @Override
+    public void attack(Army armyToAttack) {
+
+    }
 }
 
