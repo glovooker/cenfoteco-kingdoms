@@ -11,6 +11,8 @@ public class GameState {
 
     private static GameState stateInstance;
 
+    private Board board;
+
 
     public static GameState getStateInstance(){
         if(stateInstance == null){
@@ -21,7 +23,15 @@ public class GameState {
     }
 
     private GameState() {
+        this.board = new Board();
+    }
 
+    public Board getBoard() {
+        return board;
+    }
+
+    public void setBoard(Board board) {
+        this.board = board;
     }
 
     public void setPlayer(Player player) {

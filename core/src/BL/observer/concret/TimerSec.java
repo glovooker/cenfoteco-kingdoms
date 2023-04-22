@@ -31,9 +31,7 @@ public class TimerSec extends TimerTask implements Subject {
 
     @Override
     public void run() {
-        this.time--;
-
-        if(this.time <= 0) {
+        if(this.time == 0) {
             this.state.changePlayerInTurn();
         }
 
@@ -42,6 +40,8 @@ public class TimerSec extends TimerTask implements Subject {
         if(time < -1) {
             this.time = TIME_IN_GAME;
         }
+
+        this.time--;
     }
 
     public void setTime(int time) {

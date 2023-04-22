@@ -79,7 +79,6 @@ public class ArmyView extends Stage {
 
     public void defineArmy(Army armyToInvoque){
 
-
         if (currentArmyImg != null) {
             currentArmyImg.remove();
         }

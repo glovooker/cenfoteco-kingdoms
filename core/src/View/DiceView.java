@@ -73,7 +73,7 @@ public class DiceView extends Stage {
         attackImg = new Image();
         attackImg.setDrawable(new TextureRegionDrawable(firstDiceDefault));
         attackImg.setSize(SIZE,SIZE);
-        attackImg.setPosition(640, 170);
+        attackImg.setPosition(650, 160);
         this.addActor(attackImg);
 
         return true;
@@ -97,7 +97,7 @@ public class DiceView extends Stage {
         specialAttackImg = new Image();
         specialAttackImg.setDrawable(new TextureRegionDrawable(secondDiceDefault));
         specialAttackImg.setSize(SIZE,SIZE);
-        specialAttackImg.setPosition(540, 170);
+        specialAttackImg.setPosition(550, 160);
         this.addActor(specialAttackImg);
     }
 
@@ -116,13 +116,13 @@ public class DiceView extends Stage {
         tankImg = new Image();
         tankImg.setDrawable(new TextureRegionDrawable(thirdDiceDefault));
         tankImg.setSize(SIZE,SIZE);
-        tankImg.setPosition(590, 60);
+        tankImg.setPosition(600, 50);
         this.addActor(tankImg);
     }
 
 
     private void defineButton(String img){
-        rollDice = new ButtonComponent(this, img, 180, 180, 550, -70, new InputListener() {
+        rollDice = new ButtonComponent(this, img, 180, 180, 555, -80, new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 rollDices(gameController.lanzarDados());

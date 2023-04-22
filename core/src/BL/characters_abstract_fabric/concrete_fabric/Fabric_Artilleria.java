@@ -10,7 +10,7 @@ import java.util.List;
 public class Fabric_Artilleria implements Abstract_Fabric_Army {
     @Override
     public Army createArmy(String owner) {
-        List<String> units = Arrays.asList("archero", "daemon", "bruja", "mago");
+        List<String> units = Arrays.asList("archero", "daemon", "bruja");//, "mago");
         String name = units.get(getRandomNumberInRange(units.size()) - 1);
 
         return new Artillery(owner, name);

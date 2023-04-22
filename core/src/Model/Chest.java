@@ -1,5 +1,7 @@
 package Model;
 
+import BL.characters_abstract_fabric.abstract_product.Army;
+
 public class Chest {
 
     private int movementsInChest = 0;
@@ -12,8 +14,6 @@ public class Chest {
     private int infantry = 0;
 
     private int tank = 0;
-
-    private int armyInChest = gunner + infantry + tank;//deberia ser un array de objetos tipo armada
 
     public final static int ARMY_AMOUNT_MAX = 6;
 
@@ -75,6 +75,26 @@ public class Chest {
         this.specialAttackInChest = specialAttackInChest;
     }
 
+    public int getArmyInChest() {
+        return gunner + infantry + tank;
+    }
+
+    public void cleanChest(Army armyInvoked, GameState gameState){
+        Chest chest = gameState.getPlayerInTurn().getChest();
+
+        if(armyInvoked.getCharacterClass().equals("ratallero") || armyInvoked.getCharacterClass().equals("orco") || armyInvoked.getCharacterClass().equals("chaman") || armyInvoked.getCharacterClass().equals("escudero")){
+            chest.setInfantry(chest.getInfantry() - 2);
+        }
+
+        if(armyInvoked.getCharacterClass().equals("archero") || armyInvoked.getCharacterClass().equals("daemon") || armyInvoked.getCharacterClass().equals("bruja")){
+            chest.setGunner(chest.getGunner() - 3);
+        }
+
+        if(armyInvoked.getCharacterClass().equals("dragon") || armyInvoked.getCharacterClass().equals("golem") || armyInvoked.getCharacterClass().equals("guardian") || armyInvoked.getCharacterClass().equals("kamikaze")){
+            chest.setTank(chest.getTank() - 4);
+        }
+    }
+
     @Override
     public String toString() {
         return "Chest{" +
@@ -84,7 +104,7 @@ public class Chest {
                 ", gunner=" + gunner +
                 ", infantry=" + infantry +
                 ", tank=" + tank +
-                ", armyInChest=" + armyInChest +
+                ", armyInChest=" + this.getArmyInChest() +
                 '}';
     }
 }

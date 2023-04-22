@@ -2,11 +2,14 @@ package View;
 
 import BL.GameController;
 import BL.characters_abstract_fabric.abstract_product.Army;
+import Model.Coordinate;
 import View.Screens.PlayScreen;
 import View.Components.ButtonComponent;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class ButtonsActionsView extends Stage {
@@ -22,7 +25,6 @@ public class ButtonsActionsView extends Stage {
     private ButtonComponent buttonUp;
     private ButtonComponent buttonDown;
     private ButtonComponent buttonMovements;
-
     private static final int HEIGHT = 100;
     private static final int WIDTH = 140;
     private PlayScreen playScreen;
@@ -72,22 +74,35 @@ public class ButtonsActionsView extends Stage {
         buttonArtillery = new ButtonComponent(this, imgButton, WIDTH, HEIGHT, 145, 320, new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                playScreen.showArmyData(gameController.invocarArtilleria());
+                Army army = gameController.invocarArtilleria();
+                invoke(army);
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
+    }
 
+    public void defineButtonTank(String imgButton){
+        buttonTank = new ButtonComponent(this, imgButton, WIDTH, HEIGHT, 145, 380, new InputListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                Army army = gameController.invocarTanque();
+                invoke(army);
+                return super.touchDown(event, x, y, pointer, button);
+            }
+        });
     }
     public void defineButtonInfantery(String imgButton){
         buttonInfatery = new ButtonComponent(this, imgButton, WIDTH, HEIGHT, 145, 440, new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                playScreen.showArmyData(gameController.invocarInfanteria());
+                Army army = gameController.invocarInfanteria();
+                invoke(army);
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
-
     }
+
+
 
     public void defineButtonMovements(String imgButton){
         buttonMovements = new ButtonComponent(this, imgButton, WIDTH, HEIGHT,0, 320, new InputListener() {
@@ -111,16 +126,7 @@ public class ButtonsActionsView extends Stage {
             }
         });
     }
-    public void defineButtonTank(String imgButton){
-        buttonTank = new ButtonComponent(this, imgButton, WIDTH, HEIGHT, 145, 380, new InputListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                playScreen.showArmyData(gameController.invocarTanque());
-                return super.touchDown(event, x, y, pointer, button);
-            }
-        });
 
-    }
 
     public void defineButtonLeft(String imgButton){
         buttonLeft = new ButtonComponent(this, imgButton, WIDTH, HEIGHT, 0,80, new InputListener() {
@@ -162,5 +168,13 @@ public class ButtonsActionsView extends Stage {
         });
 
     }
+
+    private void invoke(Army army){
+        playScreen.showArmyData(army);
+        gameController.getGameState().getBoard().getArmyList().add(army);
+        gameController.getGameState().setPrefaReady(true);
+    }
+
+
 
 }
