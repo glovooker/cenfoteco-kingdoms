@@ -1,5 +1,7 @@
 package Model;
 
+import BL.bridge_dice_buttons.dadoMovimiento.DadoMovimiento;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,16 +11,24 @@ public class Player {
     private boolean turn;
     private final int luckyNumber;
     private String name;
-
     private boolean rollDice = true;
-
     private List<Coordinate> coordinateList;
+
+    private DadoMovimiento movementDice;
 
     public Player(int luckyNumber) {
         this.chest = new Chest();
         this.turn = false;
         this.luckyNumber = luckyNumber;
         this.name = "Player " + luckyNumber;
+    }
+
+    public DadoMovimiento getMovementDice() {
+        return movementDice;
+    }
+
+    public void setMovementDice(DadoMovimiento movementDice) {
+        this.movementDice = movementDice;
     }
 
     public Chest getChest() {

@@ -3,7 +3,6 @@ package BL.bridge_dice_buttons.botones;
 import BL.bridge_dice_buttons.abstracta.AbstractaBoton;
 
 public class BtnAccion extends AbstractaBoton {
-
     public BtnAccion(String tipoBtn) {
         this.tipoBtn = tipoBtn;
     }
@@ -12,7 +11,7 @@ public class BtnAccion extends AbstractaBoton {
     public String onPressed(boolean status) {
         if(status)
         {
-            System.out.println("Accionando...");
+            return this.tipoBtn;
         } else {
             System.out.println("No");
         }

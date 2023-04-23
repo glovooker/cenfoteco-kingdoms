@@ -65,7 +65,6 @@ public abstract class Figure {
             ButtonComponent btnComp = new ButtonComponent(this.boardStage, "buttonNextMove.png", 50, 50, coordinate.getX() * 50,coordinate.getY() * 50, new InputListener(){
                 @Override
                 public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                    System.out.println(button);
                     if(isPaintingUp()){
                         paintingWayUp(coordinate);
                     }else {
@@ -106,12 +105,15 @@ public abstract class Figure {
         else {
             this.createNextMoveButtons(army);
         }
-
     }
 
     protected abstract void calculatingNextMovement(int x, int y, Direction direction);
 
     protected abstract void saveMiddleCoordinates(int tileNumber, Coordinate coordinate);
+
+    public Coordinate getMiddleCoordinates() {
+        return middleCoordinates;
+    }
 
     private void positionArmyOnFigure(Army army) {
         army.setPosition(middleCoordinates);
@@ -126,6 +128,11 @@ public abstract class Figure {
         }
 
         this.buttonComponents.clear();
+    }
+
+    protected void addInvadedByArmyToTile(){
+        TileActor tileBusyByArmy = BoardView.getTileByPosition(this.getMiddleCoordinates().getX(), this.getMiddleCoordinates().getY());
+        tileBusyByArmy.setInvaded(true);
     }
 }
 

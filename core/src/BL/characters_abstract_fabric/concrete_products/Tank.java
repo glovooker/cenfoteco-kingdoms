@@ -1,13 +1,14 @@
 package BL.characters_abstract_fabric.concrete_products;
 
 import BL.characters_abstract_fabric.abstract_product.Army;
+import Model.Player;
 
 public class Tank extends Army {
 
-        public Tank(String owner, String characterClass) {
+        public Tank(Player owner, String characterClass) {
             setCharacterType("tanque");
-            setId(owner + '-' + characterClass);
-            setMaxMove(calculateMovement(1, 2));
+            setId(owner.getName() + '-' + characterClass);
+            setMovements(calculateMovement(1, 2));
             setLife(2);
             setAttack(10);
             setDefense(10);

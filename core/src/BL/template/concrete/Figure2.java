@@ -42,7 +42,7 @@ public class Figure2 extends Figure {
 
         TileActor nextTile = BoardView.getTileByPosition(coordinate.getX() + 1, coordinate.getY());
 
-        int initialX = nextTile.isBusy() ?  coordinate.getX() - 1 : coordinate.getX();
+        int initialX = nextTile.hasWayCreated() ?  coordinate.getX() - 1 : coordinate.getX();
         int currentY = coordinate.getY();
 
         while (contX < 3){
@@ -50,7 +50,7 @@ public class Figure2 extends Figure {
 
             TileActor tile = BoardView.getTileByPosition(currentX, currentY);
 
-            if(tile.isBusy()){
+            if(tile.hasWayCreated()){
                 return true;
             }
 
@@ -75,7 +75,7 @@ public class Figure2 extends Figure {
             int currentY = direction == Direction.Up ? y + contY : y - contY;
             TileActor tile = BoardView.getTileByPosition(x, currentY);
 
-            if(tile.isBusy()){
+            if(tile.hasWayCreated()){
                 return true;
             }
 
@@ -107,14 +107,14 @@ public class Figure2 extends Figure {
 
         TileActor nextTile = BoardView.getTileByPosition(coordinate.getX() + 1, coordinate.getY());
 
-        if(nextTile.isBusy()) {
+        if(nextTile.hasWayCreated()) {
             coordinate.setX(coordinate.getX() - 1);
         }
 
         while(!(blockNumberToPaint == Figure.AMOUNT_BLOCKS - 3 )){
             tile = BoardView.getTileByPosition(coordinate.getX(), coordinate.getY());;
             tile.setRegionTexture(Figure.tileCastlePlayer1);
-            tile.setBusy(true);
+            tile.setHasWayCreated(true);
 
             if(blockNumberToPaint == Figure.AMOUNT_BLOCKS - 1){
                 paintingHelperUp(coordinate);
@@ -137,7 +137,7 @@ public class Figure2 extends Figure {
             saveMiddleCoordinates(blockNumber, coordinate);
             TileActor tile = BoardView.getTileByPosition(coordinate.getX(), coordinate.getY());
             tile.setRegionTexture(Figure.tileCastlePlayer1);
-            tile.setBusy(true);
+            tile.setHasWayCreated(true);
 
             blockNumber --;
         }
@@ -156,14 +156,14 @@ public class Figure2 extends Figure {
 
         TileActor nextTile = BoardView.getTileByPosition(coordinate.getX() + 1, coordinate.getY());
 
-        if(nextTile.isBusy()) {
+        if(nextTile.hasWayCreated()) {
             coordinate.setX(coordinate.getX() - 1);
         }
 
         while(blockNumberToPaint != (Figure.AMOUNT_BLOCKS - 3)){
             tile = BoardView.getTileByPosition(coordinate.getX(), coordinate.getY());
             tile.setRegionTexture(Figure.tileCastlePlayer2);
-            tile.setBusy(true);
+            tile.setHasWayCreated(true);
 
             if(blockNumberToPaint == Figure.AMOUNT_BLOCKS - 1){
                 paintingHelperDown(coordinate);
@@ -184,7 +184,7 @@ public class Figure2 extends Figure {
             saveMiddleCoordinates(blockNumber, coordinate);
             TileActor tile = BoardView.getTileByPosition(coordinate.getX(), coordinate.getY());
             tile.setRegionTexture(Figure.tileCastlePlayer2);
-            tile.setBusy(true);
+            tile.setHasWayCreated(true);
 
             blockNumber --;
         }
@@ -198,11 +198,11 @@ public class Figure2 extends Figure {
         int newY = direction == Direction.Down ? y - 1 : y + 1;
         int newX = x - 1;
 
-        if(x >= 0 && !board[y][x].isBusy()){
+        if(x >= 0 && !board[y][x].hasWayCreated()){
             getState().getPlayerInTurn().getCoordinatesList().add(new Coordinate(x, y));
         }
 
-        if(newY >= 0 && !board[newY][newX].isBusy()){
+        if(newY >= 0 && !board[newY][newX].hasWayCreated()){
             getState().getPlayerInTurn().getCoordinatesList().add(new Coordinate(newX, newY));
         }
 
@@ -212,6 +212,7 @@ public class Figure2 extends Figure {
     protected void saveMiddleCoordinates(int tileNumber, Coordinate coordinate) {
         if(tileNumber == 2){
             this.setMiddleCoordinates(new Coordinate(coordinate.getX(), coordinate.getY()));
+            this.addInvadedByArmyToTile();
         }
     }
 }

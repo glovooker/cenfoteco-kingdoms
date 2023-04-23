@@ -1,6 +1,7 @@
 package BL.characters_abstract_fabric.abstract_product;
 
 import Model.Coordinate;
+import Model.Player;
 
 public abstract class Army {
 
@@ -10,7 +11,8 @@ public abstract class Army {
     private int life;
     private int attack;
     private int defense;
-    private String owner;
+
+    private Player owner;
     private String characterClass;
 
     private Coordinate position;
@@ -18,12 +20,11 @@ public abstract class Army {
 
     public Army() {
         setId("");
-        setMaxMove(0);
+        setMovements(0);
         setLife(0);
         setAttack(0);
         setDefense(0);
         setCharacterType("Army");
-        setOwner("");
         setCharacterClass("Army");
     }
 
@@ -38,23 +39,38 @@ public abstract class Army {
 
     public String getCharacterType() { return characterType; }
     public String getId() { return id; }
-    public int getMaxMove() { return movement; }
+    public int getMovements() { return movement; }
     public int getLife() { return life; }
     public int getAttack() { return attack; }
     public int getDefense() { return defense; }
-    public String getOwner() { return owner; }
-    public String getCharacterClass() { return characterClass; }
 
+    public String getCharacterClass() { return characterClass; }
 
     public void setCharacterType(String characterType) { this.characterType = characterType; }
     public void setId(String id) { this.id = id; }
-    public void setMaxMove(int maxMove) { this.movement = maxMove; }
+
+    public void setMovements(int moves) {
+        if(moves < 0) {
+            moves = 0;
+        }
+
+        this.movement = moves;
+    }
+
     public void setLife(int life) { this.life = life; }
     public void setAttack(int attack) { this.attack = attack; }
     public void setDefense(int defense) { this.defense = defense; }
-    public void setOwner(String owner) { this.owner = owner; }
+
     public void setCharacterClass(String characterClass) { this.characterClass = characterClass; }
 
+
+    public Player getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Player owner) {
+        this.owner = owner;
+    }
 
     public int calculateMovement(int minMove, int maxMove) {
         return (int) (Math.random() * (maxMove - minMove + 1) + minMove);

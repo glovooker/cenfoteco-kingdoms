@@ -50,7 +50,7 @@ public class Figure1 extends Figure {
             TileActor tile = BoardView.getTileByPosition(coordinate.getX() + cont, coordinate.getY());
 
 
-            if(tile.isBusy()){
+            if(tile.hasWayCreated()){
                 return true;
             }
 
@@ -72,7 +72,7 @@ public class Figure1 extends Figure {
 
             TileActor tile = BoardView.getTileByPosition(coordinate.getX() - cont, coordinate.getY());
 
-            if(tile.isBusy()){
+            if(tile.hasWayCreated()){
                 return true;
             }
 
@@ -113,13 +113,13 @@ public class Figure1 extends Figure {
         int initialX = coordinate.getX() + 1;
         int initialY = coordinate.getY();
 
-        if(coordinate.getX() > (20-AMOUNT_BLOCKS) || board[initialY][initialX].isBusy()) {
+        if(coordinate.getX() > (20-AMOUNT_BLOCKS) || board[initialY][initialX].hasWayCreated()) {
             coordinate.setX(coordinate.getX() - AMOUNT_BLOCKS + 1);
         }
 
         while(blockNumberToPaint > 0 ){
             board[coordinate.getY()][coordinate.getX()].setRegionTexture(texture);
-            board[coordinate.getY()][coordinate.getX()].setBusy(true);
+            board[coordinate.getY()][coordinate.getX()].setHasWayCreated(true);
             saveMiddleCoordinates(blockNumberToPaint, coordinate);
             coordinate.setX((coordinate.getX() + 1));
             blockNumberToPaint--;
@@ -132,6 +132,7 @@ public class Figure1 extends Figure {
     protected void saveMiddleCoordinates(int tileNumber, Coordinate coordinate) {
         if(tileNumber == 3){
             this.setMiddleCoordinates(new Coordinate(coordinate.getX(), coordinate.getY()));
+            this.addInvadedByArmyToTile();
         }
     }
 
@@ -151,15 +152,15 @@ public class Figure1 extends Figure {
         int initialX = x - AMOUNT_BLOCKS;
         int leftButtonX = initialX -1;
 
-        if(initialX > 0 && !board[y][leftButtonX].isBusy()){
+        if(initialX > 0 && !board[y][leftButtonX].hasWayCreated()){
             getState().getPlayerInTurn().getCoordinatesList().add(new Coordinate(leftButtonX, y));
         }
 
-        if(x < 19 && !board[y][x].isBusy()){
+        if(x < 19 && !board[y][x].hasWayCreated()){
             getState().getPlayerInTurn().getCoordinatesList().add(new Coordinate(x, y));
         }
 
-        if(newY < 21 && newY > 0 && !board[newY][initialX+2].isBusy()){
+        if(newY < 21 && newY > 0 && !board[newY][initialX+2].hasWayCreated()){
             getState().getPlayerInTurn().getCoordinatesList().add(new Coordinate(initialX + 2, newY));
         }
 

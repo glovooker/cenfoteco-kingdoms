@@ -86,6 +86,9 @@ public class PlayScreen implements Screen {
 
     private InformationBar informationBar;
 
+    private GameController gameController = GameController.getInstance();
+
+    private ButtonComponent selectedArmyButton;
 
     public PlayScreen(Music music){
         music.stop();
@@ -286,13 +289,27 @@ public class PlayScreen implements Screen {
         final Army army = armyInvoked;
         int x = coordinate.getX() * 50;
         int y = coordinate.getY() * 50;
-        return new ButtonComponent(boardStage, imgPath, 80, 80, x, y, new InputListener() {
+        final ButtonComponent buttonComponent = new ButtonComponent(boardStage, imgPath, 80, 80, x, y);
+
+        buttonComponent.setInputListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 showArmyData(army);
+
+                if(gameController.getPlayerInTurn().getName().equalsIgnoreCase(army.getOwner().getName())){
+                    gameController.getGameState().setSelectedArmy(army);
+                    selectedArmyButton = buttonComponent;
+                }
+
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
+
+        return buttonComponent;
+    }
+
+    public ButtonComponent getSelectedArmyButton() {
+        return this.selectedArmyButton;
     }
 
     public ButtonComponent knowWhatButtonCreate(final Army armyInvoked){
