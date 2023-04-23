@@ -1,5 +1,6 @@
 package BL;
 
+import BL.bridge_dice_buttons.dadoMovimiento.DadoMovimiento;
 import BL.memento.GestorMemento;
 import Model.GameState;
 import Model.Player;
@@ -7,6 +8,7 @@ import BL.observer.concret.TimerSec;
 import BL.bridge_dice_buttons.GestorBridge;
 import BL.characters_abstract_fabric.GestorFabricaAbstracta;
 import BL.characters_abstract_fabric.abstract_product.Army;import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 
@@ -91,7 +93,7 @@ public class GameController {
     }
 
     public Player getPlayerInTurn(){
-        return this.playerInTurn;
+        return this.gameState.getPlayerInTurn();
     }
 
     public ArrayList<Integer> lanzarDados(){
@@ -100,29 +102,51 @@ public class GameController {
 
 
     public Army invocarInfanteria(){
+        String armyName = gestorBridge.invocarInfanteria(gameState.getPlayerInTurn().getChest().getInfantry());
 
-        if(!(gestorBridge.invocarInfanteria(gameState.getPlayerInTurn().getChest().getInfantry()) == null)) {
-            Army infanteriaInvocada = gestorFabricaAbstracta.createArmy(gestorBridge.invocarInfanteria(gameState.getPlayerInTurn().getChest().getInfantry()), "player");
+        if(armyName != null) {
+            Army infanteriaInvocada = gestorFabricaAbstracta.createArmy(armyName, getPlayerInTurn());
+
             getPlayerInTurn().getChest().setInfantry(gestorBridge.evaluarCofreInfanteria(gameState.getPlayerInTurn().getChest().getInfantry()));
             return infanteriaInvocada;
         }
         return null;
     }
+
     public Army invocarArtilleria(){
 
         if(!(gestorBridge.invocarArtilleria(gameState.getPlayerInTurn().getChest().getGunner()) == null)){
-            Army artilleriaInvocada = gestorFabricaAbstracta.createArmy(gestorBridge.invocarArtilleria(gameState.getPlayerInTurn().getChest().getGunner()), "player");
+            Army artilleriaInvocada = gestorFabricaAbstracta.createArmy(gestorBridge.invocarArtilleria(gameState.getPlayerInTurn().getChest().getGunner()), getPlayerInTurn());
             getPlayerInTurn().getChest().setGunner(gestorBridge.evaluarCofreArtilleria(gameState.getPlayerInTurn().getChest().getGunner()));
             return artilleriaInvocada;
         }
         return null;
     }
+
     public Army invocarTanque(){
         if(!(gestorBridge.invocarTanque(gameState.getPlayerInTurn().getChest().getTank()) == null)){
-            Army tanqueInvocado = gestorFabricaAbstracta.createArmy(gestorBridge.invocarTanque(gameState.getPlayerInTurn().getChest().getTank()), "player");
+            Army tanqueInvocado = gestorFabricaAbstracta.createArmy(gestorBridge.invocarTanque(gameState.getPlayerInTurn().getChest().getTank()), getPlayerInTurn());
             getPlayerInTurn().getChest().setTank(gestorBridge.evaluarCofreTanque(gameState.getPlayerInTurn().getChest().getTank()));
             return tanqueInvocado;
         }
+
+        return null;
+    }
+
+    public DadoMovimiento move(){
+        ArrayList<DadoMovimiento> movementsInChest = getPlayerInTurn().getChest().getMovementsInChest();
+        DadoMovimiento movement = gestorBridge.mover(movementsInChest);
+
+        if(movement != null) {
+            int evaluationResult = gestorBridge.evaluateMovesInChest(movementsInChest.size());
+
+            if(movementsInChest.size() != evaluationResult) {
+                movementsInChest.remove(0);
+            }
+
+            return movement;
+        }
+
         return null;
     }
 

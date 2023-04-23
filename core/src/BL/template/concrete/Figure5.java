@@ -40,7 +40,7 @@ public class Figure5 extends Figure {
         TileActor nextTile = BoardView.getTileByPosition(coordinate.getX() + 1, coordinate.getY());
         int currentX = coordinate.getX();
 
-        if(nextTile.isBusy()) {
+        if(nextTile.hasWayCreated()) {
             currentX = coordinate.getX() - 1;
         }
 
@@ -49,7 +49,7 @@ public class Figure5 extends Figure {
         int currentY = coordinate.getY();
 
         while(cont < Figure.AMOUNT_BLOCKS) {
-            if(currentX < 0 || BoardView.getTileByPosition(currentX, currentY).isBusy()) {
+            if(currentX < 0 || BoardView.getTileByPosition(currentX, currentY).hasWayCreated()) {
                 return true;
             }
 
@@ -87,7 +87,7 @@ public class Figure5 extends Figure {
         while (blockNumber >= 0){
             tile = BoardView.getTileByPosition(coordinate.getX(), coordinate.getY());
             tile.setRegionTexture(Figure.tileCastlePlayer1);
-            tile.setBusy(true);
+            tile.setHasWayCreated(true);
 
             if(blockNumber == Figure.AMOUNT_BLOCKS - 2){
                 plusY = true;
@@ -125,7 +125,7 @@ public class Figure5 extends Figure {
         while (blockNumber >= 0){
             tile = BoardView.getTileByPosition(coordinate.getX(), coordinate.getY());
             tile.setRegionTexture(Figure.tileCastlePlayer2);
-            tile.setBusy(true);
+            tile.setHasWayCreated(true);
 
             if(blockNumber == Figure.AMOUNT_BLOCKS - 2){
                 plusY = true;
@@ -153,7 +153,7 @@ public class Figure5 extends Figure {
         if(coordinate.getX() + 1 < 19){
             TileActor nextTile = BoardView.getTileByPosition(coordinate.getX() + 1, coordinate.getY());
 
-            if(nextTile.isBusy()) {
+            if(nextTile.hasWayCreated()) {
                 coordinate.setX(coordinate.getX() - 1);
             }
         }
@@ -166,15 +166,15 @@ public class Figure5 extends Figure {
         int futureRightX = x + 1;
         int yForXAxis = direction == Direction.Up ? y-1 : y+1;
 
-        if(futureLeftX >= 0 && futureLeftX <= 19 && !BoardView.getTileByPosition(futureLeftX, yForXAxis).isBusy()) {
+        if(futureLeftX >= 0 && futureLeftX <= 19 && !BoardView.getTileByPosition(futureLeftX, yForXAxis).hasWayCreated()) {
             getState().getPlayerInTurn().getCoordinatesList().add(new Coordinate(futureLeftX, yForXAxis));
         }
 
-        if(futureRightX >= 0 && futureRightX <= 19 && !BoardView.getTileByPosition(futureRightX, yForXAxis).isBusy()) {
+        if(futureRightX >= 0 && futureRightX <= 19 && !BoardView.getTileByPosition(futureRightX, yForXAxis).hasWayCreated()) {
             getState().getPlayerInTurn().getCoordinatesList().add(new Coordinate(futureRightX, yForXAxis));
         }
 
-        if(y >= 1 && y <= 20 && !BoardView.getTileByPosition(x, y).isBusy()) {
+        if(y >= 1 && y <= 20 && !BoardView.getTileByPosition(x, y).hasWayCreated()) {
             getState().getPlayerInTurn().getCoordinatesList().add(new Coordinate(x, y));
         }
     }
@@ -183,6 +183,7 @@ public class Figure5 extends Figure {
     protected void saveMiddleCoordinates(int tileNumber, Coordinate coordinate) {
         if(tileNumber == 2){
             this.setMiddleCoordinates(new Coordinate(coordinate.getX(), coordinate.getY()));
+            this.addInvadedByArmyToTile();
         }
     }
 }

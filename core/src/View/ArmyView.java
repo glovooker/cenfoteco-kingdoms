@@ -12,8 +12,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-import java.awt.*;
-
 public class ArmyView extends Stage {
 
     private Image currentArmyImg;
@@ -95,7 +93,7 @@ public class ArmyView extends Stage {
 
         } else {
 
-            movementsLabel.setText("Movements: " + armyToInvoque.getMaxMove());
+            movementsLabel.setText("Movements: " + armyToInvoque.getMovements());
             hitPointsLabel.setText("Life: " + armyToInvoque.getLife());
             attacksLabel.setText("Attacks: " + armyToInvoque.getAttack());
             defenseLabel.setText("Defense: " + armyToInvoque.getDefense());

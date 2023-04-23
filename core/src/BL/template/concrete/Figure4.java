@@ -45,7 +45,7 @@ public class Figure4 extends Figure {
         boolean plusY = true;
 
         while(cont < Figure.AMOUNT_BLOCKS){
-             if(BoardView.getTileByPosition(futureX, futureY).isBusy()){
+             if(BoardView.getTileByPosition(futureX, futureY).hasWayCreated()){
                  return true;
              }
 
@@ -84,7 +84,7 @@ public class Figure4 extends Figure {
 
             tile = BoardView.getTileByPosition(coordinate.getX(), coordinate.getY());;
             tile.setRegionTexture(Figure.tileCastlePlayer1);
-            tile.setBusy(true);
+            tile.setHasWayCreated(true);
 
 
 
@@ -121,7 +121,7 @@ public class Figure4 extends Figure {
 
             tile = BoardView.getTileByPosition(coordinate.getX(), coordinate.getY());;
             tile.setRegionTexture(Figure.tileCastlePlayer2);
-            tile.setBusy(true);
+            tile.setHasWayCreated(true);
 
 
             if(blockNumberToPaint == Figure.AMOUNT_BLOCKS - 3){
@@ -150,41 +150,41 @@ public class Figure4 extends Figure {
         int futureX, futureY ;
 
         if(direction == Direction.Down){
-            if(x < 18 && y >= 4 && !BoardView.getTileByPosition(x,y).isBusy()){
+            if(x < 18 && y >= 4 && !BoardView.getTileByPosition(x,y).hasWayCreated()){
                 getState().getPlayerInTurn().getCoordinatesList().add(new Coordinate(x, y));
             }
 
             futureX = x + 2;
             futureY = y - 1;
 
-            if(futureY >= 4 && !BoardView.getTileByPosition(futureX,futureY).isBusy()){
+            if(futureY >= 4 && !BoardView.getTileByPosition(futureX,futureY).hasWayCreated()){
                 getState().getPlayerInTurn().getCoordinatesList().add(new Coordinate(futureX,futureY));
             }
 
             futureX = futureX + 1;
             futureY = y;
 
-            if(futureX >= 0 &&  futureX <= 19 && !BoardView.getTileByPosition(futureX,futureY).isBusy()){
+            if(futureX >= 0 &&  futureX <= 19 && !BoardView.getTileByPosition(futureX,futureY).hasWayCreated()){
                 getState().getPlayerInTurn().getCoordinatesList().add(new Coordinate(futureX,futureY));
             }
         }
 
 
         if(direction == Direction.Up){
-            if(x >= 1 && y <= 18 && !BoardView.getTileByPosition(x,y).isBusy()){
+            if(x >= 1 && y <= 18 && !BoardView.getTileByPosition(x,y).hasWayCreated()){
                 getState().getPlayerInTurn().getCoordinatesList().add(new Coordinate(x, y));
             }
             futureX = x + 2;
             futureY = y + 1;
 
-            if(futureY <= 18 && !BoardView.getTileByPosition(futureX,futureY).isBusy()){
+            if(futureY <= 18 && !BoardView.getTileByPosition(futureX,futureY).hasWayCreated()){
                 getState().getPlayerInTurn().getCoordinatesList().add(new Coordinate(futureX,futureY));
             }
 
             futureX = futureX + 1;
             futureY = y;
 
-            if(futureY <= 18 && futureX >=0 && futureX <= 19 && !BoardView.getTileByPosition(futureX,futureY).isBusy()){
+            if(futureY <= 18 && futureX >=0 && futureX <= 19 && !BoardView.getTileByPosition(futureX,futureY).hasWayCreated()){
                 getState().getPlayerInTurn().getCoordinatesList().add(new Coordinate(futureX,futureY));
             }
         }
@@ -196,6 +196,7 @@ public class Figure4 extends Figure {
     protected void saveMiddleCoordinates(int tileNumber, Coordinate coordinate) {
         if(tileNumber == 3){
             this.setMiddleCoordinates(new Coordinate(coordinate.getX(), coordinate.getY()));
+            this.addInvadedByArmyToTile();
         }
     }
 }

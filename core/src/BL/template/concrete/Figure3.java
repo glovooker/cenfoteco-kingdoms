@@ -43,7 +43,7 @@ public class Figure3 extends Figure {
             tile = BoardView.getTileByPosition(x, newY);
 
 
-            if(tile.isBusy() || coordinate.getX() == 0 || coordinate.getX() >= 19 || coordinate.getY() < 3 || coordinate.getY() > 18){
+            if(tile.hasWayCreated() || coordinate.getX() == 0 || coordinate.getX() >= 19 || coordinate.getY() < 3 || coordinate.getY() > 18){
                 return true;
             }
 
@@ -90,7 +90,7 @@ public class Figure3 extends Figure {
 
             tile = BoardView.getTileByPosition(coordinate.getX(), coordinate.getY());;
             tile.setRegionTexture(Figure.tileCastlePlayer1);
-            tile.setBusy(true);
+            tile.setHasWayCreated(true);
 
             if(plusX){
                 coordinate.setX(coordinate.getX() + 1);
@@ -124,7 +124,7 @@ public class Figure3 extends Figure {
             }
             tile = BoardView.getTileByPosition(coordinate.getX(), coordinate.getY());;
             tile.setRegionTexture(Figure.tileCastlePlayer2);
-            tile.setBusy(true);
+            tile.setHasWayCreated(true);
 
             if(minusX){
                 coordinate.setX(coordinate.getX() - 1);
@@ -150,15 +150,15 @@ public class Figure3 extends Figure {
         int middleX = direction == Direction.Up ? x - 2 : x + 2;
         int newY = direction == Direction.Up ? y + 1 : y -1;
 
-        if(x >= 0 && x <= 19 && !BoardView.getTileByPosition(x, y).isBusy()) {
+        if(x >= 0 && x <= 19 && !BoardView.getTileByPosition(x, y).hasWayCreated()) {
             getState().getPlayerInTurn().getCoordinatesList().add(new Coordinate(x, y));
         }
 
-        if(oppositeX >= 0 && oppositeX <= 19 && !BoardView.getTileByPosition(oppositeX, y).isBusy()) {
+        if(oppositeX >= 0 && oppositeX <= 19 && !BoardView.getTileByPosition(oppositeX, y).hasWayCreated()) {
             getState().getPlayerInTurn().getCoordinatesList().add(new Coordinate(oppositeX, y));
         }
 
-        if(newY > 0 && newY <= 20 && middleX >= 0 && middleX <= 19 && !BoardView.getTileByPosition(middleX, newY).isBusy()) {
+        if(newY > 0 && newY <= 20 && middleX >= 0 && middleX <= 19 && !BoardView.getTileByPosition(middleX, newY).hasWayCreated()) {
             getState().getPlayerInTurn().getCoordinatesList().add(new Coordinate(middleX, newY));
         }
     }
@@ -167,6 +167,7 @@ public class Figure3 extends Figure {
     protected void saveMiddleCoordinates(int tileNumber, Coordinate coordinate) {
         if(tileNumber == 3){
             this.setMiddleCoordinates(new Coordinate(coordinate.getX(), coordinate.getY()));
+            this.addInvadedByArmyToTile();
         }
     }
 }

@@ -28,7 +28,7 @@ public class GestorBridge {
     private int cantDadosMovimiento = 0;
     private int dadosMovimientoVolatil = 0;
 
-    private ArrayList<DadoMovimiento> dadosMovimiento = new ArrayList<DadoMovimiento>();
+    private DadoMovimiento dadoMovimiento;
     private int dadosAtaqueEspecial = 0;
     private int dadosAtaque = 0;
     Scanner scanner = new Scanner(System.in);
@@ -56,8 +56,6 @@ public class GestorBridge {
     public ArrayList<Integer> lanzarDado() {
         ArrayList<Integer> dadosVolatiles = new ArrayList<Integer>();
 
-        dadosMovimiento = new ArrayList<DadoMovimiento>();
-
         dadosInfanteriaVolatil = 0;
         dadosArtilleriaVolatil = 0;
         dadosTanqueVolatil = 0;
@@ -84,12 +82,8 @@ public class GestorBridge {
         int numRandom = random.nextInt(6) + 1;
 
         if (TIPOS_DE_ACCION.getOrDefault(numRandom, null).equals("move")) {
-
-            DadoMovimiento dadoMovimiento = new DadoMovimiento();
+            this.dadoMovimiento = new DadoMovimiento();
             dadoMovimiento.setMovimiento(random.nextInt(6) + 1);
-
-            dadosMovimiento.add(dadoMovimiento);
-
 
         } else if (TIPOS_DE_ACCION.getOrDefault(numRandom, null).equals("attack")) {
             dadosAtaque++;
@@ -104,8 +98,8 @@ public class GestorBridge {
         dadosVolatiles.add(3, dadosAtaque);
         dadosVolatiles.add(4, dadosAtaqueEspecial);
 
-        if(dadosMovimiento.size() != 0){
-            dadosVolatiles.add(5, dadosMovimiento.get(0).getMovimiento());
+        if(dadoMovimiento != null){
+            dadosVolatiles.add(5, dadoMovimiento.getMovimiento());
         } else {
             dadosVolatiles.add(5, 0);
         }
@@ -121,14 +115,15 @@ public class GestorBridge {
         dados.add(2, dadosTanqueVolatil);
         dados.add(3, dadosAtaque);
         dados.add(4, dadosAtaqueEspecial);
-        dados.add(5, dadosMovimiento.get(0).getMovimiento());
+        dados.add(5, dadoMovimiento != null ? dadoMovimiento.getMovimiento() : 0);
 
         dadosInfanteriaVolatil = 0;
         dadosArtilleriaVolatil = 0;
         dadosTanqueVolatil = 0;
         dadosAtaque = 0;
         dadosAtaqueEspecial = 0;
-        dadosMovimiento = new ArrayList<>();
+        dadoMovimiento = null;
+        dadosMovimientoVolatil = 0;
 
         return dados;
     }
@@ -147,7 +142,19 @@ public class GestorBridge {
         }else if (dadosInfanteriaVolatil == 2){
             dadosInfanteriaVolatil = 0;
         }
+
         return infanteriasCofre;
+    }
+
+    public int evaluateMovesInChest(int movesInChest){
+        if (this.dadoMovimiento == null){
+            movesInChest -= 1;
+        } else {
+            dadosMovimientoVolatil = 0;
+            dadoMovimiento = null;
+        }
+
+        return movesInChest;
     }
 
     public String invocarArtilleria(int artilleriasCofre){
@@ -196,13 +203,15 @@ public class GestorBridge {
         return btnAtaqueEspecial.onPressed(btnAtaqueEspecial.getGlobalValidacion().getEstado());
     }
 
-    public int mover(){
-        cantDadosMovimiento = btnMovimiento.getGlobalValidacion().validar(dadosMovimiento.size());
+    public DadoMovimiento mover(ArrayList<DadoMovimiento> movementsInChest) {
+        int dadoMovimientoNum = dadoMovimiento != null ? 1 : 0;
+        cantDadosMovimiento = btnMovimiento.getGlobalValidacion().validar(dadoMovimientoNum + movementsInChest.size());
+
         if(btnMovimiento.getGlobalValidacion().getEstado())
         {
-            return dadosMovimiento.get(0).getMovimiento();
+            return dadoMovimiento != null ? dadoMovimiento : movementsInChest.get(0);
         } else {
-            return 0;
+            return null;
         }
     }
 

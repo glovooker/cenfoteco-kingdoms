@@ -1,6 +1,7 @@
 package View;
 
 import BL.GameController;
+import Model.Player;
 import View.Components.ButtonComponent;
 import View.Screens.PlayScreen;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -147,7 +148,11 @@ public class DiceView extends Stage {
         rollDice = new ButtonComponent(this, img, 180, 180, 555, -80, new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                rollDices(gameController.lanzarDados());
+                Player player = gameController.getGameState().getPlayerInTurn();
+                if(player.isRollDice()){
+                    rollDices(gameController.lanzarDados());
+                    player.setRollDice(false);
+                }
                 return super.touchDown(event, x, y, pointer, button);
             }
         });

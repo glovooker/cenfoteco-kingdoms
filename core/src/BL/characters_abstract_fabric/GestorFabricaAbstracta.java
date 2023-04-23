@@ -4,6 +4,7 @@ import BL.characters_abstract_fabric.abstract_product.Army;
 import BL.characters_abstract_fabric.concrete_fabric.Fabric_Artilleria;
 import BL.characters_abstract_fabric.concrete_fabric.Fabric_Infanteria;
 import BL.characters_abstract_fabric.concrete_fabric.Fabric_Tanque;
+import Model.Player;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,9 +30,9 @@ public class GestorFabricaAbstracta {
         playerMax.put("artilleria", 4);
     }
 
-    public Army createArmy(String characterType, String owner) {
+    public Army createArmy(String characterType, Player owner) {
         Army army = null;
-        if (owner.equals("player")) {
+        if (owner.getName().equalsIgnoreCase("Player 1")) {
             do{
                 if (characterType.equals("infanteria")) {
                     army = fabricInfanteria.createArmy(owner);

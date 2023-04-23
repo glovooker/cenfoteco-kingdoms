@@ -1,5 +1,7 @@
 package Model;
 
+import BL.characters_abstract_fabric.abstract_product.Army;
+
 public class GameState {
     private Player playerInTurn;
 
@@ -12,6 +14,8 @@ public class GameState {
     private static GameState stateInstance;
 
     private Board board;
+
+    private Army selectedArmy;
 
 
     public static GameState getStateInstance(){
@@ -70,12 +74,16 @@ public class GameState {
 
     public void changePlayerInTurn() {
         this.setPrefaReady(false);
+        this.playerInTurn.setMovementDice(null);
 
         Player playerInTurn = this.getPlayerInTurn().equals(this.getPlayer1())
                 ? this.getPlayer2()
                 : this.getPlayer1();
 
         this.setPlayer(playerInTurn);
+        this.playerInTurn.setRollDice(true);
+        this.selectedArmy = null;
+
     }
 
 
@@ -85,6 +93,14 @@ public class GameState {
 
     public void setPrefaReady(boolean prefaReady) {
         isPrefaReady = prefaReady;
+    }
+
+    public Army getSelectedArmy() {
+        return selectedArmy;
+    }
+
+    public void setSelectedArmy(Army selectedArmy) {
+        this.selectedArmy = selectedArmy;
     }
 
     @Override

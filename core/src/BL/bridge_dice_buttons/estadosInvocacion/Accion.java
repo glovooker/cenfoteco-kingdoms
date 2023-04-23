@@ -12,7 +12,7 @@ public class Accion implements IEstados {
 
     @Override
     public int validar(int dadosAccion) {
-        if(dadosAccion>= 1)
+        if(dadosAccion >= 1)
         {
             this.status = true;
             dadosAccion-= 1;
