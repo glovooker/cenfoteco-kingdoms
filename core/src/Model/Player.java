@@ -69,4 +69,12 @@ public class Player {
                 "life = " + this.castle.getLife() +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) return false;
+        if (!(obj instanceof Player)) return false;
+        Player player = (Player) obj;
+        return this.name.equals(player.getName());
+    }
 }

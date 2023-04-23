@@ -35,6 +35,7 @@ public class GameController {
         gestorBridge = new GestorBridge();
         gestorFabricaAbstracta = new GestorFabricaAbstracta();
         gestorBridge.iniciarBotones();
+        gestorDecorador = new GestorDecorador();
     }
 
     public static GameController getInstance(){
@@ -104,7 +105,7 @@ public class GameController {
     public Army invocarInfanteria(){
 
         if(!(gestorBridge.invocarInfanteria(gameState.getPlayerInTurn().getChest().getInfantry()) == null)) {
-            Army infanteriaInvocada = gestorDecorador.addRandomSpecialAttack(gestorFabricaAbstracta.createArmy(gestorBridge.invocarInfanteria(gameState.getPlayerInTurn().getChest().getInfantry()), "player"));
+            Army infanteriaInvocada = gestorDecorador.addRandomSpecialAttack(gestorFabricaAbstracta.createArmy(gestorBridge.invocarInfanteria(gameState.getPlayerInTurn().getChest().getInfantry()), getPlayerInTurn()));
             getPlayerInTurn().getChest().setInfantry(gestorBridge.evaluarCofreInfanteria(gameState.getPlayerInTurn().getChest().getInfantry()));
             return infanteriaInvocada;
         }
@@ -113,7 +114,7 @@ public class GameController {
     public Army invocarArtilleria(){
 
         if(!(gestorBridge.invocarArtilleria(gameState.getPlayerInTurn().getChest().getGunner()) == null)){
-            Army artilleriaInvocada = gestorDecorador.addRandomSpecialAttack(gestorFabricaAbstracta.createArmy(gestorBridge.invocarArtilleria(gameState.getPlayerInTurn().getChest().getGunner()), "player"));
+            Army artilleriaInvocada = gestorDecorador.addRandomSpecialAttack(gestorFabricaAbstracta.createArmy(gestorBridge.invocarArtilleria(gameState.getPlayerInTurn().getChest().getGunner()), getPlayerInTurn()));
             getPlayerInTurn().getChest().setGunner(gestorBridge.evaluarCofreArtilleria(gameState.getPlayerInTurn().getChest().getGunner()));
             return artilleriaInvocada;
         }
@@ -121,7 +122,7 @@ public class GameController {
     }
     public Army invocarTanque(){
         if(!(gestorBridge.invocarTanque(gameState.getPlayerInTurn().getChest().getTank()) == null)){
-            Army tanqueInvocado = gestorDecorador.addRandomSpecialAttack(gestorFabricaAbstracta.createArmy(gestorBridge.invocarTanque(gameState.getPlayerInTurn().getChest().getTank()), "player"));
+            Army tanqueInvocado = gestorDecorador.addRandomSpecialAttack(gestorFabricaAbstracta.createArmy(gestorBridge.invocarTanque(gameState.getPlayerInTurn().getChest().getTank()), getPlayerInTurn()));
             getPlayerInTurn().getChest().setTank(gestorBridge.evaluarCofreTanque(gameState.getPlayerInTurn().getChest().getTank()));
             return tanqueInvocado;
         }
@@ -129,7 +130,7 @@ public class GameController {
     }
 
     public String obtenerArmada(){
-        ArrayList<Army> ejercito = gestorFabricaAbstracta.getArmyPlayerList();
+        ArrayList<Army> ejercito = gestorFabricaAbstracta.getArmyPlayerList(getPlayerInTurn());
         String mensaje = "";
         for (Army army : ejercito) {
             mensaje += army.toString() + "\n";

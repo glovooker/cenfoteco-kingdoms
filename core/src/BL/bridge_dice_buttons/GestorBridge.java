@@ -121,7 +121,11 @@ public class GestorBridge {
         dados.add(2, dadosTanqueVolatil);
         dados.add(3, dadosAtaque);
         dados.add(4, dadosAtaqueEspecial);
-        dados.add(5, dadosMovimiento.get(0).getMovimiento());
+        if(dadosMovimiento.size() > 0){
+            dados.add(5, dadosMovimiento.get(0).getMovimiento());
+        }else{
+            dados.add(5, 0);
+        }
 
         dadosInfanteriaVolatil = 0;
         dadosArtilleriaVolatil = 0;

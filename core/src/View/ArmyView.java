@@ -171,16 +171,16 @@ public class ArmyView extends Stage {
                     this.addActor(armyImg);
                     currentArmyImg = armyImg;
                     break;
-//                case "mago":
-//                    armyDefault = playScreen.getArmyAtlas().findRegion("");
-//                    armyImg = new Image();
-//                    armyImg.setDrawable(new TextureRegionDrawable(armyDefault));
-//                    armyImg.setSize(SIZE, SIZE);
-//                    armyImg.setPosition(600, -100);
-//                    this.addActor(armyImg);
-                      //currentArmyImg = armyImg;
+                case "mago":
+                    armyDefault = playScreen.getArmyAtlas().findRegion("wizard-iddle");
+                    armyImg = new Image();
+                    armyImg.setDrawable(new TextureRegionDrawable(armyDefault));
+                    armyImg.setSize(SIZE, SIZE);
+                    armyImg.setPosition(600, -100);
+                    this.addActor(armyImg);
+                      currentArmyImg = armyImg;
 
-//                    break;
+                    break;
                 case "dragon":
                     armyDefault = playScreen.getArmyAtlas().findRegion("dragon");
                     armyImg = new Image();
