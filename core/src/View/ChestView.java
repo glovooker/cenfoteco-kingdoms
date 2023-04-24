@@ -77,7 +77,7 @@ public class ChestView {
         buttonGetInfantry = new ButtonComponent(this.stage, "escudero.png", 130, 130, 570, 120, new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                getInfantry();
+                //getInfantry();
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
@@ -85,7 +85,7 @@ public class ChestView {
         buttonGetGunner = new ButtonComponent(this.stage, "arquero.png", 120, 120, 680, 120, new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                getGunner();
+               // getGunner();
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
@@ -93,7 +93,7 @@ public class ChestView {
         buttonGetTank = new ButtonComponent(this.stage, "golem.png", 120, 120, 780, 120, new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                getTank();
+               // getTank();
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
@@ -101,7 +101,7 @@ public class ChestView {
         buttonGetAttack = new ButtonComponent(this.stage, "attack.png", 80, 80, 50, 150, new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                getAttack();
+               // getAttack();
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
@@ -109,7 +109,7 @@ public class ChestView {
         buttonGetSpecialAttack = new ButtonComponent(this.stage, "specialAttack.png", 80, 80, 150, 150, new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                getSpecialAttack();
+                //getSpecialAttack();
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
@@ -133,6 +133,8 @@ public class ChestView {
         int incomingGunners = dados.get(1);
         int incomingTanks = dados.get(2);
 
+        System.out.println("movimientos: " + movements + " ataques: " + attacks + " ataques especiales: " + specialAttacks);
+        System.out.println(this.gameController.getGameState().getPlayerInTurn().getName());
         if (army + incomingInfantries + incomingGunners + incomingTanks > chest.ARMY_AMOUNT_MAX) {
             if (incomingInfantries == 1 && incomingGunners == 1){
                 incomingInfantries = 0;
@@ -166,7 +168,7 @@ public class ChestView {
 
         if (attacks < Chest.MAX_ATTACK) {
             if (dados.get(3) > 0) {
-                addingAttacks(attacks);
+                addingAttacks();
             }
         } else {
             System.out.println("No se pueden añadir mas elementos");
@@ -197,10 +199,9 @@ public class ChestView {
         //se inserta el ataque especial en el array
     }
 
-    private void addingAttacks(int attacks){
-        chest.setAttacksInChest(chest.getAttacksInChest() + attacks);
+    private void addingAttacks(){
+        chest.setAttacksInChest(chest.getAttacksInChest() + 1);
         labelAttack.setText(chest.getAttacksInChest());
-        //se inserta el tanque en el array
     }
 
     private void addingTank(int tanksIncoming, Chest chest){
@@ -224,35 +225,35 @@ public class ChestView {
         labelMovements.setText(chest.getMovementsInChest().size());
 
     }
-
-    private void getInfantry(){
-        chest.setInfantry(chest.getInfantry() - 1);
-        labelInfantry.setText(chest.getInfantry());
-    }
-
-    private void getGunner(){//retornar un objeto de tipo arquero
-        System.out.println("getting gunner");
-        chest.setGunner(chest.getGunner() - 1);
-        labelGunner.setText(chest.getGunner());
-    }
-
-    private void getTank(){//retornar un objeto de tipo tanque
-        System.out.println("getting tank");
-        chest.setTank(chest.getTank() - 1);
-        labelTank.setText(chest.getTank());
-    }
-
-    private void getAttack(){//retornar un objeto de tipo ataque y ataca
-        System.out.println("getting attack");
-        chest.setAttacksInChest(chest.getAttacksInChest() - 1);
-        labelAttack.setText(chest.getAttacksInChest());
-    }
-
-    private void getSpecialAttack(){//retornar un objeto de tipo ataque expecial y ataca
-        System.out.println("getting  special attack");
-        chest.setSpecialAttackInChest(chest.getSpecialAttackInChest() - 1);
-        labelSpecialAttack.setText(chest.getSpecialAttackInChest());
-    }
+//
+//    private void getInfantry(){
+//        chest.setInfantry(chest.getInfantry() - 1);
+//        labelInfantry.setText(chest.getInfantry());
+//    }
+//
+//    private void getGunner(){//retornar un objeto de tipo arquero
+//        System.out.println("getting gunner");
+//        chest.setGunner(chest.getGunner() - 1);
+//        labelGunner.setText(chest.getGunner());
+//    }
+//
+//    private void getTank(){//retornar un objeto de tipo tanque
+//        System.out.println("getting tank");
+//        chest.setTank(chest.getTank() - 1);
+//        labelTank.setText(chest.getTank());
+//    }
+//
+//    private void getAttack(){//retornar un objeto de tipo ataque y ataca
+//        System.out.println("getting attack");
+//        chest.setAttacksInChest(chest.getAttacksInChest() - 1);
+//        labelAttack.setText(chest.getAttacksInChest());
+//    }
+//
+//    private void getSpecialAttack(){//retornar un objeto de tipo ataque expecial y ataca
+//        System.out.println("getting  special attack");
+//        chest.setSpecialAttackInChest(chest.getSpecialAttackInChest() - 1);
+//        labelSpecialAttack.setText(chest.getSpecialAttackInChest());
+//    }
 
     /*private void getMovement(){//retornar un objeto de tipo ataque expecial y ataca
         System.out.println("getting movements");
