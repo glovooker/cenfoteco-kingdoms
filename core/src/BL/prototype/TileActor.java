@@ -12,14 +12,16 @@ public class TileActor extends Actor implements Clonable<TileActor> {
 
     public static int SIZE = 50;
 
-    private boolean isBusy;
+    private boolean hasWayCreated;
+
+    private boolean isInvaded;
 
 
     public TileActor(PlayScreen screen) {
         this.screen = screen;
         this.tile = new Tile(this.screen);
         this.tile.setSize(TileActor.SIZE,TileActor.SIZE);
-        this.isBusy = false;
+        this.hasWayCreated = false;
     }
 
     @Override
@@ -42,12 +44,12 @@ public class TileActor extends Actor implements Clonable<TileActor> {
         this.tile.setTextureRegion(newRegionTexture);
     }
 
-    public boolean isBusy() {
-        return isBusy;
+    public boolean hasWayCreated() {
+        return hasWayCreated;
     }
 
-    public void setBusy(boolean busy) {
-        isBusy = busy;
+    public void setHasWayCreated(boolean hasWayCreated) {
+        this.hasWayCreated = hasWayCreated;
     }
 
     @Override
@@ -55,7 +57,15 @@ public class TileActor extends Actor implements Clonable<TileActor> {
         return "TileActor{" +
                 "tile=" + tile +
                 ", screen=" + screen +
-                ", isBusy=" + isBusy +
+                ", isBusy=" + hasWayCreated +
                 '}';
+    }
+
+    public boolean isInvaded() {
+        return isInvaded;
+    }
+
+    public void setInvaded(boolean invaded) {
+        isInvaded = invaded;
     }
 }

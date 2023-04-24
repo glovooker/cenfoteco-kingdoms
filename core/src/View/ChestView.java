@@ -44,13 +44,11 @@ public class ChestView {
 
     private Stage stage;
 
-    private Chest chest;
 
     private final GameController gameController = GameController.getInstance();
 
     public ChestView(Stage stage){
         this.stage = stage;
-        chest = gameController.getPlayerInTurn().getChest();
         hud  = new HudChest(this.stage);
         labelInfantry = hud.getLabelInfantry();
         labelAttack = hud.getLabelAttack();
@@ -133,8 +131,6 @@ public class ChestView {
         int incomingGunners = dados.get(1);
         int incomingTanks = dados.get(2);
 
-        System.out.println("movimientos: " + movements + " ataques: " + attacks + " ataques especiales: " + specialAttacks);
-        System.out.println(this.gameController.getGameState().getPlayerInTurn().getName());
         if (army + incomingInfantries + incomingGunners + incomingTanks > chest.ARMY_AMOUNT_MAX) {
             if (incomingInfantries == 1 && incomingGunners == 1){
                 incomingInfantries = 0;
@@ -194,14 +190,19 @@ public class ChestView {
     }
 
     private void addingSpecialAttacks(){
+        Chest chest = gameController.getPlayerInTurn().getChest();
+
         chest.setSpecialAttackInChest(chest.getSpecialAttackInChest() + 1);
         labelSpecialAttack.setText(chest.getSpecialAttackInChest());
         //se inserta el ataque especial en el array
     }
 
     private void addingAttacks(){
+        Chest chest = gameController.getPlayerInTurn().getChest();
+
         chest.setAttacksInChest(chest.getAttacksInChest() + 1);
         labelAttack.setText(chest.getAttacksInChest());
+        //se inserta el tanque en el array
     }
 
     private void addingTank(int tanksIncoming, Chest chest){
@@ -221,39 +222,47 @@ public class ChestView {
     }
 
     private void addingMovements(DadoMovimiento movementsInChest){
+        Chest chest = gameController.getPlayerInTurn().getChest();
+
         chest.setMovementsInChest(movementsInChest);
         labelMovements.setText(chest.getMovementsInChest().size());
 
     }
-//
-//    private void getInfantry(){
-//        chest.setInfantry(chest.getInfantry() - 1);
-//        labelInfantry.setText(chest.getInfantry());
-//    }
-//
-//    private void getGunner(){//retornar un objeto de tipo arquero
-//        System.out.println("getting gunner");
-//        chest.setGunner(chest.getGunner() - 1);
-//        labelGunner.setText(chest.getGunner());
-//    }
-//
-//    private void getTank(){//retornar un objeto de tipo tanque
-//        System.out.println("getting tank");
-//        chest.setTank(chest.getTank() - 1);
-//        labelTank.setText(chest.getTank());
-//    }
-//
-//    private void getAttack(){//retornar un objeto de tipo ataque y ataca
-//        System.out.println("getting attack");
-//        chest.setAttacksInChest(chest.getAttacksInChest() - 1);
-//        labelAttack.setText(chest.getAttacksInChest());
-//    }
-//
-//    private void getSpecialAttack(){//retornar un objeto de tipo ataque expecial y ataca
-//        System.out.println("getting  special attack");
-//        chest.setSpecialAttackInChest(chest.getSpecialAttackInChest() - 1);
-//        labelSpecialAttack.setText(chest.getSpecialAttackInChest());
-//    }
+
+    private void getInfantry(){
+        Chest chest = gameController.getPlayerInTurn().getChest();
+
+        chest.setInfantry(chest.getInfantry() - 1);
+        labelInfantry.setText(chest.getInfantry());
+    }
+
+    private void getGunner(){
+        Chest chest = gameController.getPlayerInTurn().getChest();
+
+        chest.setGunner(chest.getGunner() - 1);
+        labelGunner.setText(chest.getGunner());
+    }
+
+    private void getTank(){
+        Chest chest = gameController.getPlayerInTurn().getChest();
+
+        chest.setTank(chest.getTank() - 1);
+        labelTank.setText(chest.getTank());
+    }
+
+    private void getAttack(){
+        Chest chest = gameController.getPlayerInTurn().getChest();
+
+        chest.setAttacksInChest(chest.getAttacksInChest() - 1);
+        labelAttack.setText(chest.getAttacksInChest());
+    }
+
+    private void getSpecialAttack(){
+        Chest chest = gameController.getPlayerInTurn().getChest();
+
+        chest.setSpecialAttackInChest(chest.getSpecialAttackInChest() - 1);
+        labelSpecialAttack.setText(chest.getSpecialAttackInChest());
+    }
 
     /*private void getMovement(){//retornar un objeto de tipo ataque expecial y ataca
         System.out.println("getting movements");

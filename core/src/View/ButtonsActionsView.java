@@ -1,15 +1,20 @@
 package View;
 
 import BL.GameController;
+import BL.bridge_dice_buttons.dadoMovimiento.DadoMovimiento;
 import BL.characters_abstract_fabric.abstract_product.Army;
+import BL.prototype.TileActor;
 import Model.Coordinate;
+import Model.Player;
+import View.Components.HudMovements;
 import View.Screens.PlayScreen;
 import View.Components.ButtonComponent;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class ButtonsActionsView extends Stage {
@@ -25,17 +30,20 @@ public class ButtonsActionsView extends Stage {
     private ButtonComponent buttonUp;
     private ButtonComponent buttonDown;
     private ButtonComponent buttonMovements;
+
+
     private static final int HEIGHT = 100;
     private static final int WIDTH = 140;
-    private PlayScreen playScreen;
+    private final PlayScreen playScreen;
 
+    private HudMovements hudMovements;
     private final GameController gameController = GameController.getInstance();
 
     public ButtonsActionsView(PlayScreen screen, Viewport gamePort){
         super(gamePort);
-
         playScreen = screen;
-
+        hudMovements = new HudMovements(this);
+        gameController.getTimer().addObservers(hudMovements);
         defineButtonAttack("AttackButton.png");
         defineButtonSpecialAttack("SpecialAttackButton.png");
         defineButtonTank("SummonTankButton.png");
@@ -102,24 +110,21 @@ public class ButtonsActionsView extends Stage {
         });
     }
 
-
-
     public void defineButtonMovements(String imgButton){
         buttonMovements = new ButtonComponent(this, imgButton, WIDTH, HEIGHT,0, 320, new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("Movements");
-                return super.touchDown(event, x, y, pointer, button);
-            }
-        });
-    }
+                Army army = gameController.getGameState().getSelectedArmy();
 
-    public void defineButtonEndTurn(String imgButton){
-        buttonEndTurn = new ButtonComponent(this, imgButton, WIDTH, HEIGHT,70, 260, new InputListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                if(gameController.getGameState().getTime() > 0) {
-                    gameController.setTime();
+                if(army != null) {
+                    DadoMovimiento movement = gameController.move();
+                    Player player = gameController.getPlayerInTurn();
+
+                    if (movement != null) {
+                        player.setMovementDice(movement);
+                        hudMovements.getMovementsAmount().setText(player.getMovementDice().getMovimiento());
+                        playScreen.getHudChest().updateLabels(gameController.getGameState());
+                    }
                 }
 
                 return super.touchDown(event, x, y, pointer, button);
@@ -132,17 +137,44 @@ public class ButtonsActionsView extends Stage {
         buttonLeft = new ButtonComponent(this, imgButton, WIDTH, HEIGHT, 0,80, new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("Left");
+                ButtonComponent armyButton = playScreen.getSelectedArmyButton();
+
+                if(gameController.getPlayerInTurn().getMovementDice() != null && armyButton != null) {
+                    Army currentArmy = gameController.getGameState().getSelectedArmy();
+                    Coordinate currentArmyPosition = currentArmy.getPosition();
+                    int currentX = currentArmy.getPosition().getX();
+                    int currentY = currentArmy.getPosition().getY();
+                    int futureX = currentX - 1;
+                    TileActor currentTile = BoardView.getTileByPosition(currentX, currentY);
+                    TileActor futureTile = BoardView.getTileByPosition(futureX, currentArmyPosition.getY());
+                    if (currentArmyPosition.getX() > 0 && isValidMove(currentArmy, futureTile)) {
+                        Coordinate newCoordinate = new Coordinate(futureX, currentArmyPosition.getY());
+                        moveArmy(armyButton, currentArmy, futureTile, newCoordinate, currentTile);
+                    }
+                }
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
-
     }
     public void defineButtonRight(String imgButton){
         buttonRight = new ButtonComponent(this, imgButton, WIDTH, HEIGHT, 140, 80, new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("Right");
+                ButtonComponent armyButton = playScreen.getSelectedArmyButton();
+
+                if(gameController.getPlayerInTurn().getMovementDice() != null && armyButton != null) {
+                    Army currentArmy = gameController.getGameState().getSelectedArmy();
+                    Coordinate currentArmyPosition = currentArmy.getPosition();
+                    int currentX = currentArmy.getPosition().getX();
+                    int currentY = currentArmy.getPosition().getY();
+                    int futureX = currentX + 1;
+                    TileActor currentTile = BoardView.getTileByPosition(currentX, currentY);
+                    TileActor futureTile = BoardView.getTileByPosition(futureX, currentArmyPosition.getY());
+                    if (currentArmyPosition.getX() < 19 && isValidMove(currentArmy, futureTile)) {
+                        Coordinate newCoordinate = new Coordinate(futureX, currentArmyPosition.getY());
+                        moveArmy(armyButton, currentArmy, futureTile, newCoordinate, currentTile);
+                    }
+                }
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
@@ -152,7 +184,22 @@ public class ButtonsActionsView extends Stage {
         buttonUp = new ButtonComponent(this, imgButton, WIDTH, HEIGHT, 70, 165, new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                ButtonComponent armyButton = playScreen.getSelectedArmyButton();
                 System.out.println("Up");
+
+                if(gameController.getPlayerInTurn().getMovementDice() != null && armyButton != null) {
+                    Army currentArmy = gameController.getGameState().getSelectedArmy();
+                    Coordinate currentArmyPosition = currentArmy.getPosition();
+                    int currentX = currentArmy.getPosition().getX();
+                    int currentY = currentArmy.getPosition().getY();
+                    int futureY = currentY + 1;
+                    TileActor currentTile = BoardView.getTileByPosition(currentX, currentY);
+                    TileActor futureTile = BoardView.getTileByPosition(currentArmyPosition.getX(), futureY);
+                    if (currentArmyPosition.getY() < 20 && isValidMove(currentArmy, futureTile)) {
+                        Coordinate newCoordinate = new Coordinate(currentArmyPosition.getX(), futureY);
+                        moveArmy(armyButton, currentArmy, futureTile, newCoordinate, currentTile);
+                    }
+                }
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
@@ -162,19 +209,62 @@ public class ButtonsActionsView extends Stage {
         buttonDown = new ButtonComponent(this, imgButton, WIDTH, HEIGHT, 70, 0, new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("Down");
+                ButtonComponent armyButton = playScreen.getSelectedArmyButton();
+
+                if(gameController.getPlayerInTurn().getMovementDice() != null && armyButton != null) {
+                    Army currentArmy = gameController.getGameState().getSelectedArmy();
+                    Coordinate currentArmyPosition = currentArmy.getPosition();
+                    int currentX = currentArmy.getPosition().getX();
+                    int currentY = currentArmy.getPosition().getY();
+                    int futureY = currentY - 1;
+                    TileActor currentTile = BoardView.getTileByPosition(currentX, currentY);
+                    TileActor futureTile = BoardView.getTileByPosition(currentArmyPosition.getX(), futureY);
+                    if (currentArmyPosition.getY() > 1 && isValidMove(currentArmy, futureTile)) {
+                        Coordinate newCoordinate = new Coordinate(currentArmyPosition.getX(), futureY);
+                        moveArmy(armyButton, currentArmy, futureTile, newCoordinate, currentTile);
+                    }
+                }
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
-
     }
+
+    public void defineButtonEndTurn(String imgButton){
+        buttonEndTurn = new ButtonComponent(this, imgButton, WIDTH, HEIGHT,70, 260, new InputListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                if(gameController.getGameState().getTime() > 0) {
+                    gameController.setTime();
+                }
+                return super.touchDown(event, x, y, pointer, button);
+            }
+        });
+    }
+
 
     private void invoke(Army army){
-        playScreen.showArmyData(army);
-        gameController.getGameState().getBoard().getArmyList().add(army);
-        gameController.getGameState().setPrefaReady(true);
+        if(army != null) {
+            playScreen.showArmyData(army);
+            gameController.getGameState().getBoard().getArmyList().add(army);
+            gameController.getGameState().setPrefaReady(true);
+        }
+    }
+
+    private boolean isValidMove(Army army, TileActor futureTile) {
+        DadoMovimiento movementsInDice = gameController.getGameState().getPlayerInTurn().getMovementDice();
+        return movementsInDice.getMovimiento() > 0 && army.getMovements() > 0 && futureTile.hasWayCreated() && !futureTile.isInvaded();
     }
 
 
+    private void moveArmy(ButtonComponent button,  Army army, TileActor futureTile, Coordinate newCoordinate, TileActor currentTile) {
+        army.setPosition(newCoordinate);
+        button.setPosition(newCoordinate, 50);
+        futureTile.setInvaded(true);
+        currentTile.setInvaded(false);
+        DadoMovimiento movementsInDice = gameController.getGameState().getPlayerInTurn().getMovementDice();
+        movementsInDice.setMovimiento(movementsInDice.getMovimiento() - 1);
+        hudMovements.getMovementsAmount().setText(movementsInDice.getMovimiento());
+        army.setMovements(army.getMovements() - 1);
+    }
 
 }

@@ -1,7 +1,7 @@
 package BL.bridge_dice_buttons.dadoMovimiento;
 
 public class DadoMovimiento {
-    public int movimiento;
+    private int movimiento;
 
     public DadoMovimiento() {
     }

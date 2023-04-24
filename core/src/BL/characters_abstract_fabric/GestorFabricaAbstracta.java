@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class GestorFabricaAbstracta {
+    private static GestorFabricaAbstracta characterManager;
     private final ArrayList<Army> armyPlayerList = new ArrayList<Army>();
     private final ArrayList<Army> armyEnemyList = new ArrayList<Army>();
     private Map<String, Integer> enemyMax = new HashMap<String, Integer>();
@@ -31,16 +32,14 @@ public class GestorFabricaAbstracta {
 
     public Army createArmy(String characterType, Player owner) {
         Army army = null;
-        String ownerName = owner.getName();
-        int playerLuckyNumber = owner.getLuckyNumber();
-        if (playerLuckyNumber == 1) {
+        if (owner.getName().equalsIgnoreCase("Player 1")) {
             do{
                 if (characterType.equals("infanteria")) {
-                    army = fabricInfanteria.createArmy(ownerName);
+                    army = fabricInfanteria.createArmy(owner);
                 } else if (characterType.equals("tanque")) {
-                    army = fabricTanque.createArmy(ownerName);
+                    army = fabricTanque.createArmy(owner);
                 } else if (characterType.equals("artilleria")) {
-                    army = fabricArtilleria.createArmy(ownerName);
+                    army = fabricArtilleria.createArmy(owner);
                 }
             } while (armyPlayerList.contains(army) && playerMax.get(characterType) > 0);
             if (playerMax.get(characterType) > 0 && army != null) {
@@ -51,11 +50,11 @@ public class GestorFabricaAbstracta {
         } else {
             do{
                 if (characterType.equals("infanteria")) {
-                    army = fabricInfanteria.createArmy(ownerName);
+                    army = fabricInfanteria.createArmy(owner);
                 } else if (characterType.equals("tanque")) {
-                    army = fabricTanque.createArmy(ownerName);
+                    army = fabricTanque.createArmy(owner);
                 } else if (characterType.equals("artilleria")) {
-                    army = fabricArtilleria.createArmy(ownerName);
+                    army = fabricArtilleria.createArmy(owner);
                 }
             } while (armyEnemyList.contains(army) && enemyMax.get(characterType) > 0);
             if (enemyMax.get(characterType) > 0 && army != null) {
@@ -67,12 +66,11 @@ public class GestorFabricaAbstracta {
         return null;
     }
 
-    public ArrayList<Army> getArmyPlayerList(Player owner){
-        if (owner.getName().equals("player1")) {
-            return armyPlayerList;
-        } else if (owner.getName().equals("player2")) {
-            return armyEnemyList;
-        }
-        return null;
+    public ArrayList<Army> getArmyPlayerList() {
+        return armyPlayerList;
+    }
+
+    public ArrayList<Army> getArmyEnemyList() {
+        return armyEnemyList;
     }
 }

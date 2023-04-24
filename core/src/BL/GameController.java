@@ -1,5 +1,6 @@
 package BL;
 
+import BL.bridge_dice_buttons.dadoMovimiento.DadoMovimiento;
 import BL.decorator.GestorDecorador;
 import BL.memento.GestorMemento;
 import Model.GameState;
@@ -8,6 +9,7 @@ import BL.observer.concret.TimerSec;
 import BL.bridge_dice_buttons.GestorBridge;
 import BL.characters_abstract_fabric.GestorFabricaAbstracta;
 import BL.characters_abstract_fabric.abstract_product.Army;import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 
@@ -94,7 +96,7 @@ public class GameController {
     }
 
     public Player getPlayerInTurn(){
-        return this.playerInTurn;
+        return this.gameState.getPlayerInTurn();
     }
 
     public ArrayList<Integer> lanzarDados(){
@@ -103,9 +105,11 @@ public class GameController {
 
 
     public Army invocarInfanteria(){
+        String armyName = gestorBridge.invocarInfanteria(gameState.getPlayerInTurn().getChest().getInfantry());
 
-        if(!(gestorBridge.invocarInfanteria(gameState.getPlayerInTurn().getChest().getInfantry()) == null)) {
+        if(armyName != null) {
             Army infanteriaInvocada = gestorDecorador.addRandomSpecialAttack(gestorFabricaAbstracta.createArmy(gestorBridge.invocarInfanteria(gameState.getPlayerInTurn().getChest().getInfantry()), getPlayerInTurn()));
+
             getPlayerInTurn().getChest().setInfantry(gestorBridge.evaluarCofreInfanteria(gameState.getPlayerInTurn().getChest().getInfantry()));
             return infanteriaInvocada;
         }
@@ -130,7 +134,7 @@ public class GameController {
     }
 
     public String obtenerArmada(){
-        ArrayList<Army> ejercito = gestorFabricaAbstracta.getArmyPlayerList(getPlayerInTurn());
+        ArrayList<Army> ejercito = gestorFabricaAbstracta.getArmyPlayerList();
         String mensaje = "";
         for (Army army : ejercito) {
             mensaje += army.toString() + "\n";

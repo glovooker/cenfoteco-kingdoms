@@ -53,7 +53,7 @@ public class Figure7 extends Figure {
         while(cont < AMOUNT_BLOCKS) {
             TileActor tile = BoardView.getTileByPosition(coordinate.getX(), futureY);
 
-            if(tile.isBusy())
+            if(tile.hasWayCreated())
             {
                 return true;
             }
@@ -74,7 +74,7 @@ public class Figure7 extends Figure {
         while(!(blockNumberToPaint == 0 )){
             TileActor tile = BoardView.getTileByPosition(coordinate.getX(), coordinate.getY());
             tile.setRegionTexture(Figure.tileCastlePlayer1);
-            tile.setBusy(true);
+            tile.setHasWayCreated(true);
             coordinate.setY(coordinate.getY() + 1);
             saveMiddleCoordinates(blockNumberToPaint, coordinate);
             blockNumberToPaint --;
@@ -90,7 +90,7 @@ public class Figure7 extends Figure {
         while(!(blockNumberToPaint == 0 )){
             TileActor tile = BoardView.getTileByPosition(coordinate.getX(), coordinate.getY());
             tile.setRegionTexture(Figure.tileCastlePlayer2);
-            tile.setBusy(true);
+            tile.setHasWayCreated(true);
             coordinate.setY(coordinate.getY() - 1);
             saveMiddleCoordinates(blockNumberToPaint, coordinate);
             blockNumberToPaint --;
@@ -126,6 +126,7 @@ public class Figure7 extends Figure {
     protected void saveMiddleCoordinates(int tileNumber, Coordinate coordinate) {
         if(tileNumber == 4){
             this.setMiddleCoordinates(new Coordinate(coordinate.getX(), coordinate.getY()));
+            this.addInvadedByArmyToTile();
         }
     }
 }
