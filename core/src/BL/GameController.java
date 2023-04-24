@@ -142,6 +142,22 @@ public class GameController {
         return mensaje;
     }
 
+    public DadoMovimiento move(){
+        ArrayList<DadoMovimiento> movementsInChest = getPlayerInTurn().getChest().getMovementsInChest();
+        DadoMovimiento movement = gestorBridge.mover(movementsInChest);
+
+        if(movement != null) {
+            int evaluationResult = gestorBridge.evaluateMovesInChest(movementsInChest.size());
+
+            if(movementsInChest.size() != evaluationResult) {
+                movementsInChest.remove(0);
+            }
+
+            return movement;
+        }
+
+        return null;
+    }
     public ArrayList<Integer> almacenarDados(){
         return gestorBridge.almacenarCofre();
     }
