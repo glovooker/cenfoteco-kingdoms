@@ -36,6 +36,7 @@ public class ButtonsActionsView extends Stage {
     private static final int WIDTH = 140;
     private final PlayScreen playScreen;
 
+
     private HudMovements hudMovements;
     private final GameController gameController = GameController.getInstance();
 
@@ -61,7 +62,52 @@ public class ButtonsActionsView extends Stage {
         buttonAttack = new ButtonComponent(this,imgButton , WIDTH, HEIGHT, 0, 440, new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("Attack");
+                ButtonComponent armyButton = playScreen.getSelectedArmyButton();
+                ButtonComponent enemyArmyButton = playScreen.getSelectedEnemyArmyButton();
+
+                if((gameController.getPlayerInTurn().getChest().getAttacksInChest() != 0 || gameController.lanzarDados().get(4) ==1) && armyButton != null && enemyArmyButton != null) {
+
+                    Army currentArmy = gameController.getGameState().getSelectedArmy();
+                    Army enemyArmy = gameController.getGameState().getSelectedEnemyArmy();
+
+                    Coordinate currentArmyPosition = currentArmy.getPosition();
+                    Coordinate enemyArmyPosition = enemyArmy.getPosition();
+                    int currentX = currentArmyPosition.getX();
+                    int currentY = currentArmyPosition.getY();
+                    int enemyX = enemyArmyPosition.getX();
+                    int enemyY = enemyArmyPosition.getY();
+
+                    if(enemyX == currentX && enemyY == currentY + 1){
+                        gameController.atacar(currentArmy, enemyArmy);
+                    }
+                    else if(enemyX == currentX && enemyY == currentY - 1){
+                        gameController.atacar(currentArmy, enemyArmy);
+                    }
+                    else if(enemyX == currentX + 1 && enemyY == currentY){
+                        gameController.atacar(currentArmy, enemyArmy);
+                    }
+                    else if(enemyX == currentX - 1 && enemyY == currentY){
+                        gameController.atacar(currentArmy, enemyArmy);
+                    }
+                    else if(enemyX == currentX + 1 && enemyY == currentY + 1){
+                        gameController.atacar(currentArmy, enemyArmy);
+                    }
+                    else if(enemyX == currentX - 1 && enemyY == currentY - 1){
+                        gameController.atacar(currentArmy, enemyArmy);
+                    }
+                    else if(enemyX == currentX + 1 && enemyY == currentY - 1){
+                        gameController.atacar(currentArmy, enemyArmy);
+                    }
+                    else if(enemyX == currentX - 1 && enemyY == currentY + 1){
+                        gameController.atacar(currentArmy, enemyArmy);
+                    }
+                    else{
+                        System.out.println("No se puede atacar a esa unidad");
+                    }
+                }
+                else{
+                    System.out.println("No se puede atacar");
+                }
                 return super.touchDown(event, x, y, pointer, button);
             }
         });

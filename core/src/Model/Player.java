@@ -96,4 +96,6 @@ public class Player {
         Player player = (Player) obj;
         return this.name.equals(player.getName());
     }
+
+
 }

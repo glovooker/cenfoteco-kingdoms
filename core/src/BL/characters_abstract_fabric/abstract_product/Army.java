@@ -1,5 +1,6 @@
 package BL.characters_abstract_fabric.abstract_product;
 
+import Model.Castle;
 import Model.Coordinate;
 import Model.Player;
 

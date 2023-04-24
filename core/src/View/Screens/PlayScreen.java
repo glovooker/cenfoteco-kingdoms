@@ -89,6 +89,8 @@ public class PlayScreen implements Screen {
     private GameController gameController = GameController.getInstance();
 
     private ButtonComponent selectedArmyButton;
+    private ButtonComponent selectedEnemyArmyButton;
+
 
     public PlayScreen(Music music){
         music.stop();
@@ -300,6 +302,10 @@ public class PlayScreen implements Screen {
                     gameController.getGameState().setSelectedArmy(army);
                     selectedArmyButton = buttonComponent;
                 }
+                else{
+                    gameController.getGameState().setSelectedEnemyArmy(army);
+                    selectedEnemyArmyButton = buttonComponent;
+                }
 
                 return super.touchDown(event, x, y, pointer, button);
             }
@@ -311,6 +317,10 @@ public class PlayScreen implements Screen {
     public ButtonComponent getSelectedArmyButton() {
         return this.selectedArmyButton;
     }
+    public ButtonComponent getSelectedEnemyArmyButton() {
+        return this.selectedEnemyArmyButton;
+    }
+
 
     public ButtonComponent knowWhatButtonCreate(final Army armyInvoked){
         ButtonComponent buttonArmy = null;
@@ -350,6 +360,10 @@ public class PlayScreen implements Screen {
             case "kamikaze":
                 buttonArmy = createButton(armyInvoked, "kamikaze.png", armyInvoked.getPosition(), stageBoard);
                 break;
+            case "mago":
+                buttonArmy = createButton(armyInvoked, "mago.png", armyInvoked.getPosition(), stageBoard);
+                break;
+
         }
 
         return buttonArmy;

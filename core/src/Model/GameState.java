@@ -16,6 +16,8 @@ public class GameState {
     private Board board;
 
     private Army selectedArmy;
+    private Army selectedEnemyArmy;
+
 
 
     public static GameState getStateInstance(){
@@ -101,6 +103,13 @@ public class GameState {
 
     public void setSelectedArmy(Army selectedArmy) {
         this.selectedArmy = selectedArmy;
+    }
+    public Army getSelectedEnemyArmy() {
+        return selectedEnemyArmy;
+    }
+
+    public void setSelectedEnemyArmy(Army selectedEnemyArmy) {
+        this.selectedEnemyArmy = selectedEnemyArmy;
     }
 
     @Override
