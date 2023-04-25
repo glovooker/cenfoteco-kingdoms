@@ -12,6 +12,10 @@ public class HudMovements implements Observer {
 
 
     public HudMovements(Stage stage) {
+        initialize(stage);
+    }
+
+    private void initialize(Stage stage){
         movementsAmount = new Label(String.format("%01d", 0), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         movementsAmount.setPosition(127, 120 );
         movementsAmount.setFontScale(3);

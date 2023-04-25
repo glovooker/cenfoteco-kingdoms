@@ -5,14 +5,14 @@ import BL.bridge_dice_buttons.dadoMovimiento.DadoMovimiento;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Player {
+public class Player implements Cloneable {
     private Chest chest;
     private Castle castle;
     private boolean turn;
     private final int luckyNumber;
     private String name;
     private boolean rollDice = true;
-    private List<Coordinate> coordinateList;
+    private ArrayList<Coordinate> coordinateList;
 
     private DadoMovimiento movementDice;
 
@@ -98,4 +98,27 @@ public class Player {
     }
 
 
+
+    @Override
+    public Player clone() {
+        try{
+            Player clone = (Player) super.clone();
+            clone.castle = this.castle.clone();
+            clone.chest = this.chest.clone();
+            clone.movementDice = movementDice != null ? movementDice.clone() : null;
+
+            if(coordinateList != null) {
+                clone.coordinateList = new ArrayList<>();
+
+                for (Coordinate coordinate: this.coordinateList) {
+                    clone.coordinateList.add(coordinate.clone());
+                }
+            }
+
+            return clone;
+        }
+        catch (Exception ex) {
+            throw new AssertionError();
+        }
+    }
 }

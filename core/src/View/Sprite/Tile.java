@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 public class Tile extends Sprite {
     private PlayScreen screen;
 
-
     public Tile(PlayScreen screen) {
         super(screen.getBoardAtlas().findRegion("Tile"));
         this.screen = screen;

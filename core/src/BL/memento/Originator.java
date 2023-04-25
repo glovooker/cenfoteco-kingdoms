@@ -4,21 +4,21 @@ import Model.GameState;
 import BL.memento.auxiliar.Snapshot;
 
 public class Originator {
-    private Snapshot state;
+    private Snapshot snapshot;
 
     public Originator(){
-        this.state = new Snapshot();
+        this.snapshot = new Snapshot();
     }
 
     public void newGameState(GameState state){
-        this.state.newPhotoGameState(state);
+        this.snapshot.newPhotoGameState(state);
     }
 
     public void restoreMemento(Memento memento){
-        this.state.newPhotoGameState(memento.getGameState());
+        this.snapshot.newPhotoGameState(memento.getGameState());
     }
 
     public Memento createMemento(){
-        return new Memento();
+        return new Memento(this.snapshot.getGameState());
     }
 }

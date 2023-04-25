@@ -1,26 +1,16 @@
 package Model;
 
-public class Castle {
+public class Castle implements Cloneable {
     private int life = 3;
 
     private int id;
 
     private Coordinate coordinate;
 
-    private Coordinate position;
-
     public Castle() {
         this.coordinate = new Coordinate();
     }
 
-
-    public Coordinate getPosition() {
-        return position;
-    }
-
-    public void setPosition(Coordinate position) {
-        this.position = position;
-    }
     public int getLife() {
         return life;
     }
@@ -41,6 +31,10 @@ public class Castle {
         return coordinate;
     }
 
+    public void setCoordinate(Coordinate coordinate) {
+        this.coordinate = coordinate;
+    }
+
     @Override
     public String toString() {
         return "Castle{" +
@@ -49,7 +43,17 @@ public class Castle {
                 ", coordinates=" + coordinate +
                 '}';
     }
-    public void attackCastle(Castle castle){
-        castle.setLife(castle.getLife()-1);
+
+    @Override
+    protected Castle clone()  {
+        try {
+            Castle clone = (Castle) super.clone();
+
+            clone.coordinate = this.coordinate != null ? (Coordinate) this.coordinate.clone() : null;
+            return clone;
+        }
+        catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
     }
 }

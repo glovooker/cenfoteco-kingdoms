@@ -28,8 +28,11 @@ public class HudChest implements Observer {
     public HudChest(Stage stage){
         Chest chest = controller.getGameState().getPlayerInTurn().getChest();
         controller.getTimer().addObservers(this);
+        initialize(stage, chest);
 
+    }
 
+    private void initialize(Stage stage, Chest chest){
         countGunner = new Label(String.format("%01d", chest.getGunner()), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         countInfantry = new Label(String.format("%01d", chest.getInfantry()), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         countTank = new Label(String.format("%01d", chest.getTank()), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
