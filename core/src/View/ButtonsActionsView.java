@@ -36,8 +36,7 @@ public class ButtonsActionsView extends Stage {
     private ButtonComponent buttonDown;
     private ButtonComponent buttonMovements;
 
-    private Castle selectedCastle1;
-    private Castle selectedCastle2;
+    private Castle selectedCastle;
 
     private static final int HEIGHT = 100;
     private static final int WIDTH = 140;
@@ -48,7 +47,6 @@ public class ButtonsActionsView extends Stage {
 
     private HudMovements hudMovements;
     private final GameController gameController = GameController.getInstance();
-
     private DecoratedArtillery decoratedArtillery;
     private DecoratedInfantry decoratedInfantry;
     private DecoratedTank decoratedTank;
@@ -70,25 +68,23 @@ public class ButtonsActionsView extends Stage {
         defineButtonUp("Up.png");
         defineButtonDown("Down.png");
 
-
     }
 
     public void defineButtonAttack(String imgButton){
         buttonAttack = new ButtonComponent(this, imgButton, WIDTH, HEIGHT, 0, 440, new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                 armyButton = playScreen.getSelectedArmyButton();
-                 armytargetButton = playScreen.getSelectedEnemyArmyButton();
 
-                if(gameController.getPlayerInTurn()==gameController.getPlayer1() && selectedCastle1 == null) {
-                    selectedCastle1 = gameController.getPlayer2().getCastle();
-                } else if(gameController.getPlayerInTurn()==gameController.getPlayer2() && selectedCastle2 == null){
-                    selectedCastle2 = gameController.getPlayer1().getCastle();
+                 Army currentArmy = gameController.getGameState().getSelectedArmy();
+                 Army enemyArmy = gameController.getGameState().getSelectedEnemyArmy();
+
+                if(gameController.getPlayerInTurn()==gameController.getPlayer1()) {
+                    selectedCastle = gameController.getPlayer2().getCastle();
+                } else if(gameController.getPlayerInTurn()==gameController.getPlayer2()){
+                    selectedCastle = gameController.getPlayer1().getCastle();
                 }
-                if ((gameController.getPlayerInTurn().getChest().getAttacksInChest() != 0 || gameController.lanzarDados().get(4) == 1) && (armyButton != null && armytargetButton != null)) {
-
-                    Army currentArmy = gameController.getGameState().getSelectedArmy();
-                    Army enemyArmy = gameController.getGameState().getSelectedEnemyArmy();
+                System.out.println(selectedCastle);
+                if ((gameController.getPlayerInTurn().getChest().getAttacksInChest() != 0 || gameController.lanzarDados().get(4) == 1) && (currentArmy != null && enemyArmy != null)) {
 
                     if (currentArmy!=null && enemyArmy!=null) {
                         Coordinate currentArmyPosition = currentArmy.getPosition();
@@ -109,32 +105,22 @@ public class ButtonsActionsView extends Stage {
                     }
 
 
-                } else if ((gameController.getPlayerInTurn().getChest().getAttacksInChest() != 0 || gameController.lanzarDados().get(4) == 1) && (armyButton != null && (selectedCastle1!=null||selectedCastle2!=null)))
+                } else if ((gameController.getPlayerInTurn().getChest().getAttacksInChest() != 0 || gameController.lanzarDados().get(4) == 1) && (armyButton != null && selectedCastle!=null))
                 {
-                    Army currentArmy = gameController.getGameState().getSelectedArmy();
+
                     Coordinate currentArmyPosition = currentArmy.getPosition();
 
                     if(currentArmy!=null){
-                        int castle1X = selectedCastle1.getCoordinates().getX();
-                        int castle1Y = selectedCastle1.getCoordinates().getY();
-                        int castle2X = selectedCastle2.getCoordinates().getX();
-                        int castle2Y = selectedCastle2.getCoordinates().getY();
+                        int castleX = selectedCastle.getCoordinates().getX();
+                        int castleY = selectedCastle.getCoordinates().getY();
                         int currentX = currentArmyPosition.getX();
                         int currentY = currentArmyPosition.getY();
 
 
-                        if (castle1X == currentX && (castle1Y == currentY + 1 || castle1Y == currentY - 1)) {
-                            gameController.atacarCastillo(selectedCastle1, currentArmy);
+                        if (castleX == currentX && (castleY == currentY + 1 || castleY == currentY - 1)) {
+                            gameController.atacarCastillo(selectedCastle, currentArmy);
                             System.out.println("Atacando Castillo");
                         }
-                        if (castle2X == currentX && (castle2Y == currentY + 1 || castle2Y == currentY - 1)) {
-                            gameController.atacarCastillo(selectedCastle2, currentArmy);
-                            System.out.println("Atacando Castillo");
-                        }
-//                        if (castleX == currentX && (castleY == currentY + 1 || castleY == currentY - 1)) {
-//                            gameController.atacarCastillo(selectedCastle, currentArmy);
-//                            System.out.println("Atacando Castillo");
-//                        }
                     }else {
                         System.out.println("No se puede atacar");
                     }
@@ -413,7 +399,7 @@ public class ButtonsActionsView extends Stage {
         DadoMovimiento movementsInDice = gameController.getGameState().getPlayerInTurn().getMovementDice();
         movementsInDice.setMovimiento(movementsInDice.getMovimiento() - 1);
         hudMovements.getMovementsAmount().setText(movementsInDice.getMovimiento());
-        army.setMovements(army.getMovements() - 1);
+       // army.setMovements(army.getMovements() - 1);
     }
 
 }

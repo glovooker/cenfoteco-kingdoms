@@ -8,7 +8,7 @@ public class Castle implements Cloneable {
     private Coordinate coordinate;
 
     public Castle() {
-        this.coordinate = new Coordinate();
+
     }
 
     public int getLife() {
