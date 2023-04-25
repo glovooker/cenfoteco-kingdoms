@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Figure6 extends Figure {
-    int cont = 0;
+
 
     public Figure6(PlayScreen playScreen, Stage boardStage) {
         super(playScreen, boardStage);
@@ -109,6 +109,7 @@ public class Figure6 extends Figure {
             tile = BoardView.getTileByPosition(coordinate.getX(), coordinate.getY());;
             tile.setRegionTexture(Figure.tileCastlePlayer1);
             tile.setHasWayCreated(true);
+            boardView.getNumberMatrix()[coordinate.getY()][coordinate.getX()] = Figure.ONE_TILE;
 
             saveMiddleCoordinates(blockNumberToPaint, coordinate);
             if(blockNumberToPaint == Figure.AMOUNT_BLOCKS - 3){
@@ -153,6 +154,7 @@ public class Figure6 extends Figure {
             tile = BoardView.getTileByPosition(coordinate.getX(), coordinate.getY());
             tile.setRegionTexture(Figure.tileCastlePlayer2);
             tile.setHasWayCreated(true);
+            boardView.getNumberMatrix()[coordinate.getY()][coordinate.getX()] = Figure.SECOND_TILE;
 
             saveMiddleCoordinates(blockNumberToPaint, coordinate);
             if(blockNumberToPaint == Figure.AMOUNT_BLOCKS - 3){

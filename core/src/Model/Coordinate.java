@@ -1,6 +1,6 @@
 package Model;
 
-public class Coordinate {
+public class Coordinate implements Cloneable {
     private int x;
     private int y;
 
@@ -35,5 +35,15 @@ public class Coordinate {
                 "x=" + x +
                 ", y=" + y +
                 '}';
+    }
+
+    @Override
+    public Coordinate clone() {
+        try {
+            return (Coordinate) super.clone();
+        }
+        catch(CloneNotSupportedException e) {
+            return this;
+        }
     }
 }

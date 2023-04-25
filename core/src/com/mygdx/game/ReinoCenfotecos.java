@@ -29,7 +29,10 @@ public class ReinoCenfotecos extends Game {
         Gdx.input.setInputProcessor(new InputMultiplexer());
         manager.load("audio/MenuMusic.mp3", Music.class);
         manager.finishLoading();
-        setScreen(new Menu());
+        this.menuScreen = new Menu();
+        this.playScreen = new PlayScreen();
+
+        setMenuScreen();
     }
 
      public static ReinoCenfotecos getInstance(){
@@ -40,11 +43,22 @@ public class ReinoCenfotecos extends Game {
         return kingdomInstance;
      }
 
-    public void setPlayScreen(Music music){
-        this.playScreen = new PlayScreen(music);
+    public void setPlayScreen(boolean isNewGame){
+        this.playScreen = new PlayScreen();
+
+        if(isNewGame) {
+            playScreen.init();
+        }
+        else {
+            playScreen.load();
+        }
+
         setScreen(playScreen);
     }
 
+    public void setMenuScreen(){
+        setScreen(menuScreen);
+    }
 
     @Override
     public void render(){

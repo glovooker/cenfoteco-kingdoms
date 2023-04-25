@@ -9,11 +9,9 @@ import View.Components.HudChest;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -68,7 +66,6 @@ public class PlayScreen implements Screen {
     private TextureAtlas atlasDice;
     private TextureAtlas atlasArmy;
 
-
     private TextureAtlas castles;
 
     private TextureRegion timeRegion;
@@ -81,6 +78,8 @@ public class PlayScreen implements Screen {
 
     private ButtonsActionsView buttonsActionsView;
 
+    private ButtonComponent exitButton;
+
     private ChestView chest;
     private Stage figuresView;
 
@@ -90,20 +89,22 @@ public class PlayScreen implements Screen {
 
     private ButtonComponent selectedArmyButton;
 
-    public PlayScreen(Music music){
-        music.stop();
+    private final InputMultiplexer inputMultiplexer = (InputMultiplexer) Gdx.input.getInputProcessor();
+
+    public PlayScreen(){
         atlasBoard = new TextureAtlas("boardAtlas2.atlas");
         atlasFigures = new TextureAtlas("figuresAtlas.atlas");
         castles = new TextureAtlas("Castles.atlas");
         atlasDice = new TextureAtlas("dicePackAtlas.atlas");
         atlasArmy = new TextureAtlas("armyPackAtlas.atlas");
         player = new Texture("player.png");
+
         playerInGame = new TextureRegion(player, 5, 5, 1000, 100);
         heart = new Texture("heart.png");
         heartRegion = new TextureRegion(heart, 5, 5, 100, 100);
         time = new Texture("player.png");
         timeRegion = new TextureRegion(time, 5, 5, 800, 100);
-        this.game = ReinoCenfotecos.getInstance();
+
         gameCam = new OrthographicCamera();
         gamePort = new StretchViewport(1600, 1600, gameCam);
 
@@ -114,6 +115,11 @@ public class PlayScreen implements Screen {
         world = new World(new Vector2(0, -10), true);
 
         b2dr = new Box2DDebugRenderer();
+    }
+
+    public void init() {
+        this.game = ReinoCenfotecos.getInstance();
+
         this.boardView = new BoardView(this,gamePort);
         this.boardStage = BoardView.getStageBoard();
 
@@ -143,17 +149,41 @@ public class PlayScreen implements Screen {
         chest = new ChestView(chestStage);
         informationBar = new InformationBar(gamePort);
 
-        InputMultiplexer inputMultiplexer = (InputMultiplexer) Gdx.input.getInputProcessor();
-        inputMultiplexer.addProcessor(chestStage);
-        inputMultiplexer.addProcessor(figuresView);
-        inputMultiplexer.addProcessor(boardStage);
-        inputMultiplexer.addProcessor(diceView);
-        inputMultiplexer.addProcessor(armyView);
-        inputMultiplexer.addProcessor(buttonsActionsView);
+        defineButtonExit();
+    }
+
+    public void load() {
+        this.gameController.loadExistingGame();
+        this.init();
+        loadArmyFromGameState();
+    }
+
+    private void loadArmyFromGameState() {
+        for(Army army : this.gameController.getGameState().getBoard().getArmyList()) {
+            this.createArmyAsButtonByType(army);
+        }
     }
 
     public BoardView getBoardView() {
         return boardView;
+    }
+
+    private void defineButtonExit(){
+        exitButton = new ButtonComponent(this.chestStage, "exit.png", 170, 150, 20, 300, new InputListener(){
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                inputMultiplexer.removeProcessor(chestStage);
+                inputMultiplexer.removeProcessor(figuresView);
+                inputMultiplexer.removeProcessor(boardStage);
+                inputMultiplexer.removeProcessor(diceView);
+                inputMultiplexer.removeProcessor(armyView);
+                inputMultiplexer.removeProcessor(buttonsActionsView);
+                gameController.exitGame();
+                game.setMenuScreen();
+
+                return super.touchDown(event, x, y, pointer, button);
+            }
+        });
     }
 
 
@@ -164,7 +194,12 @@ public class PlayScreen implements Screen {
 
     @Override
     public void show() {
-
+        inputMultiplexer.addProcessor(chestStage);
+        inputMultiplexer.addProcessor(figuresView);
+        inputMultiplexer.addProcessor(boardStage);
+        inputMultiplexer.addProcessor(diceView);
+        inputMultiplexer.addProcessor(armyView);
+        inputMultiplexer.addProcessor(buttonsActionsView);
     }
 
     @Override
@@ -312,46 +347,46 @@ public class PlayScreen implements Screen {
         return this.selectedArmyButton;
     }
 
-    public ButtonComponent knowWhatButtonCreate(final Army armyInvoked){
-        ButtonComponent buttonArmy = null;
+    public void createArmyAsButtonByType(final Army armyInvoked){
         Stage stageBoard = this.getBoardStage();
+        String imagePath = "";
 
         switch (armyInvoked.getCharacterClass()) {
             case "ratallero":
-                buttonArmy = createButton(armyInvoked, "ratallero.png", armyInvoked.getPosition(), stageBoard);
+                imagePath = "ratallero.png";
                 break;
             case "orco":
-                buttonArmy = createButton(armyInvoked, "orco.png", armyInvoked.getPosition(), stageBoard);
+                imagePath = "orco.png";
                 break;
             case "chaman":
-                buttonArmy = createButton(armyInvoked, "chaman.png", armyInvoked.getPosition(), stageBoard);
+                imagePath = "chaman.png";
                 break;
             case "escudero":
-                buttonArmy = createButton(armyInvoked, "escudero.png", armyInvoked.getPosition(), stageBoard);
+                imagePath = "escudero.png";
                 break;
             case "archero":
-                buttonArmy = createButton(armyInvoked, "arquero.png", armyInvoked.getPosition(), stageBoard);
+                imagePath = "arquero.png";
                 break;
             case "daemon":
-                buttonArmy = createButton(armyInvoked, "daemon.png", armyInvoked.getPosition(), stageBoard);
+                imagePath = "daemon.png";
                 break;
             case "bruja":
-                buttonArmy = createButton(armyInvoked, "bruja.png", armyInvoked.getPosition(), stageBoard);
+                imagePath = "bruja.png";
                 break;
             case "dragon":
-                buttonArmy = createButton(armyInvoked, "dragon.png", armyInvoked.getPosition(), stageBoard);
+                imagePath = "dragon.png";
                 break;
             case "golem":
-                buttonArmy = createButton(armyInvoked, "golem.png", armyInvoked.getPosition(), stageBoard);
+                imagePath = "golem.png";
                 break;
             case "guardian":
-                buttonArmy = createButton(armyInvoked, "guardian.png", armyInvoked.getPosition(), stageBoard);
+                imagePath = "guardian.png";
                 break;
             case "kamikaze":
-                buttonArmy = createButton(armyInvoked, "kamikaze.png", armyInvoked.getPosition(), stageBoard);
+                imagePath = "kamikaze.png";
                 break;
         }
 
-        return buttonArmy;
+        createButton(armyInvoked, imagePath, armyInvoked.getPosition(), stageBoard);
     }
 }

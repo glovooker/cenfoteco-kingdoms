@@ -1,5 +1,6 @@
 package BL.template.abstract_figure;
 
+import BL.GameController;
 import BL.characters_abstract_fabric.abstract_product.Army;
 import BL.prototype.TileActor;
 import Enums.Direction;
@@ -22,7 +23,7 @@ public abstract class Figure {
 
     protected final static String tileCastlePlayer2 = "TileCastle2";
 
-    private final GameState state = GameState.getStateInstance();
+    private final GameState state = GameController.getInstance().getGameState();
 
     private final List<ButtonComponent> buttonComponents = new ArrayList<>();
 
@@ -30,19 +31,25 @@ public abstract class Figure {
 
     protected PlayScreen playScreen;
 
+    public final static int AMOUNT_BLOCKS = 5;
+
+    public final static int ONE_TILE = 1;
+
+    public final static int SECOND_TILE = 2;
+
+    protected final TileActor[][] board = BoardView.getMatriz();
+
+    protected final BoardView boardView;
+
     public Figure(PlayScreen playScreen, Stage boardStage) {
         this.boardStage = boardStage;
         this.playScreen = playScreen;
+        this.boardView = playScreen.getBoardView();
     }
 
     public void setMiddleCoordinates(Coordinate middleCoordinates) {
         this.middleCoordinates = middleCoordinates;
     }
-
-    public final static int AMOUNT_BLOCKS = 5;
-
-
-    protected final TileActor[][] board = BoardView.getMatriz();
 
     protected abstract List<Coordinate> filterInvalidCoordinates(List<Coordinate> coordinates, Direction direction);
     protected abstract boolean hasAnyCollision(Coordinate coordinate, Direction direction);
@@ -91,7 +98,7 @@ public abstract class Figure {
         if(this.state.getPlayerInTurn().getCoordinatesList() == null) {
             this.state.getPlayerInTurn().initializeCoordinatesList();
 
-            Coordinate initialCoordinate = this.state.getPlayerInTurn().getCastle().getCoordinates();
+            Coordinate initialCoordinate = this.state.getPlayerInTurn().getCastle().getCoordinates().clone();
             if(isPaintingUp()){
                 initialCoordinate.setY(initialCoordinate.getY() + 1);
                 paintingWayUp(initialCoordinate);
@@ -118,7 +125,7 @@ public abstract class Figure {
     private void positionArmyOnFigure(Army army) {
         army.setPosition(middleCoordinates);
         state.setPrefaReady(false);
-        this.playScreen.knowWhatButtonCreate(army);
+        this.playScreen.createArmyAsButtonByType(army);
         this.playScreen.getHudChest().updateLabels(state);
     }
 

@@ -91,6 +91,7 @@ public class Figure3 extends Figure {
             tile = BoardView.getTileByPosition(coordinate.getX(), coordinate.getY());;
             tile.setRegionTexture(Figure.tileCastlePlayer1);
             tile.setHasWayCreated(true);
+            boardView.getNumberMatrix()[coordinate.getY()][coordinate.getX()] = Figure.ONE_TILE;
 
             if(plusX){
                 coordinate.setX(coordinate.getX() + 1);
@@ -125,6 +126,7 @@ public class Figure3 extends Figure {
             tile = BoardView.getTileByPosition(coordinate.getX(), coordinate.getY());;
             tile.setRegionTexture(Figure.tileCastlePlayer2);
             tile.setHasWayCreated(true);
+            boardView.getNumberMatrix()[coordinate.getY()][coordinate.getX()] = Figure.SECOND_TILE;
 
             if(minusX){
                 coordinate.setX(coordinate.getX() - 1);

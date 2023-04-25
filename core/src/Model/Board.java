@@ -5,11 +5,14 @@ import BL.characters_abstract_fabric.abstract_product.Army;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Board {
-    private static final int LINES = 22;
-    private static final int ROWS = 20;
+public class Board implements Cloneable {
+    public static final int ROWS = 22;
 
-    private List<Army> armyList;
+    public static final int COLUMNS = 20;
+
+    private int[][] numberMatriz = new int[ROWS][COLUMNS];
+
+    private ArrayList<Army> armyList;
 
     public Board() {
         this.armyList = new ArrayList<>();
@@ -19,15 +22,38 @@ public class Board {
         return armyList;
     }
 
-    public void setArmyList(List<Army> armyList) {
+    public void setArmyList(ArrayList<Army> armyList) {
         this.armyList = armyList;
     }
 
-    public int getLINES() {
-        return LINES;
+    public int[][] getNumberMatriz() {
+        return numberMatriz;
     }
 
-    public int getROWS() {
-        return ROWS;
+    @Override
+    public Board clone() {
+        try {
+            Board clone = (Board) super.clone();
+
+            if(clone.armyList != null) {
+                clone.armyList = new ArrayList<>();
+                for (Army army: this.armyList) {
+                    clone.armyList.add(army.clone());
+                }
+
+            }
+
+            clone.numberMatriz = new int[ROWS][COLUMNS];
+
+            for(int i = 0; i < ROWS; i++) {
+                for(int j = 0; j < COLUMNS; j++) {
+                    clone.numberMatriz[i][j] = this.numberMatriz[i][j];
+                }
+            }
+
+            return clone;
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
     }
 }

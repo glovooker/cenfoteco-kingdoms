@@ -2,6 +2,8 @@ package View;
 
 import BL.GameController;
 import Model.Board;
+import Model.Castle;
+import Model.Coordinate;
 import View.Screens.PlayScreen;
 import View.Actor.CastleActor;
 import BL.prototype.TileActor;
@@ -33,14 +35,15 @@ public class BoardView  {
         this.castleActorPLayer1 = new CastleActor(screen, "CastlePlayer2");
         this.castleActorPLayer2 = new CastleActor(screen, "castlePlayer1");
         this.board = gameController.getGameState().getBoard();
-        linesInBoard = board.getLINES();
-        rowsInBoard = board.getROWS();
+        linesInBoard = Board.ROWS;
+        rowsInBoard = Board.COLUMNS;
         matriz = new TileActor[linesInBoard][rowsInBoard];
         initializeBoard(this.tileActor);
     }
 
     private void initializeBoard(TileActor tileActor) {
         int x, y = 0;
+        int[][] matrizNumber = board.getNumberMatriz();
 
         for (int i = 0; i < linesInBoard; i++) {
             x = 0;
@@ -75,40 +78,40 @@ public class BoardView  {
                     }
                 }
 
-                if(i == 0){
+                if(i == 0 || matrizNumber[i][j] == 1){
                     tileActorTemp.setRegionTexture("TileCastle");
-                } else if (i == 21) {
+                } else if (i == 21 || matrizNumber[i][j] == 2) {
                     tileActorTemp.setRegionTexture("TileCastle2");
                 }
+
             }
 
             y += TileActor.SIZE;
         }
 
-        addingCastlesToBoard(0, castleActorPLayer1 );
+        addingCastlesToBoard(0, gameController.getPlayer1().getCastle(), castleActorPLayer1);
         stageBoard.addActor(this.castleActorPLayer1);
-        addingCastlesToBoard(21, this.castleActorPLayer2);
+        addingCastlesToBoard(21, gameController.getPlayer2().getCastle(), this.castleActorPLayer2);
         stageBoard.addActor(this.castleActorPLayer2);
-
-        this.gameController.getPlayer1().setCastle(this.castleActorPLayer1.getCastleModel());
-        this.gameController.getPlayer2().setCastle(this.castleActorPLayer2.getCastleModel());
-
     }
 
     public static TileActor[][] getMatriz(){
         return matriz;
     }
 
-    private void addingCastlesToBoard(int row, CastleActor castleActor){
+    public int[][] getNumberMatrix() {
+        return this.board.getNumberMatriz();
+    }
+
+    private void addingCastlesToBoard(int row, Castle castle, CastleActor castleActor){
         int x = ((int) (Math.random() * 10 + 5));
 
+        if(castle.getCoordinates() == null && castle.getCoordinates() == null){
+            castle.setCoordinate(new Coordinate(x, row));
+        }
 
-        castleActor.getCastleModel().getCoordinates().setY(row);
-        castleActor.getCastleModel().getCoordinates().setX(x);
-
-        int posX = castleActor.getCastleModel().getCoordinates().getX() * 50;
-        int posY = castleActor.getCastleModel().getCoordinates().getY() * 50;
-
+        int posX = castle.getCoordinates().getX() * 50;
+        int posY = castle.getCoordinates().getY() * 50;
         castleActor.setPosition(posX, posY);
     }
 

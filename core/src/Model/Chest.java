@@ -5,7 +5,7 @@ import BL.characters_abstract_fabric.abstract_product.Army;
 
 import java.util.ArrayList;
 
-public class Chest {
+public class Chest implements Cloneable {
 
     private ArrayList<DadoMovimiento> movementsInChest = new ArrayList<>();
 
@@ -93,5 +93,25 @@ public class Chest {
                 ", tank=" + tank +
                 ", armyInChest=" + this.getArmyInChest() +
                 '}';
+    }
+
+    @Override
+    protected Chest clone() {
+        try {
+            Chest clone = (Chest)super.clone();
+
+            if(movementsInChest != null) {
+                clone.movementsInChest = new ArrayList<>();
+
+                for (DadoMovimiento dadoMovimiento : movementsInChest) {
+                    clone.movementsInChest.add(dadoMovimiento.clone());
+                }
+            }
+
+            return clone;
+        }
+        catch(CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
     }
 }

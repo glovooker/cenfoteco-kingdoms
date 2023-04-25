@@ -1,9 +1,10 @@
 package BL.characters_abstract_fabric.abstract_product;
 
+import BL.prototype.Clonable;
 import Model.Coordinate;
 import Model.Player;
 
-public abstract class Army {
+public abstract class Army implements Cloneable {
 
     private String characterType;
     private String id;
@@ -85,4 +86,17 @@ public abstract class Army {
     }
 
     public abstract void attack(Army armyToAttack);
+
+    @Override
+    public Army clone() {
+        try {
+            Army clone = (Army) super.clone();
+            clone.owner = this.owner.clone();
+            clone.position = this.position.clone();
+
+            return clone;
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
+    }
 }

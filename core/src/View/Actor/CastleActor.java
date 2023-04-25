@@ -15,18 +15,11 @@ public class CastleActor extends Actor {
 
     private String img;
 
-    private Model.Castle castleModel;
-
     public CastleActor(PlayScreen screen, String img) {
         this.img = img;
         this.screen = screen;
         this.castle = new Castle(this.screen, this.img);
         this.castle.setSize(CastleActor.SIZE, CastleActor.SIZE);
-        this.castleModel = new Model.Castle();
-    }
-
-    public Model.Castle getCastleModel() {
-        return castleModel;
     }
 
     @Override

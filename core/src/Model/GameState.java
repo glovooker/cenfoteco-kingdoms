@@ -2,7 +2,7 @@ package Model;
 
 import BL.characters_abstract_fabric.abstract_product.Army;
 
-public class GameState {
+public class GameState implements Cloneable {
     private Player playerInTurn;
 
     private int time;
@@ -11,22 +11,12 @@ public class GameState {
 
     private Player player2;
 
-    private static GameState stateInstance;
-
     private Board board;
 
     private Army selectedArmy;
 
 
-    public static GameState getStateInstance(){
-        if(stateInstance == null){
-            stateInstance = new GameState();
-        }
-
-        return stateInstance;
-    }
-
-    private GameState() {
+    public GameState() {
         this.board = new Board();
     }
 
@@ -111,5 +101,22 @@ public class GameState {
                 ", player1=" + player1.toString() +
                 ", player2=" + player2.toString() +
                 '}';
+    }
+
+    @Override
+    public GameState clone() {
+        try {
+            GameState clone = (GameState) super.clone();
+            clone.playerInTurn = this.playerInTurn.clone();
+            clone.player1 = this.player1.clone();
+            clone.player2 = this.player2.clone();
+            clone.board = this.board.clone();
+            clone.selectedArmy = null;
+
+            return clone;
+        }
+        catch(CloneNotSupportedException ex) {
+            return this;
+        }
     }
 }
