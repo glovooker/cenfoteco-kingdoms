@@ -105,7 +105,7 @@ public class ButtonsActionsView extends Stage {
                     }
 
 
-                } else if ((gameController.getPlayerInTurn().getChest().getAttacksInChest() != 0 || gameController.lanzarDados().get(4) == 1) && (armyButton != null && selectedCastle!=null))
+                } else if ((gameController.getPlayerInTurn().getChest().getAttacksInChest() != 0 || gameController.lanzarDados().get(4) == 1) && (currentArmy != null && selectedCastle!=null))
                 {
 
                     Coordinate currentArmyPosition = currentArmy.getPosition();
