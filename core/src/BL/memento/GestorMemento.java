@@ -4,23 +4,17 @@ import Model.GameState;
 import BL.observer.interfaces_observer.Observer;
 
 public class GestorMemento implements Observer {
-
-    private GameState gameState = GameState.getStateInstance();
-
     private Originator originator;
 
     private CareTaker careTaker;
 
-
     public GestorMemento() {
         this.originator = new Originator();
         this.careTaker = new CareTaker();
-
     }
 
     private void updateGameState(GameState state){
         this.originator.newGameState(state);
-        this.gameState = state;
         updateMemento();
         this.careTaker.setMemento(this.careTaker.getMemento());
     }
@@ -34,7 +28,7 @@ public class GestorMemento implements Observer {
     }
 
     public GameState getGameStateSaved(){
-        return this.careTaker.getMemento().getGameState();
+        return this.careTaker.getMemento() != null ? this.careTaker.getMemento().getGameState() : null;
     }
 
     public void restoreMemento(){
@@ -43,6 +37,8 @@ public class GestorMemento implements Observer {
 
     @Override
     public void update(GameState state) {
-        saveGameState(state);
+        if(state.getTime() < 0) {
+            saveGameState(state.clone());
+        }
     }
 }

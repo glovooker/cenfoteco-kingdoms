@@ -1,6 +1,5 @@
 package BL.observer.concret;
 import Model.GameState;
-import Model.Player;
 import BL.observer.interfaces_observer.Observer;
 import BL.observer.interfaces_observer.Subject;
 
@@ -18,15 +17,20 @@ public class TimerSec extends TimerTask implements Subject {
 
     private Timer timerController;
 
-    private GameState state = GameState.getStateInstance();
+    private final GameState state;
 
-    public TimerSec() {
+    public TimerSec(GameState state) {
         this.time = TIME_IN_GAME;
+        this.state = state;
     }
 
     public void start() {
         this.timerController = new Timer();
         this.timerController.scheduleAtFixedRate(this, 1000, 1000);
+    }
+
+    public void stop() {
+        this.timerController.cancel();
     }
 
     @Override
@@ -54,8 +58,8 @@ public class TimerSec extends TimerTask implements Subject {
     }
 
     @Override
-    public void removeObserver(Observer observer) {
-        this.observers.remove(observer);
+    public void cleanObservers() {
+        this.observers.clear();
     }
 
     @Override
@@ -65,5 +69,4 @@ public class TimerSec extends TimerTask implements Subject {
              observer.update(state);
         }
     }
-
 }

@@ -112,6 +112,7 @@ public class Figure1 extends Figure {
         int blockNumberToPaint = Figure.AMOUNT_BLOCKS;
         int initialX = coordinate.getX() + 1;
         int initialY = coordinate.getY();
+        int tile = direction == Direction.Up ? Figure.ONE_TILE : Figure.SECOND_TILE;
 
         if(coordinate.getX() > (20-AMOUNT_BLOCKS) || board[initialY][initialX].hasWayCreated()) {
             coordinate.setX(coordinate.getX() - AMOUNT_BLOCKS + 1);
@@ -120,6 +121,7 @@ public class Figure1 extends Figure {
         while(blockNumberToPaint > 0 ){
             board[coordinate.getY()][coordinate.getX()].setRegionTexture(texture);
             board[coordinate.getY()][coordinate.getX()].setHasWayCreated(true);
+            boardView.getNumberMatrix()[coordinate.getY()][coordinate.getX()] = tile;
             saveMiddleCoordinates(blockNumberToPaint, coordinate);
             coordinate.setX((coordinate.getX() + 1));
             blockNumberToPaint--;

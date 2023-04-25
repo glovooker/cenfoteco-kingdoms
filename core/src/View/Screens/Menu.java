@@ -40,6 +40,8 @@ public class Menu implements Screen {
 
     private ButtonComponent onePLayer;
 
+    private ButtonComponent loadGame;
+
     private Texture cenfotecoLetter;
 
     private Texture kingdomLetter;
@@ -69,12 +71,8 @@ public class Menu implements Screen {
         this.stage = new Stage(gamePort);
         this.stage.getRoot().setX(120);
         this.stage.getRoot().setY(100);
-        music = ReinoCenfotecos.manager.get("audio/MenuMusic.mp3", Music.class);
-        music.setLooping(true);
-        music.play();
-        defineTextures();
 
-        inputMultiplexer.addProcessor(stage);
+        defineTextures();
     }
 
 
@@ -85,25 +83,41 @@ public class Menu implements Screen {
 
     @Override
     public void show() {
+        music = ReinoCenfotecos.manager.get("audio/MenuMusic.mp3", Music.class);
+        music.setLooping(true);
+        music.play();
 
+        inputMultiplexer.addProcessor(stage);
     }
 
     public void defineTextures(){
-       onePLayer =  new ButtonComponent(this.stage, "multiPlayer.png", 500, 500, 425,750, new InputListener(){
+       onePLayer =  new ButtonComponent(this.stage, "multiPlayer.png", 600, 500, 380,730, new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                gameController.choosingStartPlayer();
-
+                gameController.initialize();
                 inputMultiplexer.removeProcessor(stage);
-                game.setPlayScreen(music);
+                music.stop();
+                game.setPlayScreen(true);
 
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
 
-       this.cenfotecoLetter = new Texture("CenfotecoLetter.png");
-        this.kingdomLetter = new Texture("kingdomsLetter.png");
+       loadGame = new ButtonComponent(this.stage, "loadGame.png", 500, 450, 435, 400, new InputListener(){
+           @Override
+           public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+               if(gameController.getMementoController().getGameStateSaved() != null) {
+                   music.stop();
+                   inputMultiplexer.removeProcessor(stage);
+                   game.setPlayScreen(false);
+               }
 
+               return super.touchDown(event, x, y, pointer, button);
+           }
+       });
+
+       this.cenfotecoLetter = new Texture("CenfotecoLetter.png");
+       this.kingdomLetter = new Texture("kingdomsLetter.png");
     }
 
     @Override

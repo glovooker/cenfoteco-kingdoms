@@ -44,7 +44,6 @@ public class ChestView {
 
     private Stage stage;
 
-
     private final GameController gameController = GameController.getInstance();
 
     public ChestView(Stage stage){

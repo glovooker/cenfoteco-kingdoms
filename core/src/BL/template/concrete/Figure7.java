@@ -75,6 +75,8 @@ public class Figure7 extends Figure {
             TileActor tile = BoardView.getTileByPosition(coordinate.getX(), coordinate.getY());
             tile.setRegionTexture(Figure.tileCastlePlayer1);
             tile.setHasWayCreated(true);
+            boardView.getNumberMatrix()[coordinate.getY()][coordinate.getX()] = Figure.ONE_TILE;
+
             coordinate.setY(coordinate.getY() + 1);
             saveMiddleCoordinates(blockNumberToPaint, coordinate);
             blockNumberToPaint --;
@@ -91,6 +93,8 @@ public class Figure7 extends Figure {
             TileActor tile = BoardView.getTileByPosition(coordinate.getX(), coordinate.getY());
             tile.setRegionTexture(Figure.tileCastlePlayer2);
             tile.setHasWayCreated(true);
+            boardView.getNumberMatrix()[coordinate.getY()][coordinate.getX()] = Figure.SECOND_TILE;
+
             coordinate.setY(coordinate.getY() - 1);
             saveMiddleCoordinates(blockNumberToPaint, coordinate);
             blockNumberToPaint --;

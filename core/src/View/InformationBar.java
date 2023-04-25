@@ -25,7 +25,7 @@ public class InformationBar {
     private HudMain hud;
 
 
-    private final GameState gameState = GameState.getStateInstance();
+    private final GameState gameState = GameController.getInstance().getGameState();
 
     public InformationBar(Viewport gamePort){
         this.stage = new Stage(gamePort);

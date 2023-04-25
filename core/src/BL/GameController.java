@@ -2,20 +2,18 @@ package BL;
 
 import BL.bridge_dice_buttons.dadoMovimiento.DadoMovimiento;
 import BL.memento.GestorMemento;
+import Model.Castle;
 import Model.GameState;
 import Model.Player;
 import BL.observer.concret.TimerSec;
 import BL.bridge_dice_buttons.GestorBridge;
 import BL.characters_abstract_fabric.GestorFabricaAbstracta;
 import BL.characters_abstract_fabric.abstract_product.Army;import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
-
 public class GameController {
-
-    private Player player1;
-    private Player player2;
+    private final Player player1;
+    private final Player player2;
     private Player playerInTurn;
 
     private TimerSec timer;
@@ -23,16 +21,19 @@ public class GameController {
     private static GestorBridge gestorBridge;
     private static GestorFabricaAbstracta gestorFabricaAbstracta;
     private static GameController gameController;
+    private final GestorMemento mementoController;
 
-    private GestorMemento mementoController;
-
-    private GameState gameState = GameState.getStateInstance();
+    private GameState gameState;
 
 
     private GameController() {
         this.player1 = new Player(1);
         this.player2 = new Player(2);
+        this.player1.setCastle(new Castle());
+        this.player2.setCastle(new Castle());
+
         gestorBridge = new GestorBridge();
+        this.mementoController = new GestorMemento();
         gestorFabricaAbstracta = new GestorFabricaAbstracta();
         gestorBridge.iniciarBotones();
     }
@@ -45,22 +46,45 @@ public class GameController {
         return gameController;
     }
 
+    public void initialize() {
+        this.initializePlayerOrder();
+        initializeGameState();
+        initializeGameTimer();
+    }
+
+    public void loadExistingGame() {
+        this.gameState = this.mementoController.getGameStateSaved().clone();
+        initializeGameTimer();
+    }
+
+    public void exitGame() {
+        this.timer.cleanObservers();
+        this.timer.stop();
+        this.gameState = new GameState();
+    }
+
+    private void initializeGameTimer() {
+        this.timer = new TimerSec(this.getGameState());
+        this.timer.addObservers(mementoController);
+        this.timer.start();
+    }
+
     public void setTime(){
         this.timer.setTime(0);
     }
 
     public Player getPlayer1() {
-        return player1;
+        return this.gameState.getPlayer1();
     }
     public Player getPlayer2() {
-        return player2;
+        return this.gameState.getPlayer2();
     }
 
     public TimerSec getTimer() {
         return this.timer;
     }
 
-    public void choosingStartPlayer(){
+    private void initializePlayerOrder(){
         Random r = new Random();
         int luckyNumber = /*1;//*/r.nextInt() * 2 + 1;
         if(luckyNumber == this.player1.getLuckyNumber()){
@@ -70,12 +94,6 @@ public class GameController {
             this.player2.setTurn(true);
             this.playerInTurn = player2;
         }
-
-        initializeGameState();
-        this.mementoController = new GestorMemento();
-        this.timer = new TimerSec();
-        this.timer.addObservers(mementoController);
-        this.timer.start();
     }
 
     public GestorMemento getMementoController(){
@@ -83,6 +101,7 @@ public class GameController {
     }
 
     private void initializeGameState(){
+        this.gameState = new GameState();
         this.gameState.setPlayer1(this.player1);
         this.gameState.setPlayer2(this.player2);
         this.gameState.setPlayer(this.playerInTurn);

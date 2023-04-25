@@ -115,6 +115,7 @@ public class Figure2 extends Figure {
             tile = BoardView.getTileByPosition(coordinate.getX(), coordinate.getY());;
             tile.setRegionTexture(Figure.tileCastlePlayer1);
             tile.setHasWayCreated(true);
+            boardView.getNumberMatrix()[coordinate.getY()][coordinate.getX()] = Figure.ONE_TILE;
 
             if(blockNumberToPaint == Figure.AMOUNT_BLOCKS - 1){
                 paintingHelperUp(coordinate);
@@ -138,6 +139,7 @@ public class Figure2 extends Figure {
             TileActor tile = BoardView.getTileByPosition(coordinate.getX(), coordinate.getY());
             tile.setRegionTexture(Figure.tileCastlePlayer1);
             tile.setHasWayCreated(true);
+            boardView.getNumberMatrix()[coordinate.getY()][coordinate.getX()] = Figure.ONE_TILE;
 
             blockNumber --;
         }
@@ -164,6 +166,7 @@ public class Figure2 extends Figure {
             tile = BoardView.getTileByPosition(coordinate.getX(), coordinate.getY());
             tile.setRegionTexture(Figure.tileCastlePlayer2);
             tile.setHasWayCreated(true);
+            boardView.getNumberMatrix()[coordinate.getY()][coordinate.getX()] = Figure.SECOND_TILE;
 
             if(blockNumberToPaint == Figure.AMOUNT_BLOCKS - 1){
                 paintingHelperDown(coordinate);
@@ -185,6 +188,7 @@ public class Figure2 extends Figure {
             TileActor tile = BoardView.getTileByPosition(coordinate.getX(), coordinate.getY());
             tile.setRegionTexture(Figure.tileCastlePlayer2);
             tile.setHasWayCreated(true);
+            boardView.getNumberMatrix()[coordinate.getY()][coordinate.getX()] = Figure.SECOND_TILE;
 
             blockNumber --;
         }
