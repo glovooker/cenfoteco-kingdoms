@@ -134,7 +134,7 @@ public class ButtonsActionsView extends Stage {
 
 
     public void defineButtonLeft(String imgButton){
-        buttonLeft = new ButtonComponent(this, imgButton, WIDTH, HEIGHT, 0,80, new InputListener() {
+        buttonLeft = new ButtonComponent(this, imgButton, 90, 75+20, 15,70, new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 ButtonComponent armyButton = playScreen.getSelectedArmyButton();
@@ -157,7 +157,7 @@ public class ButtonsActionsView extends Stage {
         });
     }
     public void defineButtonRight(String imgButton){
-        buttonRight = new ButtonComponent(this, imgButton, WIDTH, HEIGHT, 140, 80, new InputListener() {
+        buttonRight = new ButtonComponent(this, imgButton, 90, 75+20, 175, 70, new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 ButtonComponent armyButton = playScreen.getSelectedArmyButton();
@@ -181,7 +181,7 @@ public class ButtonsActionsView extends Stage {
 
     }
     public void defineButtonUp(String imgButton){
-        buttonUp = new ButtonComponent(this, imgButton, WIDTH, HEIGHT, 70, 165, new InputListener() {
+        buttonUp = new ButtonComponent(this, imgButton, 90, 75, 95, 165, new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 ButtonComponent armyButton = playScreen.getSelectedArmyButton();
@@ -206,7 +206,7 @@ public class ButtonsActionsView extends Stage {
 
     }
     public void defineButtonDown(String imgButton){
-        buttonDown = new ButtonComponent(this, imgButton, WIDTH, HEIGHT, 70, 0, new InputListener() {
+        buttonDown = new ButtonComponent(this, imgButton, 90, 75, 95, 0, new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 ButtonComponent armyButton = playScreen.getSelectedArmyButton();
