@@ -2,6 +2,7 @@ package BL;
 
 import BL.bridge_dice_buttons.dadoMovimiento.DadoMovimiento;
 import BL.decorator.GestorDecorador;
+import BL.decorator.concrete_decorator.DecoratedInfantry;
 import BL.memento.GestorMemento;
 import Model.Castle;
 import Model.GameState;
@@ -172,4 +173,5 @@ public class GameController {
     public void atacarCastillo(Castle castle, Army army){
         army.attackCastle(castle);
     }
+
 }

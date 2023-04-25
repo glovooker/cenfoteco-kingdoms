@@ -3,6 +3,10 @@ package View;
 import BL.GameController;
 import BL.bridge_dice_buttons.dadoMovimiento.DadoMovimiento;
 import BL.characters_abstract_fabric.abstract_product.Army;
+import BL.decorator.GestorDecorador;
+import BL.decorator.concrete_decorator.DecoratedArtillery;
+import BL.decorator.concrete_decorator.DecoratedInfantry;
+import BL.decorator.concrete_decorator.DecoratedTank;
 import BL.prototype.TileActor;
 import Model.Castle;
 import Model.Coordinate;
@@ -39,9 +43,15 @@ public class ButtonsActionsView extends Stage {
     private static final int WIDTH = 140;
     private final PlayScreen playScreen;
 
+    private ButtonComponent armyButton;
+    private ButtonComponent armytargetButton;
 
     private HudMovements hudMovements;
     private final GameController gameController = GameController.getInstance();
+
+    private DecoratedArtillery decoratedArtillery;
+    private DecoratedInfantry decoratedInfantry;
+    private DecoratedTank decoratedTank;
 
     public ButtonsActionsView(PlayScreen screen, Viewport gamePort){
         super(gamePort);
@@ -67,19 +77,15 @@ public class ButtonsActionsView extends Stage {
         buttonAttack = new ButtonComponent(this, imgButton, WIDTH, HEIGHT, 0, 440, new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                ButtonComponent armyButton = playScreen.getSelectedArmyButton();
-                ButtonComponent enemyArmyButton = playScreen.getSelectedEnemyArmyButton();
+                 armyButton = playScreen.getSelectedArmyButton();
+                 armytargetButton = playScreen.getSelectedEnemyArmyButton();
 
                 if(gameController.getPlayerInTurn()==gameController.getPlayer1() && selectedCastle1 == null) {
                     selectedCastle1 = gameController.getPlayer2().getCastle();
                 } else if(gameController.getPlayerInTurn()==gameController.getPlayer2() && selectedCastle2 == null){
                     selectedCastle2 = gameController.getPlayer1().getCastle();
                 }
-
-                System.out.println(armyButton);
-                System.out.println(selectedCastle1);
-                System.out.println(selectedCastle2);
-                if ((gameController.getPlayerInTurn().getChest().getAttacksInChest() != 0 || gameController.lanzarDados().get(4) == 1) && (armyButton != null && enemyArmyButton != null)) {
+                if ((gameController.getPlayerInTurn().getChest().getAttacksInChest() != 0 || gameController.lanzarDados().get(4) == 1) && (armyButton != null && armytargetButton != null)) {
 
                     Army currentArmy = gameController.getGameState().getSelectedArmy();
                     Army enemyArmy = gameController.getGameState().getSelectedEnemyArmy();
@@ -96,6 +102,7 @@ public class ButtonsActionsView extends Stage {
                                 || ((enemyX == currentX + 1 || enemyX == currentX - 1) && enemyY == currentY)
                                 || ((enemyX == currentX + 1 || enemyX == currentX - 1) && (enemyY == currentY + 1 || enemyY == currentY - 1))) {
                             gameController.atacar(currentArmy, enemyArmy);
+                            gameController.getPlayerInTurn().getChest().setAttacksInChest(gameController.getPlayerInTurn().getChest().getAttacksInChest() - 1);
                         } else {
                             System.out.println("No se puede atacar a esa unidad");
                         }
@@ -116,10 +123,20 @@ public class ButtonsActionsView extends Stage {
                         int currentY = currentArmyPosition.getY();
 
 
+                        if (castle1X == currentX && (castle1Y == currentY + 1 || castle1Y == currentY - 1)) {
+                            gameController.atacarCastillo(selectedCastle1, currentArmy);
+                            System.out.println("Atacando Castillo");
+                        }
+                        if (castle2X == currentX && (castle2Y == currentY + 1 || castle2Y == currentY - 1)) {
+                            gameController.atacarCastillo(selectedCastle2, currentArmy);
+                            System.out.println("Atacando Castillo");
+                        }
 //                        if (castleX == currentX && (castleY == currentY + 1 || castleY == currentY - 1)) {
 //                            gameController.atacarCastillo(selectedCastle, currentArmy);
 //                            System.out.println("Atacando Castillo");
 //                        }
+                    }else {
+                        System.out.println("No se puede atacar");
                     }
 
                 }else {
@@ -134,7 +151,77 @@ public class ButtonsActionsView extends Stage {
         buttonSpecialAttack = new ButtonComponent(this, imgButton, WIDTH, HEIGHT, 0, 380, new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("Special Attack");
+                armyButton = playScreen.getSelectedArmyButton();
+                armytargetButton = playScreen.getSelectedEnemyArmyButton();
+
+                System.out.println("asd "+gameController.invocarInfanteria());
+                System.out.println(gameController.lanzarDados().get(3));
+                System.out.println(gameController.getPlayerInTurn().getChest().getSpecialAttackInChest());
+
+                if (armyButton == armytargetButton){
+                    armytargetButton = null;
+                }
+                System.out.println(armyButton);
+                System.out.println(armytargetButton);
+
+                if ((gameController.getPlayerInTurn().getChest().getSpecialAttackInChest() != 0 || gameController.lanzarDados().get(3) == 1) && (armyButton != null && armytargetButton != null)) {
+                    Army currentArmy = gameController.getGameState().getSelectedArmy();
+                    Army targertArmy = gameController.getGameState().getSelectedEnemyArmy();
+                    armyButton = null;
+                    armytargetButton = null;
+                    if (currentArmy!=null && targertArmy!=null) {
+
+                        Coordinate currentArmyPosition = currentArmy.getPosition();
+                        Coordinate targetArmyPosition = targertArmy.getPosition();
+
+                        switch (currentArmy.getSpecialAttack()){
+                            case "Healer":
+                                decoratedArtillery.heal(targertArmy);
+                                break;
+                            case "Add attack":
+                                break;
+                            case "Add defense":
+                                break;
+                            case "Lower defense":
+                                break;
+                            case "Ranged attack":
+                                decoratedInfantry.rangedAttack(currentArmyPosition, targetArmyPosition);
+                                break;
+                            case "Life for double movement":
+                                break;
+                            case "Bomb attack":
+                                break;
+                            case "Protect ally":
+                                break;
+                        }
+                    }
+
+                } else if ((gameController.getPlayerInTurn().getChest().getSpecialAttackInChest() != 0 || gameController.lanzarDados().get(3) == 1) && (armyButton != null && armytargetButton == null)) {
+                    Army currentArmy = gameController.getGameState().getSelectedArmy();
+                    System.out.println("armmy "+currentArmy);
+                    armyButton = null;
+                    armytargetButton = null;
+                    if (currentArmy!=null) {
+
+                        switch (currentArmy.getSpecialAttack()) {
+                            case "Double attack":
+                                System.out.println("Double attack");
+                                //decoratedInfantry.doubleAttackPower();
+                                break;
+                            case "Double defense":
+                                //decoratedInfantry.doubleDefensePower();
+                                break;
+                        }
+
+                    }
+
+                }else {
+                    armyButton = null;
+                    armytargetButton = null;
+                    System.out.println("No se puede atacar");
+                }
+
+
                 return super.touchDown(event, x, y, pointer, button);
             }
         });

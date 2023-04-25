@@ -2,6 +2,7 @@ package BL.decorator.concrete_decorator;
 
 import BL.characters_abstract_fabric.abstract_product.Army;
 import BL.decorator.decorator.DecoratedArmy;
+import Model.Coordinate;
 
 public class DecoratedInfantry extends DecoratedArmy {
 
@@ -41,45 +42,30 @@ public class DecoratedInfantry extends DecoratedArmy {
         }
     }
 
-//    public void rangedAttack(List<Army> armiesOnBoard, Coordinate attackerCoord, Coordinate targetCoord) {
-//        int attackerRow = attackerCoord.getY();
-//        int attackerColumn = attackerCoord.getX();
-//        int targetRow = targetCoord.getY();
-//        int targetColumn = targetCoord.getX();
-//
-//        int distance = Math.abs(attackerRow - targetRow) + Math.abs(attackerColumn - targetColumn);
-//
-//        if (distance <= 2) {
-//            Army targetArmy = findArmyAtCoordinate(armiesOnBoard, targetCoord);
-//            if (targetArmy != null) {
-//                System.out.println("Infantry performs a ranged attack, hitting two squares away");
-//                int newLife = targetArmy.getLife() - dArmy.getAttack();
-//                targetArmy.setLife(newLife);
-//            } else {
-//                System.out.println("Target cell is empty");
-//            }
-//        } else {
-//            System.out.println("Target is out of range");
-//        }
-//    }
-//
-//    private Army findArmyAtCoordinate(List<Army> armies, Coordinate targetCoord) {
-//        for (Army army : armies) {
-//            if (army.getCoordinate().equals(targetCoord)) {
-//                return army;
-//            }
-//        }
-//        return null;
-//    }
+    public void rangedAttack(Coordinate currentArmyPosition, Coordinate targetArmyPosition) {
+        int attackerColumn = currentArmyPosition.getY();
+        int attackerRow = currentArmyPosition.getX();
+        int targetColumn = targetArmyPosition.getY();
+        int targetRow= targetArmyPosition.getX();
+
+        if ((targetRow == attackerRow && (targetColumn == attackerColumn + 2 || targetColumn == attackerColumn - 2))
+                || ((targetRow == attackerRow + 2 || targetRow == attackerRow - 2) && targetColumn == attackerColumn)
+                || ((targetRow == attackerRow + 2 || targetRow == attackerRow - 2) && (targetColumn == attackerColumn + 2 || targetColumn == attackerColumn - 2))) {
+
+        }
+
+    }
+
+
 
     public void doubleAttackPower() {
         System.out.println("Infantry performs an attack with double power");
-        dArmy.setAttack(originalAttack * 2);
+        this.setAttack(originalAttack * 2);
     }
 
     public void doubleDefensePower() {
         System.out.println("Infantry doubles its defense power for one turn");
-        dArmy.setDefense(originalDefense * 2);
+        this.setDefense(originalDefense * 2);
     }
 
     public void lowerEnemyDefense(Army enemy) {

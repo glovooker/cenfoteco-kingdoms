@@ -294,7 +294,7 @@ public class PlayScreen implements Screen {
         final Army army = armyInvoked;
         int x = coordinate.getX() * 50;
         int y = coordinate.getY() * 50;
-        final ButtonComponent buttonComponent = new ButtonComponent(boardStage, imgPath, 80, 80, x, y);
+        ButtonComponent buttonComponent = new ButtonComponent(boardStage, imgPath, 80, 80, x, y);
         buttonComponent.setInputListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -303,6 +303,7 @@ public class PlayScreen implements Screen {
                 if(gameController.getPlayerInTurn().getName().equalsIgnoreCase(army.getOwner().getName())){
                     gameController.getGameState().setSelectedArmy(army);
                     selectedArmyButton = buttonComponent;
+
                 }
                 else{
                     gameController.getGameState().setSelectedEnemyArmy(army);

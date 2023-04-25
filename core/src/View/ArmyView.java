@@ -72,12 +72,12 @@ public class ArmyView extends Stage {
 
         specialAttackLabel = new Label("", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         specialAttackLabel.setFontScale(2f);
-        specialAttackLabel.setPosition(760, -160);
+        specialAttackLabel.setPosition(600, -160);
         this.addActor(specialAttackLabel);
 
         playerLabel = new Label("", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         playerLabel.setFontScale(2f);
-        playerLabel.setPosition(600, -160);
+        playerLabel.setPosition(600, 50);
         this.addActor(playerLabel);
 
     }
