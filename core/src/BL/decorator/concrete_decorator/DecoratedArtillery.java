@@ -10,29 +10,36 @@ public class DecoratedArtillery extends DecoratedArmy {
     private Boolean addDefenseActivated;
     private Boolean lowerDefenseActivated;
 
-    public DecoratedArtillery(Army newArmy) {
-        super(newArmy);
+    public DecoratedArtillery(Army army) {
+        super(army);
+        healerActivated = false;
+        addAttackActivated = false;
+        addDefenseActivated = false;
+        lowerDefenseActivated = false;
     }
 
-    public void setSpecialAttack(int specialAttack) {
+    public void addSpecialAttack(int specialAttack) {
         switch (specialAttack) {
             case 1:
                 healerActivated = true;
+                this.getArmy().setSpecialAttack("Healer");
                 break;
             case 2:
                 addAttackActivated = true;
+                this.getArmy().setSpecialAttack("Add attack");
                 break;
             case 3:
                 addDefenseActivated = true;
+                this.getArmy().setSpecialAttack("Add defense");
                 break;
             case 4:
                 lowerDefenseActivated = true;
+                this.getArmy().setSpecialAttack("Lower defense");
                 break;
             default:
                 throw new IllegalArgumentException("Invalid special attack number for Artillery: " + specialAttack);
         }
     }
-
 
     // Healer
     public void heal(Army ally) {

@@ -16,6 +16,8 @@ public abstract class Army {
     private Player owner;
     private String characterClass;
 
+    private String specialAttack;
+
     private Coordinate position;
 
 
@@ -43,6 +45,9 @@ public abstract class Army {
     public int getMovements() { return movement; }
     public int getLife() { return life; }
     public int getAttack() { return attack; }
+    public String getSpecialAttack() {
+        return specialAttack;
+    }
     public int getDefense() { return defense; }
 
     public String getCharacterClass() { return characterClass; }
@@ -64,6 +69,9 @@ public abstract class Army {
 
     public void setCharacterClass(String characterClass) { this.characterClass = characterClass; }
 
+    public void setSpecialAttack(String specialAttack) {
+        this.specialAttack = specialAttack;
+    }
 
     public Player getOwner() {
         return owner;

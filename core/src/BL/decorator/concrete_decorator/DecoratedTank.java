@@ -16,22 +16,24 @@ public class DecoratedTank extends DecoratedArmy {
         super(newArmy);
     }
 
-    public void setSpecialAttack(int specialAttack) {
+    public void addSpecialAttack(int specialAttack) {
         switch (specialAttack) {
             case 1:
                 lifeForDoubleMovementActivated = true;
+                this.getArmy().setSpecialAttack("Life for double movement");
                 break;
             case 2:
                 bombAttackActivated = true;
+                this.getArmy().setSpecialAttack("Bomb attack");
                 break;
             case 3:
                 protectAllyActivated = true;
+                this.getArmy().setSpecialAttack("Protect ally");
                 break;
             default:
                 throw new IllegalArgumentException("Invalid special attack number for Tank: " + specialAttack);
         }
     }
-
 
     // Sacrifice 1 life for double movement for two turns
     public void sacrificeLifeForDoubleMovement() {
