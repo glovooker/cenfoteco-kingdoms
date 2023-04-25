@@ -4,6 +4,7 @@ import BL.characters_abstract_fabric.abstract_product.Army;
 import BL.decorator.decorator.DecoratedArmy;
 
 public class DecoratedInfantry extends DecoratedArmy {
+
     private int originalAttack;
     private int originalDefense;
     private Boolean rangedAttackActivated;
@@ -13,21 +14,27 @@ public class DecoratedInfantry extends DecoratedArmy {
 
     public DecoratedInfantry(Army newArmy) {
         super(newArmy);
+        originalAttack = newArmy.getAttack();
+        originalDefense = newArmy.getDefense();
     }
 
-    public void setSpecialAttack(int specialAttack) {
+    public void addSpecialAttack(int specialAttack) {
         switch (specialAttack) {
             case 1:
                 rangedAttackActivated = true;
+                this.getArmy().setSpecialAttack("Ranged attack");
                 break;
             case 2:
                 doubleAttackActivated = true;
+                this.getArmy().setSpecialAttack("Double attack");
                 break;
             case 3:
                 doubleDefenseActivated = true;
+                this.getArmy().setSpecialAttack("Double defense");
                 break;
             case 4:
                 lowerDefenseActivated = true;
+                this.getArmy().setSpecialAttack("Lower defense");
                 break;
             default:
                 throw new IllegalArgumentException("Invalid special attack number for Infantry: " + specialAttack);

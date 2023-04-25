@@ -95,7 +95,7 @@ public class ArmyView extends Stage {
             defenseLabel.setText("Defense: ");
             categoryLabel.setText("Category: ");
             characterLabel.setText("Character: ");
-            //specialAttackLabel.setText("Special Attack: " + army.getSpecialAttack());
+            specialAttackLabel.setText("Special Attack: ");
             playerLabel.setText("Player ");
 
             currentArmyImg = armyImg;
@@ -108,7 +108,7 @@ public class ArmyView extends Stage {
             defenseLabel.setText("Defense: " + armyToInvoque.getDefense());
             categoryLabel.setText("Category: " + armyToInvoque.getCharacterType());
             characterLabel.setText("Character: " + armyToInvoque.getCharacterClass());
-            //specialAttackLabel.setText("Special Attack: " + army.getSpecialAttack());
+            specialAttackLabel.setText("Special Attack: " + armyToInvoque.getSpecialAttack());
             playerLabel.setText(armyToInvoque.getOwner().getName());
 
             switch (armyToInvoque.getCharacterClass()) {
