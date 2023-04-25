@@ -7,10 +7,20 @@ public class Castle {
 
     private Coordinate coordinate;
 
+    private Coordinate position;
+
     public Castle() {
         this.coordinate = new Coordinate();
     }
 
+
+    public Coordinate getPosition() {
+        return position;
+    }
+
+    public void setPosition(Coordinate position) {
+        this.position = position;
+    }
     public int getLife() {
         return life;
     }
@@ -38,5 +48,8 @@ public class Castle {
                 ", id=" + id +
                 ", coordinates=" + coordinate +
                 '}';
+    }
+    public void attackCastle(Castle castle){
+        castle.setLife(castle.getLife()-1);
     }
 }

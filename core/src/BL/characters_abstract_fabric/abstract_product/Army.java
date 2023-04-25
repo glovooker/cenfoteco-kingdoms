@@ -86,4 +86,7 @@ public abstract class Army {
     }
 
     public abstract void attack(Army armyToAttack);
+    public void attackCastle(Castle castle){
+        castle.setLife(castle.getLife()-1);
+    }
 }

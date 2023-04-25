@@ -2,6 +2,7 @@ package View.Screens;
 
 import BL.GameController;
 import BL.characters_abstract_fabric.abstract_product.Army;
+import Model.Castle;
 import Model.Coordinate;
 import View.*;
 import View.Components.ButtonComponent;
@@ -90,7 +91,8 @@ public class PlayScreen implements Screen {
 
     private ButtonComponent selectedArmyButton;
     private ButtonComponent selectedEnemyArmyButton;
-
+    private ButtonComponent selectedCastleButton;
+    private Castle selectedCastle;
 
     public PlayScreen(Music music){
         music.stop();
@@ -152,6 +154,7 @@ public class PlayScreen implements Screen {
         inputMultiplexer.addProcessor(diceView);
         inputMultiplexer.addProcessor(armyView);
         inputMultiplexer.addProcessor(buttonsActionsView);
+
     }
 
     public BoardView getBoardView() {
@@ -292,7 +295,6 @@ public class PlayScreen implements Screen {
         int x = coordinate.getX() * 50;
         int y = coordinate.getY() * 50;
         final ButtonComponent buttonComponent = new ButtonComponent(boardStage, imgPath, 80, 80, x, y);
-
         buttonComponent.setInputListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -307,6 +309,7 @@ public class PlayScreen implements Screen {
                     selectedEnemyArmyButton = buttonComponent;
                 }
 
+
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
@@ -319,6 +322,9 @@ public class PlayScreen implements Screen {
     }
     public ButtonComponent getSelectedEnemyArmyButton() {
         return this.selectedEnemyArmyButton;
+    }
+    public ButtonComponent getSelectedCastleButton() {
+        return this.selectedCastleButton;
     }
 
 

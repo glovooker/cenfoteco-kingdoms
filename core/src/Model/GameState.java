@@ -17,6 +17,7 @@ public class GameState {
 
     private Army selectedArmy;
     private Army selectedEnemyArmy;
+    private Castle selectedCastle;
 
 
 
@@ -110,6 +111,12 @@ public class GameState {
 
     public void setSelectedEnemyArmy(Army selectedEnemyArmy) {
         this.selectedEnemyArmy = selectedEnemyArmy;
+    }
+    public Castle getSelectedCastle() {
+        return selectedCastle;
+    }
+    public void setSelectedCastle(Castle selectedCastle) {
+        this.selectedCastle = selectedCastle;
     }
 
     @Override
