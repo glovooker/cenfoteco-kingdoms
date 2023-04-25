@@ -399,7 +399,7 @@ public class ButtonsActionsView extends Stage {
         DadoMovimiento movementsInDice = gameController.getGameState().getPlayerInTurn().getMovementDice();
         movementsInDice.setMovimiento(movementsInDice.getMovimiento() - 1);
         hudMovements.getMovementsAmount().setText(movementsInDice.getMovimiento());
-       // army.setMovements(army.getMovements() - 1);
+        army.setMovements(army.getMovements() - 1);
     }
 
 }
