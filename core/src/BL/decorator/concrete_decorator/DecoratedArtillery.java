@@ -1,38 +1,45 @@
 package BL.decorator.concrete_decorator;
-
 import BL.characters_abstract_fabric.abstract_product.Army;
 import BL.decorator.decorator.DecoratedArmy;
 
 public class DecoratedArtillery extends DecoratedArmy {
 
-    private Boolean healerActivated;
-    private Boolean addAttackActivated;
-    private Boolean addDefenseActivated;
+    private Boolean twoTilesAttack;
+    private Boolean  doubleDefensePower;
+
+    private Boolean doubleAttackPower;
     private Boolean lowerDefenseActivated;
 
-    public DecoratedArtillery(Army newArmy) {
-        super(newArmy);
+    public DecoratedArtillery(Army army) {
+        super(army);
+        twoTilesAttack = false;
+        doubleDefensePower = false;
+        doubleAttackPower = false;
+        lowerDefenseActivated = false;
     }
 
-    public void setSpecialAttack(int specialAttack) {
+    public void addSpecialAttack(int specialAttack) {
         switch (specialAttack) {
             case 1:
-                healerActivated = true;
+                twoTilesAttack = true;
+                this.getArmy().setSpecialAttack("Two tiles attack");
                 break;
             case 2:
-                addAttackActivated = true;
+                doubleDefensePower = true;
+                this.getArmy().setSpecialAttack("Double defense power");
                 break;
             case 3:
-                addDefenseActivated = true;
+                doubleAttackPower = true;
+                this.getArmy().setSpecialAttack("Double attack power");
                 break;
             case 4:
                 lowerDefenseActivated = true;
+                this.getArmy().setSpecialAttack("Lower defense");
                 break;
             default:
                 throw new IllegalArgumentException("Invalid special attack number for Artillery: " + specialAttack);
         }
     }
-
 
     // Healer
     public void heal(Army ally) {
@@ -63,6 +70,7 @@ public class DecoratedArtillery extends DecoratedArmy {
         enemy.setDefense(newDefense);
         System.out.println("Artillery decreases enemy defense by " + (defenseReductionPercentage * 100) + "% for two turns");
     }
+
 
     @Override
     public void attack(Army armyToAttack) {

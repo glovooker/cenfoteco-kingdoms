@@ -57,12 +57,14 @@ public class GestorFabricaAbstracta {
                     army = fabricArtilleria.createArmy(owner);
                 }
             } while (armyEnemyList.contains(army) && enemyMax.get(characterType) > 0);
+
             if (enemyMax.get(characterType) > 0 && army != null) {
                 enemyMax.put(characterType, enemyMax.get(characterType) - 1);
                 armyEnemyList.add(army);
                 return army;
             }
         }
+
         return null;
     }
 

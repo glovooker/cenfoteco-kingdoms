@@ -1,6 +1,9 @@
 package Model;
 
 import BL.characters_abstract_fabric.abstract_product.Army;
+import BL.observer.interfaces_observer.Observer;
+
+import java.util.List;
 
 public class GameState implements Cloneable {
     private Player playerInTurn;
@@ -14,6 +17,9 @@ public class GameState implements Cloneable {
     private Board board;
 
     private Army selectedArmy;
+    private Army selectedEnemyArmy;
+    private Castle selectedCastle;
+
 
 
     public GameState() {
@@ -65,6 +71,8 @@ public class GameState implements Cloneable {
     public void changePlayerInTurn() {
         this.setPrefaReady(false);
         this.playerInTurn.setMovementDice(null);
+        this.playerInTurn.setUsingSpecialAttack(false);
+        this.playerInTurn.setUsingSpecialAttack(true);
 
         Player playerInTurn = this.getPlayerInTurn().equals(this.getPlayer1())
                 ? this.getPlayer2()
@@ -73,6 +81,7 @@ public class GameState implements Cloneable {
         this.setPlayer(playerInTurn);
         this.playerInTurn.setRollDice(true);
         this.selectedArmy = null;
+        updateArmyList();
 
     }
 
@@ -92,6 +101,19 @@ public class GameState implements Cloneable {
     public void setSelectedArmy(Army selectedArmy) {
         this.selectedArmy = selectedArmy;
     }
+    public Army getSelectedEnemyArmy() {
+        return selectedEnemyArmy;
+    }
+
+    public void setSelectedEnemyArmy(Army selectedEnemyArmy) {
+        this.selectedEnemyArmy = selectedEnemyArmy;
+    }
+    public Castle getSelectedCastle() {
+        return selectedCastle;
+    }
+    public void setSelectedCastle(Castle selectedCastle) {
+        this.selectedCastle = selectedCastle;
+    }
 
     @Override
     public String toString() {
@@ -101,6 +123,20 @@ public class GameState implements Cloneable {
                 ", player1=" + player1.toString() +
                 ", player2=" + player2.toString() +
                 '}';
+    }
+
+
+
+    private void updateArmyList() {
+        List<Army> armyInBoard = this.getBoard().getArmyList();
+        for(int i = 0; i < armyInBoard.size(); i++){
+            Army army = armyInBoard.get(i);
+            if(army.getMovement() != army.getMovementAdded()){
+                army.setMovements(army.getMovementAdded());
+            }
+            army.setAdditionalDefense(0);
+            army.setAdditionalAttack(0);
+        }
     }
 
     @Override

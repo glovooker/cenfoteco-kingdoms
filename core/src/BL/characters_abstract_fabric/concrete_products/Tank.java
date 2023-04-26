@@ -9,19 +9,14 @@ public class Tank extends Army {
             setCharacterType("tanque");
             setId(owner.getName() + '-' + characterClass);
             setMovements(calculateMovement(1, 2));
+            setMovementAdded(this.getMovement());
             setLife(2);
+            setLifeAdded(this.getLife());
             setAttack(10);
             setDefense(10);
+            setInitialDefense(10);
             setOwner(owner);
             setCharacterClass(characterClass);
         }
 
-    @Override
-    public void attack(Army armyToAttack) {
-        if(armyToAttack.getDefense() >= 3){
-            armyToAttack.setDefense(armyToAttack.getDefense() - 3);
-        }else{
-            armyToAttack.setLife(armyToAttack.getLife() - 3);
-        }
-    }
 }

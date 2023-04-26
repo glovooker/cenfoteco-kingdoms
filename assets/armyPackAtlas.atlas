@@ -13,7 +13,7 @@ archer
   index: -1
 daemon
   rotate: false
-  xy: 567, 397
+  xy: 873, 397
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
@@ -41,14 +41,21 @@ guardian
   index: -1
 kamikaze-iddle
   rotate: false
-  xy: 771, 397
+  xy: 669, 397
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
 knight-iddle
   rotate: false
-  xy: 669, 397
+  xy: 567, 397
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+mago
+  rotate: false
+  xy: 216, 158
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
@@ -76,7 +83,7 @@ squire-idle
   index: -1
 witch-iddle
   rotate: false
-  xy: 873, 397
+  xy: 771, 397
   size: 100, 100
   orig: 100, 100
   offset: 0, 0

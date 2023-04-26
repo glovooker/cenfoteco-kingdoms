@@ -12,9 +12,8 @@ public class BtnAccion extends AbstractaBoton {
         if(status)
         {
             return this.tipoBtn;
-        } else {
-            System.out.println("No");
         }
+
         return null;
     }
 }

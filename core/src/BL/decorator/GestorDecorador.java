@@ -11,44 +11,39 @@ public class GestorDecorador {
 
     private static final Random random = new Random();
 
-    public static Army addRandomSpecialAttack(Army army) {
-        int specialAttack = random.nextInt(4) + 1; // Randomly choose a special attack between 1 and 4
+    public GestorDecorador() { }
 
-        Army decoratedArmy = null;
+    public Army addRandomSpecialAttack(Army army) {
+        int specialAttack = random.nextInt(4) + 1;
 
         switch (army.getCharacterType()) {
             case "infanteria":
-                decoratedArmy = applyInfantrySpecialAttack(army, specialAttack);
-                break;
+                return applyInfantrySpecialAttack(army, specialAttack);
             case "artilleria":
-                decoratedArmy = applyArtillerySpecialAttack(army, specialAttack);
-                break;
+                return applyArtillerySpecialAttack(army, specialAttack);
             case "tanque":
-                decoratedArmy = applyTankSpecialAttack(army, specialAttack);
-                break;
+                return applyTankSpecialAttack(army, specialAttack);
             default:
                 throw new IllegalArgumentException("Invalid character class: " + army.getCharacterClass());
         }
-
-        return decoratedArmy;
     }
 
     private static Army applyInfantrySpecialAttack(Army infantry, int specialAttack) {
         DecoratedInfantry decoratedInfantry = new DecoratedInfantry(infantry);
-        decoratedInfantry.setSpecialAttack(specialAttack);
-        return decoratedInfantry;
+        decoratedInfantry.addSpecialAttack(specialAttack);
+        return decoratedInfantry.getArmy();
     }
 
     private static Army applyArtillerySpecialAttack(Army artillery, int specialAttack) {
         DecoratedArtillery decoratedArtillery = new DecoratedArtillery(artillery);
-        decoratedArtillery.setSpecialAttack(specialAttack);
-        return decoratedArtillery;
+        decoratedArtillery.addSpecialAttack(specialAttack);
+        return decoratedArtillery.getArmy();
     }
 
     private static Army applyTankSpecialAttack(Army tank, int specialAttack) {
         DecoratedTank decoratedTank = new DecoratedTank(tank);
-        decoratedTank.setSpecialAttack(specialAttack);
-        return decoratedTank;
+        decoratedTank.addSpecialAttack(specialAttack);
+        return decoratedTank.getArmy();
     }
 
 }

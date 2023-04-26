@@ -7,7 +7,10 @@ public class Castle implements Cloneable {
 
     private Coordinate coordinate;
 
+
+
     public Castle() {
+
     }
 
     public int getLife() {
@@ -32,15 +35,6 @@ public class Castle implements Cloneable {
 
     public void setCoordinate(Coordinate coordinate) {
         this.coordinate = coordinate;
-    }
-
-    @Override
-    public String toString() {
-        return "Castle{" +
-                "life=" + life +
-                ", id=" + id +
-                ", coordinates=" + coordinate +
-                '}';
     }
 
     @Override

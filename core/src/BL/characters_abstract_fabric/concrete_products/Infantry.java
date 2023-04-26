@@ -9,19 +9,14 @@ public class Infantry extends Army {
             setCharacterType("infanteria");
             setId(owner.getName() + '-' + characterClass);
             setMovements(calculateMovement(1, 6));
+            setMovementAdded(this.getMovement());
             setLife(5);
+            setLifeAdded(this.getLife());
             setAttack(3);
             setDefense(5);
+            setInitialDefense(5);
             setOwner(owner);
             setCharacterClass(characterClass);
         }
 
-    @Override
-    public void attack(Army armyToAttack) {
-        if(armyToAttack.getDefense() >= 1){
-            armyToAttack.setDefense(armyToAttack.getDefense() - 1);
-        }else{
-            armyToAttack.setLife(armyToAttack.getLife() - 1);
-        }
-    }
 }

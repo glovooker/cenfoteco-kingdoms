@@ -3,18 +3,19 @@ package View;
 import BL.GameController;
 import BL.bridge_dice_buttons.dadoMovimiento.DadoMovimiento;
 import BL.characters_abstract_fabric.abstract_product.Army;
+import BL.decorator.concrete_decorator.DecoratedArtillery;
+import BL.decorator.concrete_decorator.DecoratedInfantry;
+import BL.decorator.concrete_decorator.DecoratedTank;
 import BL.prototype.TileActor;
+import Model.Castle;
 import Model.Coordinate;
 import Model.Player;
 import View.Components.HudMovements;
 import View.Screens.PlayScreen;
 import View.Components.ButtonComponent;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class ButtonsActionsView extends Stage {
@@ -31,13 +32,20 @@ public class ButtonsActionsView extends Stage {
     private ButtonComponent buttonDown;
     private ButtonComponent buttonMovements;
 
+    private Castle selectedCastle;
 
     private static final int HEIGHT = 100;
     private static final int WIDTH = 140;
     private final PlayScreen playScreen;
 
+    private ButtonComponent armyButton;
+    private ButtonComponent armytargetButton;
+
     private HudMovements hudMovements;
     private final GameController gameController = GameController.getInstance();
+    private DecoratedArtillery decoratedArtillery;
+    private DecoratedInfantry decoratedInfantry;
+    private DecoratedTank decoratedTank;
 
     public ButtonsActionsView(PlayScreen screen, Viewport gamePort){
         super(gamePort);
@@ -55,24 +63,32 @@ public class ButtonsActionsView extends Stage {
         defineButtonRight("Right.png");
         defineButtonUp("Up.png");
         defineButtonDown("Down.png");
+
     }
 
     public void defineButtonAttack(String imgButton){
-        buttonAttack = new ButtonComponent(this,imgButton , WIDTH, HEIGHT, 0, 440, new InputListener() {
+        buttonAttack = new ButtonComponent(this, imgButton, WIDTH, HEIGHT, 0, 440, new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("Attack");
+                if(gameController.getGameState().getSelectedArmy() != null && gameController.getGameState().getSelectedArmy().getOwner().getName().equalsIgnoreCase(gameController.getPlayerInTurn().getName())) {
+                    gameController.getPlayerInTurn().setUsingRegularAttack(true);
+                    gameController.getPlayerInTurn().setUsingSpecialAttack(false);
+                }
+
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
-
     }
 
     public void defineButtonSpecialAttack(String imgButton){
         buttonSpecialAttack = new ButtonComponent(this, imgButton, WIDTH, HEIGHT, 0, 380, new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("Special Attack");
+                if(gameController.getGameState().getSelectedArmy() != null && gameController.getGameState().getSelectedArmy().getOwner().getName().equalsIgnoreCase(gameController.getPlayerInTurn().getName())){
+                    gameController.getPlayerInTurn().setUsingRegularAttack(false);
+                    gameController.getPlayerInTurn().setUsingSpecialAttack(true);
+                }
+
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
@@ -266,5 +282,7 @@ public class ButtonsActionsView extends Stage {
         hudMovements.getMovementsAmount().setText(movementsInDice.getMovimiento());
         army.setMovements(army.getMovements() - 1);
     }
+
+
 
 }

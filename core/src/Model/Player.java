@@ -16,11 +16,31 @@ public class Player implements Cloneable {
 
     private DadoMovimiento movementDice;
 
+    private boolean usingRegularAttack;
+
+    private boolean usingSpecialAttack;
+
     public Player(int luckyNumber) {
         this.chest = new Chest();
         this.turn = false;
         this.luckyNumber = luckyNumber;
         this.name = "Player " + luckyNumber;
+    }
+
+    public boolean isUsingSpecialAttack() {
+        return usingSpecialAttack;
+    }
+
+    public void setUsingSpecialAttack(boolean usingSpecialAttack) {
+        this.usingSpecialAttack = usingSpecialAttack;
+    }
+
+    public boolean isUsingRegularAttack() {
+        return usingRegularAttack;
+    }
+
+    public void setUsingRegularAttack(boolean usingRegularAttack) {
+        this.usingRegularAttack = usingRegularAttack;
     }
 
     public DadoMovimiento getMovementDice() {
@@ -88,6 +108,16 @@ public class Player implements Cloneable {
                 "life = " + this.castle.getLife() +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) return false;
+        if (!(obj instanceof Player)) return false;
+        Player player = (Player) obj;
+        return this.name.equals(player.getName());
+    }
+
+
 
     @Override
     public Player clone() {

@@ -26,6 +26,7 @@ public class ArmyView extends Stage {
     private Label categoryLabel;
     private Label characterLabel;
     private Label specialAttackLabel;
+    private Label playerLabel;
 
     private final GameController gameController = GameController.getInstance();
     private static final int SIZE = 130;
@@ -71,8 +72,14 @@ public class ArmyView extends Stage {
 
         specialAttackLabel = new Label("", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         specialAttackLabel.setFontScale(2f);
-        specialAttackLabel.setPosition(800, -100);
+        specialAttackLabel.setPosition(600, -160);
         this.addActor(specialAttackLabel);
+
+        playerLabel = new Label("", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        playerLabel.setFontScale(2f);
+        playerLabel.setPosition(600, 50);
+        this.addActor(playerLabel);
+
     }
 
     public void defineArmy(Army armyToInvoque){
@@ -88,7 +95,9 @@ public class ArmyView extends Stage {
             defenseLabel.setText("Defense: ");
             categoryLabel.setText("Category: ");
             characterLabel.setText("Character: ");
-            //specialAttackLabel.setText("Special Attack: " + army.getSpecialAttack());
+            specialAttackLabel.setText("Special Attack: ");
+            playerLabel.setText("Player ");
+
             currentArmyImg = armyImg;
 
         } else {
@@ -99,7 +108,8 @@ public class ArmyView extends Stage {
             defenseLabel.setText("Defense: " + armyToInvoque.getDefense());
             categoryLabel.setText("Category: " + armyToInvoque.getCharacterType());
             characterLabel.setText("Character: " + armyToInvoque.getCharacterClass());
-            //specialAttackLabel.setText("Special Attack: " + army.getSpecialAttack());
+            specialAttackLabel.setText("Special Attack: " + armyToInvoque.getSpecialAttack());
+            playerLabel.setText(armyToInvoque.getOwner().getName());
 
             switch (armyToInvoque.getCharacterClass()) {
                 case "ratallero":
@@ -169,16 +179,16 @@ public class ArmyView extends Stage {
                     this.addActor(armyImg);
                     currentArmyImg = armyImg;
                     break;
-//                case "mago":
-//                    armyDefault = playScreen.getArmyAtlas().findRegion("");
-//                    armyImg = new Image();
-//                    armyImg.setDrawable(new TextureRegionDrawable(armyDefault));
-//                    armyImg.setSize(SIZE, SIZE);
-//                    armyImg.setPosition(600, -100);
-//                    this.addActor(armyImg);
-                      //currentArmyImg = armyImg;
+                case "mago":
+                    armyDefault = playScreen.getArmyAtlas().findRegion("mago");
+                    armyImg = new Image();
+                    armyImg.setDrawable(new TextureRegionDrawable(armyDefault));
+                    armyImg.setSize(SIZE, SIZE);
+                    armyImg.setPosition(600, -100);
+                    this.addActor(armyImg);
+                      currentArmyImg = armyImg;
 
-//                    break;
+                    break;
                 case "dragon":
                     armyDefault = playScreen.getArmyAtlas().findRegion("dragon");
                     armyImg = new Image();
