@@ -58,7 +58,6 @@ public class HudChest implements Observer {
         countMovement.setPosition(275, 90);
         countMovement.setFontScale(2.5f);
 
-
         stage.addActor(countGunner);
         stage.addActor(countInfantry);
         stage.addActor(countTank);

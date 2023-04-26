@@ -86,10 +86,10 @@ public class GestorBridge {
             dadoMovimiento.setMovimiento(random.nextInt(6) + 1);
 
         } else if (TIPOS_DE_ACCION.getOrDefault(numRandom, null).equals("attack")) {
-            dadosAtaque++;
+            dadosAtaque = 1;
 
         } else if (TIPOS_DE_ACCION.getOrDefault(numRandom, null).equals("sattack")) {
-            dadosAtaqueEspecial++;
+            dadosAtaqueEspecial = 1;
         }
 
         dadosVolatiles.add(0, dadosInfanteriaVolatil);
@@ -146,6 +146,26 @@ public class GestorBridge {
         return infanteriasCofre;
     }
 
+    public int evaluateAttacksInChest(int attacksInChest){
+        if (this.dadosAtaque == 0){
+            attacksInChest -= 1;
+        } else {
+            this.dadosAtaque = 0;
+        }
+
+        return attacksInChest;
+    }
+
+    public int evaluateSpecialAttacksInChest(int specialAttacksInChest){
+        if (this.dadosAtaqueEspecial == 0){
+            specialAttacksInChest -= 1;
+        } else {
+            this.dadosAtaqueEspecial = 0;
+        }
+
+        return specialAttacksInChest;
+    }
+
     public int evaluateMovesInChest(int movesInChest){
         if (this.dadoMovimiento == null){
             movesInChest -= 1;
@@ -193,13 +213,13 @@ public class GestorBridge {
         return tanquesCofre;
     }
 
-    public String atacar(){
-        dadosAtaque = btnAtaque.getGlobalValidacion().validar(dadosAtaque);
+    public String atacar(int attacksInChest){
+        btnAtaque.getGlobalValidacion().validar(dadosAtaque + attacksInChest);
         return btnAtaque.onPressed(btnAtaque.getGlobalValidacion().getEstado());
     }
 
-    public String ejecutarAtaqueEspecial(){
-        dadosAtaqueEspecial = btnAtaqueEspecial.getGlobalValidacion().validar(dadosAtaqueEspecial);
+    public String ejecutarAtaqueEspecial(int specialAttacksInChest){
+        btnAtaqueEspecial.getGlobalValidacion().validar(specialAttacksInChest + dadosAtaqueEspecial);
         return btnAtaqueEspecial.onPressed(btnAtaqueEspecial.getGlobalValidacion().getEstado());
     }
 

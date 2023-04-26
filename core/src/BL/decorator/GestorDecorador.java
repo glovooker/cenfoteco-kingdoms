@@ -14,8 +14,7 @@ public class GestorDecorador {
     public GestorDecorador() { }
 
     public Army addRandomSpecialAttack(Army army) {
-        int specialAttack = random.nextInt(4) + 1; // Randomly choose a special attack between 1 and 4
-
+        int specialAttack = random.nextInt(4) + 1;
 
         switch (army.getCharacterType()) {
             case "infanteria":

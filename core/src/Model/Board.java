@@ -1,6 +1,7 @@
 package Model;
 
 import BL.characters_abstract_fabric.abstract_product.Army;
+import BL.observer.interfaces_observer.Observer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,4 +57,6 @@ public class Board implements Cloneable {
             throw new AssertionError();
         }
     }
+
+
 }

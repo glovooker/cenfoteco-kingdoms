@@ -37,6 +37,13 @@ public class Coordinate implements Cloneable {
                 '}';
     }
 
+    public boolean isAdjacentTo(Coordinate coordinate) {
+        return coordinate.getY() == (this.getY() + 1) ||
+               coordinate.getY() == (this.getY() - 1) ||
+               coordinate.getX() == (this.getX() + 1) ||
+               coordinate.getX() == (this.getX() - 1);
+    }
+
     @Override
     public Coordinate clone() {
         try {

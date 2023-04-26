@@ -2,11 +2,8 @@ package BL;
 
 import BL.bridge_dice_buttons.dadoMovimiento.DadoMovimiento;
 import BL.decorator.GestorDecorador;
-import BL.decorator.concrete_decorator.DecoratedInfantry;
 import BL.memento.GestorMemento;
-import Model.Castle;
-import Model.GameState;
-import Model.Player;
+import Model.*;
 import BL.observer.concret.TimerSec;
 import BL.bridge_dice_buttons.GestorBridge;
 import BL.characters_abstract_fabric.GestorFabricaAbstracta;
@@ -123,45 +120,52 @@ public class GameController {
         return gestorBridge.lanzarDado();
     }
 
-
     public Army invocarInfanteria(){
         String armyName = gestorBridge.invocarInfanteria(gameState.getPlayerInTurn().getChest().getInfantry());
 
         if(armyName != null) {
             Army infanteriaInvocada = gestorFabricaAbstracta.createArmy(armyName, getPlayerInTurn());
-            getPlayerInTurn().getChest().setInfantry(gestorBridge.evaluarCofreInfanteria(gameState.getPlayerInTurn().getChest().getInfantry()));
 
-            return gestorDecorador.addRandomSpecialAttack(infanteriaInvocada);
+            if(infanteriaInvocada != null) {
+                getPlayerInTurn().getChest().setInfantry(gestorBridge.evaluarCofreInfanteria(gameState.getPlayerInTurn().getChest().getInfantry()));
+
+                return gestorDecorador.addRandomSpecialAttack(infanteriaInvocada);
+            }
+            else {
+                System.out.println("Infantry couldn't be invoked");
+            }
         }
+
         return null;
     }
-    public Army invocarArtilleria(){
 
-        if(!(gestorBridge.invocarArtilleria(gameState.getPlayerInTurn().getChest().getGunner()) == null)){
+    public Army invocarArtilleria() {
+
+        if (!(gestorBridge.invocarArtilleria(gameState.getPlayerInTurn().getChest().getGunner()) == null)) {
             Army artilleriaInvocada = gestorFabricaAbstracta.createArmy(gestorBridge.invocarArtilleria(gameState.getPlayerInTurn().getChest().getGunner()), getPlayerInTurn());
-            getPlayerInTurn().getChest().setGunner(gestorBridge.evaluarCofreArtilleria(gameState.getPlayerInTurn().getChest().getGunner()));
 
-            return gestorDecorador.addRandomSpecialAttack(artilleriaInvocada);
+            if (artilleriaInvocada != null) {
+                getPlayerInTurn().getChest().setGunner(gestorBridge.evaluarCofreArtilleria(gameState.getPlayerInTurn().getChest().getGunner()));
+                return gestorDecorador.addRandomSpecialAttack(artilleriaInvocada);
+            } else {
+                System.out.println("Infantry couldn't be invoked");
+            }
         }
         return null;
     }
-    public Army invocarTanque(){
-        if(!(gestorBridge.invocarTanque(gameState.getPlayerInTurn().getChest().getTank()) == null)){
+
+    public Army invocarTanque() {
+        if (!(gestorBridge.invocarTanque(gameState.getPlayerInTurn().getChest().getTank()) == null)) {
             Army tanqueInvocado = gestorFabricaAbstracta.createArmy(gestorBridge.invocarTanque(gameState.getPlayerInTurn().getChest().getTank()), getPlayerInTurn());
-            getPlayerInTurn().getChest().setTank(gestorBridge.evaluarCofreTanque(gameState.getPlayerInTurn().getChest().getTank()));
 
-            return gestorDecorador.addRandomSpecialAttack(tanqueInvocado);
+            if (tanqueInvocado != null) {
+                getPlayerInTurn().getChest().setTank(gestorBridge.evaluarCofreTanque(gameState.getPlayerInTurn().getChest().getTank()));
+                return gestorDecorador.addRandomSpecialAttack(tanqueInvocado);
+            } else {
+                System.out.println("Infantry couldn't be invoked");
+            }
         }
         return null;
-    }
-
-    public String obtenerArmada(){
-        ArrayList<Army> ejercito = gestorFabricaAbstracta.getArmyPlayerList();
-        String mensaje = "";
-        for (Army army : ejercito) {
-            mensaje += army.toString() + "\n";
-        }
-        return mensaje;
     }
 
     public DadoMovimiento move(){
@@ -184,12 +188,126 @@ public class GameController {
         return gestorBridge.almacenarCofre();
     }
 
-    public void atacar(Army armyAttacks, Army armyToAttack){
-        armyAttacks.attack(armyToAttack);
+    public void attackEnemyOrCastle(Army enemyArmy, Castle castle) {
+        Chest chest = getPlayerInTurn().getChest();
+
+        if((enemyArmy != null || castle != null) && gestorBridge.atacar(getPlayerInTurn().getChest().getAttacksInChest()) != null) {
+            Army attackingArmy = this.gameState.getSelectedArmy();
+
+            if(enemyArmy != null) {
+                attackEnemy(attackingArmy, enemyArmy);
+            }
+
+            if(castle != null) {
+                attackCastle(attackingArmy, castle);
+            }
+
+            chest.setAttacksInChest(gestorBridge.evaluateAttacksInChest(chest.getAttacksInChest()));
+        }
     }
 
-    public void atacarCastillo(Castle castle, Army army){
-        army.attackCastle(castle);
+    private void attackEnemy(Army attackingArmy, Army enemyArmy) {
+        if(attackingArmy.getPosition().isAdjacentTo(enemyArmy.getPosition())) {
+            attackingArmy.attack(enemyArmy);
+        }
+        else {
+            System.out.println("Ta muy largo");
+        }
     }
+
+    private void attackCastle(Army attackingArmy, Castle castle) {
+        if(attackingArmy.getPosition().isAdjacentTo(castle.getCoordinates())) {
+            attackingArmy.attackCastle(castle);
+        }
+        else {
+            System.out.println("Ta muy largo");
+        }
+    }
+
+    private void healer(Army aly, Player playerInTurn){
+        if(aly.getOwner().getName().equalsIgnoreCase(playerInTurn.getName()) && aly.getLife() !=  aly.getLifeAdded() ){
+            aly.setLife(aly.getLife() + 1);
+        }
+    }
+
+    private void addThreePointsToDefense(Army aly){
+        if(aly.getOwner().getName().equalsIgnoreCase(playerInTurn.getName())){
+            aly.setAdditionalDefense(3);
+        }
+    }
+
+    private void addThreePointsToAttack(Army aly){
+        if(aly.getOwner().getName().equalsIgnoreCase(playerInTurn.getName())){
+            aly.setAdditionalAttack(3);
+        }
+    }
+
+    public void specialAttacks(Army aly){
+
+         Chest chest = gameState.getPlayerInTurn().getChest();
+        if(this.gameState.getSelectedArmy() != null && gestorBridge.ejecutarAtaqueEspecial(gameState.getPlayerInTurn().getChest().getSpecialAttackInChest()) != null) {
+
+            switch (this.gameState.getSelectedArmy().getCharacterType()) {
+                case "infanteria":
+                    specialAttackInfantry(aly);
+                    break;
+            }
+
+            chest.setSpecialAttackInChest(gestorBridge.evaluateSpecialAttacksInChest(chest.getSpecialAttackInChest()));
+        }
+    }
+
+    private void specialAttackInfantry(Army aly){
+        String specialAttack = this.gameState.getSelectedArmy().getSpecialAttack();
+
+        switch (specialAttack){
+            case "Healer":
+                healer(aly, this.getPlayerInTurn());
+                break;
+
+            case "Add three points to defense" :
+                addThreePointsToDefense(aly);
+                break;
+
+            case "Add three points to attack":
+                addThreePointsToAttack(aly);
+                break;
+        }
+    }
+
+    private void twoTilesAttack(Army enemy){
+        if(!(enemy.getOwner().getName().equals(this.gameState.getPlayerInTurn().getName()))){
+            int positionXRight = gameState.getSelectedArmy().getPosition().getX() + 2;
+            int positionXLeft = gameState.getSelectedArmy().getPosition().getX() - 2;
+            int positionYUp = gameState.getSelectedArmy().getPosition().getX() + 2;
+            int positionYDown = gameState.getSelectedArmy().getPosition().getX() - 2;
+            int positionArmyEnemyX = enemy.getPosition().getX();
+            int positionArmyEnemyY = enemy.getPosition().getY();
+
+            if( positionArmyEnemyX == positionXRight || positionArmyEnemyX == positionXLeft || positionArmyEnemyY == positionYUp ||positionArmyEnemyY == positionYDown){
+                int attack = gameState.getSelectedArmy().getAttack();
+                enemy.setDefense(enemy.getDefense() - attack);
+            }
+        }
+    }
+
+    private void specialAttackGunner(Army enemy){
+        String specialAttack = this.gameState.getSelectedArmy().getSpecialAttack();
+
+        switch (specialAttack){
+            case "Two tiles attack":
+                twoTilesAttack(enemy);
+                break;
+
+            case "Double defense power" :
+
+                break;
+
+            case "Double attack power":
+
+                break;
+        }
+    }
+
 
 }

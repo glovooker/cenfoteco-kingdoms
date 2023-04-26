@@ -1,8 +1,10 @@
 package BL.characters_abstract_fabric.abstract_product;
 
+import BL.observer.interfaces_observer.Observer;
 import Model.Castle;
 import BL.prototype.Clonable;
 import Model.Coordinate;
+import Model.GameState;
 import Model.Player;
 
 public abstract class Army implements Cloneable {
@@ -10,8 +12,14 @@ public abstract class Army implements Cloneable {
     private String characterType;
     private String id;
     private int movement;
+
     private int life;
+
+    private int lifeAdded;
     private int attack;
+
+    private int initialDefense;
+
     private int defense;
 
     private Player owner;
@@ -20,6 +28,12 @@ public abstract class Army implements Cloneable {
     private String specialAttack;
 
     private Coordinate position;
+
+    private int movementAdded;
+
+    private int additionalDefense;
+
+    private int additionalAttack;
 
 
     public Army() {
@@ -32,6 +46,37 @@ public abstract class Army implements Cloneable {
         setCharacterClass("Army");
     }
 
+    public void setAdditionalAttack(int additionalAttack) {
+        this.additionalAttack = additionalAttack;
+    }
+
+    public void setAdditionalDefense(int additionalDefense) {
+        this.additionalDefense = additionalDefense;
+    }
+
+    public int getLifeAdded() {
+        return lifeAdded;
+    }
+
+    public void setLifeAdded(int lifeAdded) {
+        this.lifeAdded = lifeAdded;
+    }
+
+    public int getMovement() {
+        return movement;
+    }
+
+    public void setMovement(int movement) {
+        this.movement = movement;
+    }
+
+    public int getMovementAdded() {
+        return movementAdded;
+    }
+
+    public void setMovementAdded(int movementAdded) {
+        this.movementAdded = movementAdded;
+    }
 
     public Coordinate getPosition() {
         return position;
@@ -45,11 +90,15 @@ public abstract class Army implements Cloneable {
     public String getId() { return id; }
     public int getMovements() { return movement; }
     public int getLife() { return life; }
-    public int getAttack() { return attack; }
+    public int getAttack() {
+        return attack + additionalAttack;
+    }
     public String getSpecialAttack() {
         return specialAttack;
     }
-    public int getDefense() { return defense; }
+    public int getDefense() {
+        return defense + this.additionalDefense;
+    }
 
     public String getCharacterClass() { return characterClass; }
 
@@ -66,7 +115,20 @@ public abstract class Army implements Cloneable {
 
     public void setLife(int life) { this.life = life; }
     public void setAttack(int attack) { this.attack = attack; }
-    public void setDefense(int defense) { this.defense = defense; }
+
+    public void setInitialDefense(int initialDefense) {
+        this.initialDefense = initialDefense;
+    }
+
+    public void setDefense(int defense) {
+        if(defense < 0) {
+            this.setLife(this.getLife() - 1);
+            this.defense = this.initialDefense;
+            return;
+        }
+
+        this.defense = defense;
+    }
 
     public void setCharacterClass(String characterClass) { this.characterClass = characterClass; }
 
@@ -94,20 +156,23 @@ public abstract class Army implements Cloneable {
         return getId().equals(army.getId());
     }
 
-    public abstract void attack(Army armyToAttack);
+    public void attack(Army armyToAttack) {
+        armyToAttack.setDefense(armyToAttack.getDefense() - this.getAttack());
+    }
 
     @Override
     public Army clone() {
         try {
             Army clone = (Army) super.clone();
-            clone.owner = this.owner.clone();
-            clone.position = this.position.clone();
+            clone.owner = this.owner != null ? this.owner.clone() : null;
+            clone.position = this.position != null ? this.position.clone() : null;
 
             return clone;
         } catch (CloneNotSupportedException e) {
             throw new AssertionError();
         }
     }
+
     public void attackCastle(Castle castle){
         castle.setLife(castle.getLife()-1);
     }

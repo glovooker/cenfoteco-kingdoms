@@ -9,19 +9,14 @@ public class Artillery extends Army {
         setCharacterType("artilleria");
         setId(owner.getName() + '-' + characterClass);
         setMovements(calculateMovement(1, 4));
+        setMovementAdded(this.getMovement());
         setLife(4);
+        setLifeAdded(this.getLife());
         setAttack(6);
         setDefense(10);
+        setInitialDefense(10);
         setOwner(owner);
         setCharacterClass(characterClass);
     }
 
-    @Override
-    public void attack(Army armyToAttack) {
-        if(armyToAttack.getDefense() >= 2){
-            armyToAttack.setDefense(armyToAttack.getDefense() - 2);
-        }else{
-            armyToAttack.setLife(armyToAttack.getLife() - 2);
-        }
-    }
 }

@@ -2,8 +2,10 @@ package View.Screens;
 
 import BL.GameController;
 import BL.characters_abstract_fabric.abstract_product.Army;
+import BL.prototype.TileActor;
 import Model.Castle;
 import Model.Coordinate;
+import Model.Player;
 import View.*;
 import View.Components.ButtonComponent;
 import View.Components.HudChest;
@@ -125,7 +127,7 @@ public class PlayScreen implements Screen {
         this.game = ReinoCenfotecos.getInstance();
 
         this.boardView = new BoardView(this,gamePort);
-        this.boardStage = BoardView.getStageBoard();
+        this.boardStage = this.boardView.getStageBoard();
 
         this.boardStage.getRoot().setX(250);
         this.boardStage.getRoot().setY(400);
@@ -324,6 +326,22 @@ public class PlayScreen implements Screen {
         return this.boardStage;
     }
 
+    private void handleAttacks(Army enemyOrAlly) {
+        Player playerInTurn = gameController.getPlayerInTurn();
+
+        if(playerInTurn.isUsingRegularAttack()) {
+            gameController.attackEnemyOrCastle(enemyOrAlly, null);
+            playerInTurn.setUsingRegularAttack(false);
+        }
+
+        if(playerInTurn.isUsingSpecialAttack()) {
+            gameController.specialAttacks(enemyOrAlly);
+            playerInTurn.setUsingSpecialAttack(false);
+        }
+
+        chest.getHudChest().updateLabels(gameController.getGameState());
+    }
+
     private ButtonComponent createButton(final Army armyInvoked, String imgPath, Coordinate coordinate, Stage boardStage){
         final Army army = armyInvoked;
         int x = coordinate.getX() * 50;
@@ -333,7 +351,16 @@ public class PlayScreen implements Screen {
         buttonComponent.setInputListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                showArmyData(army);
+                handleAttacks(armyInvoked);
+
+                if(armyInvoked.getLife() == 0) {
+                    buttonComponent.getButton().remove();
+                    TileActor tile = BoardView.getTileByPosition(armyInvoked.getPosition().getX(), armyInvoked.getPosition().getY());
+                    tile.setInvaded(false);
+                    gameController.getGameState().getBoard().getArmyList().remove(armyInvoked);
+
+                    return true;
+                }
 
                 if(gameController.getPlayerInTurn().getName().equalsIgnoreCase(army.getOwner().getName())){
                     gameController.getGameState().setSelectedArmy(army);
@@ -346,6 +373,7 @@ public class PlayScreen implements Screen {
                 }
 
 
+                showArmyData(army);
                 return super.touchDown(event, x, y, pointer, button);
             }
         });

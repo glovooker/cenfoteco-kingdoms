@@ -9,6 +9,8 @@ public class Chest implements Cloneable {
 
     private ArrayList<DadoMovimiento> movementsInChest = new ArrayList<>();
 
+    private ArrayList<Integer> specialAttacks = new ArrayList<>();
+
     private int attacksInChest = 0;
 
     private int specialAttackInChest = 0;
@@ -61,6 +63,8 @@ public class Chest implements Cloneable {
     public void setMovementsInChest(DadoMovimiento movementsInChest) {
         this.movementsInChest.add(movementsInChest);
     }
+
+
 
     public int getAttacksInChest() {
         return attacksInChest;

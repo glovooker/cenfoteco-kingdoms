@@ -1,36 +1,36 @@
 package BL.decorator.concrete_decorator;
-
 import BL.characters_abstract_fabric.abstract_product.Army;
 import BL.decorator.decorator.DecoratedArmy;
 
 public class DecoratedArtillery extends DecoratedArmy {
 
-    private Boolean healerActivated;
-    private Boolean addAttackActivated;
-    private Boolean addDefenseActivated;
+    private Boolean twoTilesAttack;
+    private Boolean  doubleDefensePower;
+
+    private Boolean doubleAttackPower;
     private Boolean lowerDefenseActivated;
 
     public DecoratedArtillery(Army army) {
         super(army);
-        healerActivated = false;
-        addAttackActivated = false;
-        addDefenseActivated = false;
+        twoTilesAttack = false;
+        doubleDefensePower = false;
+        doubleAttackPower = false;
         lowerDefenseActivated = false;
     }
 
     public void addSpecialAttack(int specialAttack) {
         switch (specialAttack) {
             case 1:
-                healerActivated = true;
-                this.getArmy().setSpecialAttack("Healer");
+                twoTilesAttack = true;
+                this.getArmy().setSpecialAttack("Two tiles attack");
                 break;
             case 2:
-                addAttackActivated = true;
-                this.getArmy().setSpecialAttack("Add attack");
+                doubleDefensePower = true;
+                this.getArmy().setSpecialAttack("Double defense power");
                 break;
             case 3:
-                addDefenseActivated = true;
-                this.getArmy().setSpecialAttack("Add defense");
+                doubleAttackPower = true;
+                this.getArmy().setSpecialAttack("Double attack power");
                 break;
             case 4:
                 lowerDefenseActivated = true;
@@ -70,6 +70,7 @@ public class DecoratedArtillery extends DecoratedArmy {
         enemy.setDefense(newDefense);
         System.out.println("Artillery decreases enemy defense by " + (defenseReductionPercentage * 100) + "% for two turns");
     }
+
 
     @Override
     public void attack(Army armyToAttack) {

@@ -70,5 +70,10 @@ public class HudMain implements Observer {
 
         this.playerInGame.setText(state.getPlayerInTurn().getName());
         this.life.setText(state.getPlayerInTurn().getCastle().getLife());
+
+        if(state.getPlayer2().getCastle().getLife() <= 0 || state.getPlayer1().getCastle().getLife() <= 0) {
+            this.seconds.setText("Winner!!");
+            seconds.setPosition(-4, 12 );
+        }
     }
 }

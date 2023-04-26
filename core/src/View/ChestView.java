@@ -74,7 +74,6 @@ public class ChestView {
         buttonGetInfantry = new ButtonComponent(this.stage, "escudero.png", 130, 130, 570, 120, new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                //getInfantry();
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
@@ -82,7 +81,7 @@ public class ChestView {
         buttonGetGunner = new ButtonComponent(this.stage, "arquero.png", 120, 120, 680, 120, new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-               // getGunner();
+
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
@@ -90,7 +89,7 @@ public class ChestView {
         buttonGetTank = new ButtonComponent(this.stage, "golem.png", 120, 120, 780, 120, new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-               // getTank();
+
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
@@ -98,7 +97,7 @@ public class ChestView {
         buttonGetAttack = new ButtonComponent(this.stage, "attack.png", 80, 80, 50, 150, new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-               // getAttack();
+
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
@@ -106,7 +105,7 @@ public class ChestView {
         buttonGetSpecialAttack = new ButtonComponent(this.stage, "specialAttack.png", 80, 80, 150, 150, new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                //getSpecialAttack();
+
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
@@ -114,7 +113,7 @@ public class ChestView {
         buttonGetMovement = new ButtonComponent(this.stage, "movements.png", 80, 80, 250, 150, new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                //getMovement();
+
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
@@ -190,10 +189,9 @@ public class ChestView {
 
     private void addingSpecialAttacks(){
         Chest chest = gameController.getPlayerInTurn().getChest();
-
         chest.setSpecialAttackInChest(chest.getSpecialAttackInChest() + 1);
         labelSpecialAttack.setText(chest.getSpecialAttackInChest());
-        //se inserta el ataque especial en el array
+
     }
 
     private void addingAttacks(){
@@ -201,7 +199,7 @@ public class ChestView {
 
         chest.setAttacksInChest(chest.getAttacksInChest() + 1);
         labelAttack.setText(chest.getAttacksInChest());
-        //se inserta el tanque en el array
+
     }
 
     private void addingTank(int tanksIncoming, Chest chest){
@@ -228,44 +226,4 @@ public class ChestView {
 
     }
 
-    private void getInfantry(){
-        Chest chest = gameController.getPlayerInTurn().getChest();
-
-        chest.setInfantry(chest.getInfantry() - 1);
-        labelInfantry.setText(chest.getInfantry());
-    }
-
-    private void getGunner(){
-        Chest chest = gameController.getPlayerInTurn().getChest();
-
-        chest.setGunner(chest.getGunner() - 1);
-        labelGunner.setText(chest.getGunner());
-    }
-
-    private void getTank(){
-        Chest chest = gameController.getPlayerInTurn().getChest();
-
-        chest.setTank(chest.getTank() - 1);
-        labelTank.setText(chest.getTank());
-    }
-
-    private void getAttack(){
-        Chest chest = gameController.getPlayerInTurn().getChest();
-
-        chest.setAttacksInChest(chest.getAttacksInChest() - 1);
-        labelAttack.setText(chest.getAttacksInChest());
-    }
-
-    private void getSpecialAttack(){
-        Chest chest = gameController.getPlayerInTurn().getChest();
-
-        chest.setSpecialAttackInChest(chest.getSpecialAttackInChest() - 1);
-        labelSpecialAttack.setText(chest.getSpecialAttackInChest());
-    }
-
-    /*private void getMovement(){//retornar un objeto de tipo ataque expecial y ataca
-        System.out.println("getting movements");
-        chest.setMovementsInChest(chest.getMovementsInChest() - 1);
-        labelMovements.setText(chest.getMovementsInChest());
-    }*/
 }
